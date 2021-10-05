@@ -7,3 +7,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "whosplaying"
 include ':app'
+include ':network'
