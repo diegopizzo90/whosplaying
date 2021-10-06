@@ -12,5 +12,5 @@ interface FixtureDao {
     fun insertFixture(vararg fixture: FixtureEntity)
 
     @Query("SELECT * FROM fixture")
-    fun getAll(): List<FixtureEntity>
+    fun getAll(): List<FixtureEntity>?
 }

@@ -12,11 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WhosPlaying">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.splashscreen.SplashScreenActivity"
+            android:theme="@style/SplashTheme"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

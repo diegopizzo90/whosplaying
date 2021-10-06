@@ -38,9 +38,9 @@ class FixtureCreator {
         )
     }
 
-    fun toFixtureDataModels(entities: List<FixtureEntity>): List<FixtureDataModel> {
-        return entities.map {
+    fun toFixtureDataModels(entities: List<FixtureEntity>?): List<FixtureDataModel> {
+        return entities?.map {
             toFixtureDataModel(it)
-        }
+        } ?: emptyList()
     }
 }

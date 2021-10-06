@@ -30,13 +30,13 @@ class LeagueDaoTest {
     @After
     @Throws(IOException::class)
     fun closeDb() {
-        //database.close()
+        database.close()
     }
 
     @Test
     fun writeUserAndReadInList() {
         val league = LeagueEntity(1, "name", "logo.it")
-        leagueDao.insertUsers(league)
+        leagueDao.insertLeagues(league)
         val actualValue = leagueDao.getLeagueByName("name")
         assertEquals(actualValue, league)
     }

@@ -9,7 +9,7 @@ import com.diegopizzo.whosplaying.database.entity.LeagueEntity
 @Dao
 interface LeagueDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUsers(vararg league: LeagueEntity)
+    fun insertLeagues(vararg league: LeagueEntity)
 
     @Query("SELECT * FROM league")
     fun getAll(): List<LeagueEntity>?

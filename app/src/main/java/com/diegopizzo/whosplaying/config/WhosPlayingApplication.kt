@@ -11,6 +11,7 @@ import com.diegopizzo.whosplaying.database.creator.fixture.fixtureCreatorModule
 import com.diegopizzo.whosplaying.database.creator.league.leagueCreatorModule
 import com.diegopizzo.whosplaying.database.repository.fixture.fixtureRepositoryModule
 import com.diegopizzo.whosplaying.database.repository.league.leagueRepositoryModule
+import com.diegopizzo.whosplaying.ui.splashscreen.config.splashScreenViewModelModule
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -33,7 +34,8 @@ class WhosPlayingApplication : Application() {
                 fixtureInteractorModule,
                 leagueInteractorModule,
                 leagueRepositoryModule,
-                fixtureRepositoryModule
+                fixtureRepositoryModule,
+                splashScreenViewModelModule
             )
         }
     }
