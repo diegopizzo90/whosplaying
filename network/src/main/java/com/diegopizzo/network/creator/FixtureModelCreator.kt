@@ -3,6 +3,7 @@ package com.diegopizzo.network.creator
 import com.diegopizzo.network.model.FixtureDataModel
 import com.diegopizzo.network.model.FixtureModel
 import com.diegopizzo.network.model.ResponseFixture
+import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.ZonedDateTime
 import org.threeten.bp.format.DateTimeFormatter
@@ -11,7 +12,14 @@ import retrofit2.Response
 class FixtureModelCreator {
 
     fun toFixturesDataModel(fixtureModel: Response<FixtureModel>): List<FixtureDataModel>? {
-        return fixtureModel.body()?.response?.map {
+        val listSorted = fixtureModel.body()?.response?.map { it }
+            ?.sortedBy {
+                LocalDateTime.parse(
+                    it.fixture.date,
+                    DateTimeFormatter.ISO_OFFSET_DATE_TIME
+                )
+            }
+        return listSorted?.map {
             toFixtureDataModel(it)
         }
     }
@@ -24,7 +32,8 @@ class FixtureModelCreator {
         return FixtureDataModel(
             convertUtcDateTimeToLocalDate(fixture.date),
             convertUtcDateTimeToLocalTime(fixture.date),
-            fixture.status.elapsed?.toString() ?: "",
+            fixture.status.short,
+            fixture.status.elapsed?.toString(),
             home.name,
             away.name,
             home.logo,
@@ -38,7 +47,7 @@ class FixtureModelCreator {
         return ZonedDateTime.parse(utcDate, DateTimeFormatter.ISO_DATE_TIME)
             .withZoneSameInstant(ZoneId.systemDefault())
             .format(
-                DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                DateTimeFormatter.ofPattern(DATE_PATTERN)
             )
     }
 
@@ -46,7 +55,12 @@ class FixtureModelCreator {
         return ZonedDateTime.parse(utcDate, DateTimeFormatter.ISO_DATE_TIME)
             .withZoneSameInstant(ZoneId.systemDefault())
             .format(
-                DateTimeFormatter.ofPattern("HH:mm")
+                DateTimeFormatter.ofPattern(TIME_PATTERN)
             )
+    }
+
+    companion object {
+        private const val DATE_PATTERN = "dd/MM/yyyy"
+        private const val TIME_PATTERN = "HH:mm"
     }
 }

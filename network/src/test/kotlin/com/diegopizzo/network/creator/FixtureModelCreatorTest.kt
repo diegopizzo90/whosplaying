@@ -32,17 +32,17 @@ class FixtureModelCreatorTest {
         private val model = FixtureModel(
             listOf(
                 ResponseFixture(
-                    Fixture("UTC", "2021-10-01T18:45:00+00:00", Status("NS", null)),
+                    Fixture("UTC", "2021-10-03T18:45:00+00:00", Status("NS", null)),
                     Teams(Home("team1", "logoTeam1.it"), Away("team2", "logoTeam2.it")),
                     Goals(null, null)
                 ),
                 ResponseFixture(
-                    Fixture("UTC", "2021-10-01T18:45:00+00:00", Status("NS", null)),
+                    Fixture("UTC", "2021-10-02T18:45:00+00:00", Status("NS", null)),
                     Teams(Home("team3", "logoTeam3.it"), Away("team4", "logoTeam4.it")),
                     Goals(null, null)
                 ),
                 ResponseFixture(
-                    Fixture("UTC", "2021-10-01T18:45:00+00:00", Status("HT", 54)),
+                    Fixture("UTC", "2021-10-01T18:45:00+00:00", Status("1H", 54)),
                     Teams(Home("team5", "logoTeam5.it"), Away("team6", "logoTeam6.it")),
                     Goals(1, 1)
                 )
@@ -53,18 +53,20 @@ class FixtureModelCreatorTest {
             FixtureDataModel(
                 "01/10/2021",
                 "19:45",
-                "",
-                "team1",
-                "team2",
-                "logoTeam1.it",
-                "logoTeam2.it",
-                "",
-                ""
+                "1H",
+                "54",
+                "team5",
+                "team6",
+                "logoTeam5.it",
+                "logoTeam6.it",
+                "1",
+                "1"
             ),
             FixtureDataModel(
-                "01/10/2021",
+                "02/10/2021",
                 "19:45",
-                "",
+                "NS",
+                null,
                 "team3",
                 "team4",
                 "logoTeam3.it",
@@ -73,15 +75,16 @@ class FixtureModelCreatorTest {
                 ""
             ),
             FixtureDataModel(
-                "01/10/2021",
+                "03/10/2021",
                 "19:45",
-                "54",
-                "team5",
-                "team6",
-                "logoTeam5.it",
-                "logoTeam6.it",
-                "1",
-                "1"
+                "NS",
+                null,
+                "team1",
+                "team2",
+                "logoTeam1.it",
+                "logoTeam2.it",
+                "",
+                ""
             )
         )
     }

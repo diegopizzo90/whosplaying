@@ -34,7 +34,7 @@ class LeagueDaoTest {
     }
 
     @Test
-    fun writeUserAndReadInList() {
+    fun writeLeagueAndReadInList() {
         val league = LeagueEntity(1, "name", "logo.it")
         leagueDao.insertLeagues(league)
         val actualValue = leagueDao.getLeagueByName("name")

@@ -5,4 +5,4 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "league", indices = [Index(value = ["name"], unique = true)])
-data class LeagueEntity(@PrimaryKey val id: Long, val name: String, val logo: String)
+data class LeagueEntity(@PrimaryKey val leagueId: Long, val name: String, val logo: String)

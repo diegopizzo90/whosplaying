@@ -4,23 +4,25 @@ import com.diegopizzo.network.model.FixtureDataModel
 import com.diegopizzo.whosplaying.database.entity.FixtureEntity
 
 class FixtureCreator {
-    private fun toFixtureEntity(model: FixtureDataModel): FixtureEntity {
+    private fun toFixtureEntity(model: FixtureDataModel, leagueId: Long): FixtureEntity {
         return FixtureEntity(
             dateEvent = model.dateEvent,
             timeEvent = model.timeEvent,
             status = model.status,
+            elapsed = model.elapsed,
             homeTeam = model.homeTeam,
             awayTeam = model.awayTeam,
             logoHomeTeam = model.logoHomeTeam,
             logoAwayTeam = model.logoAwayTeam,
             goalHomeTeam = model.goalHomeTeam,
-            goalAwayTeam = model.goalAwayTeam
+            goalAwayTeam = model.goalAwayTeam,
+            fixtureLeagueId = leagueId
         )
     }
 
-    fun toFixtureEntityArray(models: List<FixtureDataModel>): Array<FixtureEntity> {
+    fun toFixtureEntityArray(models: List<FixtureDataModel>, leagueId: String): Array<FixtureEntity> {
         return models.map {
-            toFixtureEntity(it)
+            toFixtureEntity(it, leagueId.toLong())
         }.toTypedArray()
     }
 
@@ -29,6 +31,7 @@ class FixtureCreator {
             entity.dateEvent,
             entity.timeEvent,
             entity.status,
+            entity.elapsed,
             entity.homeTeam,
             entity.awayTeam,
             entity.logoHomeTeam,

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/serieAFragment"
+        android:icon="@drawable/ic_serie_a"
+        android:title="@string/serie_a" />
+    <item
+        android:id="@+id/premierLeagueFragment"
+        android:icon="@drawable/ic_premier_league"
+        android:title="@string/premier_league" />
+    <item
+        android:id="@+id/laLigaFragment"
+        android:icon="@drawable/ic_la_liga"
+        android:title="@string/la_liga" />
+
+    <item
+        android:id="@+id/bundesligaFragment"
+        android:icon="@drawable/ic_bundesliga"
+        android:title="@string/bundesliga" />
+
+    <item
+        android:id="@+id/ligue1Fragment"
+        android:icon="@drawable/ic_ligue_1"
+        android:title="@string/ligue_1" />
+</menu>

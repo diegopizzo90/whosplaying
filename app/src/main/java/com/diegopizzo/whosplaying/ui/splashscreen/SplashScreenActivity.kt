@@ -1,9 +1,11 @@
 package com.diegopizzo.whosplaying.ui.splashscreen
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.diegopizzo.whosplaying.ui.mainscreen.MainScreenActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -14,7 +16,7 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewModel.retrieveLeaguesInfo()
         Handler(Looper.getMainLooper()).postDelayed({
-            finish()
+            startActivity(Intent(this, MainScreenActivity::class.java))
         }, 3000)
     }
 }

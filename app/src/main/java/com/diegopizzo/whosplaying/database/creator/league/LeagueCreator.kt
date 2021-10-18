@@ -9,6 +9,6 @@ class LeagueCreator {
     }
 
     fun toLeagueInfo(leagueEntity: LeagueEntity): LeagueInfo {
-        return LeagueInfo(leagueEntity.id.toInt(), leagueEntity.name, leagueEntity.logo)
+        return LeagueInfo(leagueEntity.leagueId.toInt(), leagueEntity.name, leagueEntity.logo)
     }
 }

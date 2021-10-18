@@ -4,6 +4,7 @@ data class FixtureDataModel(
     val dateEvent: String,
     val timeEvent: String,
     val status: String,
+    val elapsed: String?,
     val homeTeam: String,
     val awayTeam: String,
     val logoHomeTeam: String,

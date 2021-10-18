@@ -1,4 +1,4 @@
-package com.diegopizzo.whosplaying.database.repository.fixture
+package com.diegopizzo.whosplaying.repository.fixture
 
 import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module

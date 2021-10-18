@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardUseCompatPadding="true"
+    app:strokeColor="@color/light_gray"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/tv_date_event"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/light_gray"
+            app:layout_constraintBottom_toTopOf="@+id/divider_horizontal"
+            app:layout_constraintStart_toEndOf="@id/divider_vertical1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/tv_status"
+            android:layout_width="30dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/light_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/divider_vertical1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/divider_horizontal" />
+
+        <View
+            android:id="@+id/iv_logo_home"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/light_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_team_home"
+            app:layout_constraintStart_toEndOf="@+id/divider_vertical1"
+            app:layout_constraintTop_toTopOf="@+id/tv_team_home" />
+
+        <View
+            android:id="@+id/iv_logo_away"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/light_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_team_away"
+            app:layout_constraintStart_toEndOf="@+id/divider_vertical1"
+            app:layout_constraintTop_toTopOf="@+id/tv_team_away" />
+
+        <View
+            android:id="@+id/tv_team_home"
+            android:layout_width="120dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/light_gray"
+            app:layout_constraintBottom_toTopOf="@+id/tv_team_away"
+            app:layout_constraintStart_toEndOf="@+id/iv_logo_home"
+            app:layout_constraintTop_toTopOf="@+id/divider_horizontal" />
+
+        <View
+            android:id="@+id/tv_team_away"
+            android:layout_width="120dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/light_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_logo_away"
+            app:layout_constraintTop_toBottomOf="@+id/tv_team_home" />
+
+        <View
+            android:id="@+id/tv_goal_home"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/light_gray"
+            app:layout_constraintBottom_toTopOf="@id/tv_goal_away"
+            app:layout_constraintStart_toStartOf="@+id/divider_vertical2"
+            app:layout_constraintTop_toTopOf="@+id/divider_horizontal" />
+
+        <View
+            android:id="@+id/tv_goal_away"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/light_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/divider_vertical2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_goal_home" />
+
+        <View
+            android:id="@+id/divider_vertical1"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="48dp"
+            android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/blue_dark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_horizontal" />
+
+        <View
+            android:id="@+id/divider_vertical2"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="78dp"
+            android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/blue_dark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_horizontal" />
+
+        <View
+            android:id="@+id/divider_horizontal"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/blue_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_date_event" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

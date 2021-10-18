@@ -1,4 +1,4 @@
-package com.diegopizzo.whosplaying.database.repository.fixture
+package com.diegopizzo.whosplaying.repository.fixture
 
 import com.diegopizzo.network.model.FixtureDataModel
 import kotlinx.coroutines.flow.Flow

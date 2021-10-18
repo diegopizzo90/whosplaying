@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Who\'s playing</string>
+    <string name="serie_a">SerieA</string>
+    <string name="premier_league">PremierLeague</string>
+    <string name="la_liga">LaLiga</string>
+    <string name="bundesliga">Bundesliga</string>
+    <string name="ligue_1">Ligue1</string>
+    <string name="no_events_available">No events available</string>
 </resources>

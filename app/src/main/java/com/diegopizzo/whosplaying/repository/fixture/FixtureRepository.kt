@@ -1,4 +1,4 @@
-package com.diegopizzo.whosplaying.database.repository.fixture
+package com.diegopizzo.whosplaying.repository.fixture
 
 import com.diegopizzo.network.interactor.fixture.IFixtureInteractor
 import com.diegopizzo.network.model.FixtureDataModel
@@ -24,7 +24,8 @@ class FixtureRepository(
         return interactor.getFixturesByLeagueAndDate(leagueId, from, to)
             .onEach { dataModelList ->
                 dataModelList?.let {
-                    val entities = creator.toFixtureEntityArray(it)
+                    fixtureDao.deleteAllByLeagueId(leagueId.toLong())
+                    val entities = creator.toFixtureEntityArray(it, leagueId)
                     fixtureDao.insertFixture(*entities)
                 }
             }.flowOn(defaultDispatcher)
