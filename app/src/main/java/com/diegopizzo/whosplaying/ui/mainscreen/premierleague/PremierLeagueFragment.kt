@@ -17,26 +17,26 @@ import com.diegopizzo.whosplaying.ui.mainscreen.base.BaseAdapter
 import com.diegopizzo.whosplaying.ui.mainscreen.base.BaseFragmentLeague
 import com.facebook.shimmer.ShimmerFrameLayout
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PremierLeagueFragment : BaseFragmentLeague<FragmentPremierLeagueBinding>() {
-
-    private lateinit var adapterPremierLeague: AdapterPremierLeague
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPremierLeagueBinding
         get() = FragmentPremierLeagueBinding::inflate
 
-    private val viewModel: MainViewModel by sharedViewModel()
+    private val viewModel: MainViewModel by viewModel()
 
-    override val shimmerLayout: ShimmerFrameLayout
-        get() = binding.shimmerLoading.shimmerLayout
+    override var shimmerLayout: ShimmerFrameLayout? = null
 
-    override val noEventsView: AppCompatTextView
-        get() = binding.noEventsView.root
+    override var noEventsView: AppCompatTextView? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setRecyclerView()
+
+        shimmerLayout = binding.shimmerLoading.shimmerLayout
+        noEventsView = binding.noEventsView.root
+
         viewModel.viewStates().observe(viewLifecycleOwner, viewStateObserver)
         viewModel.viewEffects().observe(viewLifecycleOwner, viewEffectObserver)
         viewLifecycleOwner.lifecycleScope.launch {
@@ -45,20 +45,21 @@ class PremierLeagueFragment : BaseFragmentLeague<FragmentPremierLeagueBinding>()
     }
 
     private val viewStateObserver = Observer<MainViewState> {
+        val adapterPremierLeague = binding.rvPremierLeague.adapter as AdapterPremierLeague
         adapterPremierLeague.addFixtures(it.fixtures)
     }
 
     private val viewEffectObserver = Observer<ViewEffect> {
         when (it) {
-            ViewEffect.ShowErrorResult -> binding.noEventsView.root.visibility = View.VISIBLE
-            ViewEffect.ShowSuccessResult -> binding.noEventsView.root.visibility = View.GONE
+            ViewEffect.ShowErrorResult -> onError()
+            ViewEffect.ShowSuccessResult -> onSuccess()
+            ViewEffect.ShowProgressBar -> startShimmer()
         }
     }
 
     private fun setRecyclerView() {
-        adapterPremierLeague = AdapterPremierLeague()
         binding.rvPremierLeague.apply {
-            adapter = adapterPremierLeague
+            adapter = AdapterPremierLeague()
             layoutManager = LinearLayoutManager(requireContext())
         }
     }

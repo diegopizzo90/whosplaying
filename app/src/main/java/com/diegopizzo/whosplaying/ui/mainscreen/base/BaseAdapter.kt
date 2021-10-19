@@ -47,7 +47,8 @@ abstract class BaseAdapter : RecyclerView.Adapter<BaseAdapter.BaseViewHolder>() 
                 if (previousFixture.dateEvent == newFixture.dateEvent) {
                     binding.itemFixtureId.hideDateEvent()
                 } else binding.itemFixtureId.showDateEvent()
-            }
+
+            } else binding.itemFixtureId.showDateEvent()
         }
     }
 }

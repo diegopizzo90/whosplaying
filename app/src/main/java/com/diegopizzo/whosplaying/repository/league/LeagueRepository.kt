@@ -18,12 +18,16 @@ class LeagueRepository(
 
     override suspend fun downloadLeaguesInfo() {
         withContext(defaultDispatcher) {
-            leagueList.forEach {
-                val leagueEntity = leagueDao.getLeagueByName(it.stringName)
-                if (leagueEntity == null) {
-                    val leagueInfo = interactor.getLeague(it)
-                    saveLeague(leagueInfo)
+            try {
+                leagueList.forEach {
+                    val leagueEntity = leagueDao.getLeagueByName(it.stringName)
+                    if (leagueEntity == null) {
+                        val leagueInfo = interactor.getLeague(it)
+                        saveLeague(leagueInfo)
+                    }
                 }
+            } catch (e: Exception) {
+                return@withContext
             }
         }
     }

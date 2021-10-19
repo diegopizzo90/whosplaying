@@ -8,26 +8,32 @@ import com.facebook.shimmer.ShimmerFrameLayout
 
 abstract class BaseFragmentLeague<VB : ViewBinding> : FragmentViewBinding<VB>() {
 
-    abstract val shimmerLayout: ShimmerFrameLayout
-    abstract val noEventsView: AppCompatTextView
+    abstract var shimmerLayout: ShimmerFrameLayout?
+    abstract var noEventsView: AppCompatTextView?
 
     protected fun startShimmer() {
-        shimmerLayout.visibility = View.VISIBLE
-        shimmerLayout.startShimmer()
+        shimmerLayout?.visibility = View.VISIBLE
+        shimmerLayout?.startShimmer()
     }
 
     private fun stopShimmer() {
-        shimmerLayout.stopShimmer()
-        shimmerLayout.visibility = View.GONE
+        shimmerLayout?.stopShimmer()
+        shimmerLayout?.visibility = View.GONE
     }
 
     protected fun onSuccess() {
-        noEventsView.visibility = View.GONE
+        noEventsView?.visibility = View.GONE
         stopShimmer()
     }
 
     protected fun onError() {
-        noEventsView.visibility = View.VISIBLE
+        noEventsView?.visibility = View.VISIBLE
         stopShimmer()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        shimmerLayout = null
+        noEventsView = null
     }
 }

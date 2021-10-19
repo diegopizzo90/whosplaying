@@ -30,7 +30,7 @@
             app:layout_constraintEnd_toStartOf="@+id/divider_vertical1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/divider_horizontal"
-            tools:text="90'" />
+            tools:text="90′" />
 
         <ImageView
             android:id="@+id/iv_logo_home"
@@ -82,31 +82,37 @@
 
         <TextView
             android:id="@+id/tv_goal_home"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="53dp"
             android:layout_marginBottom="4dp"
+            android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tv_goal_away"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/divider_vertical2"
             app:layout_constraintTop_toTopOf="@+id/divider_horizontal"
             tools:text="0" />
 
         <TextView
             android:id="@+id/tv_goal_away"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="53dp"
             android:layout_marginBottom="16dp"
+            android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/divider_vertical2"
             app:layout_constraintTop_toBottomOf="@+id/tv_goal_home"
-            tools:text="3" />
+            tools:text="1" />
 
         <View
             android:id="@+id/divider_vertical1"

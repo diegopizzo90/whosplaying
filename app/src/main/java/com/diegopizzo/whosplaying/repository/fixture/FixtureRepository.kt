@@ -30,7 +30,7 @@ class FixtureRepository(
                 }
             }.flowOn(defaultDispatcher)
             .catch {
-                val entities = fixtureDao.getAll()
+                val entities = fixtureDao.getFixturesByLeagueId(leagueId.toLong())
                 val dataModels = creator.toFixtureDataModels(entities)
                 emit(dataModels)
             }

@@ -17,25 +17,25 @@ import com.diegopizzo.whosplaying.ui.mainscreen.base.BaseAdapter
 import com.diegopizzo.whosplaying.ui.mainscreen.base.BaseFragmentLeague
 import com.facebook.shimmer.ShimmerFrameLayout
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SerieAFragment : BaseFragmentLeague<FragmentSerieABinding>() {
 
-    private lateinit var adapterSerieA: AdapterSerieA
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSerieABinding
         get() = FragmentSerieABinding::inflate
 
-    private val viewModel: MainViewModel by sharedViewModel()
+    private val viewModel: MainViewModel by viewModel()
 
-    override val shimmerLayout: ShimmerFrameLayout
-        get() = binding.shimmerLoading.shimmerLayout
-
-    override val noEventsView: AppCompatTextView
-        get() = binding.noEventsView.root
+    override var shimmerLayout: ShimmerFrameLayout? = null
+    override var noEventsView: AppCompatTextView? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setRecyclerView()
+
+        shimmerLayout = binding.shimmerLoading.shimmerLayout
+        noEventsView = binding.noEventsView.root
+
         viewModel.viewStates().observe(viewLifecycleOwner, viewStateObserver)
         viewModel.viewEffects().observe(viewLifecycleOwner, viewEffectObserver)
         viewLifecycleOwner.lifecycleScope.launch {
@@ -44,6 +44,7 @@ class SerieAFragment : BaseFragmentLeague<FragmentSerieABinding>() {
     }
 
     private val viewStateObserver = Observer<MainViewState> {
+        val adapterSerieA = binding.rvSerieA.adapter as AdapterSerieA
         adapterSerieA.addFixtures(it.fixtures)
     }
 
@@ -56,9 +57,8 @@ class SerieAFragment : BaseFragmentLeague<FragmentSerieABinding>() {
     }
 
     private fun setRecyclerView() {
-        adapterSerieA = AdapterSerieA()
         binding.rvSerieA.apply {
-            adapter = adapterSerieA
+            adapter = AdapterSerieA()
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
