@@ -12,4 +12,16 @@
         android:id="@+id/premierLeagueFragment"
         android:name="com.diegopizzo.whosplaying.ui.mainscreen.premierleague.PremierLeagueFragment"
         android:label="PremierLeagueFragment" />
+    <fragment
+        android:id="@+id/laLigaFragment"
+        android:name="com.diegopizzo.whosplaying.ui.mainscreen.laliga.LaLigaFragment"
+        android:label="LaLigaFragment" />
+    <fragment
+        android:id="@+id/bundesligaFragment"
+        android:name="com.diegopizzo.whosplaying.ui.mainscreen.bundesliga.BundesligaFragment"
+        android:label="BundesligaFragment" />
+    <fragment
+        android:id="@+id/ligue1Fragment"
+        android:name="com.diegopizzo.whosplaying.ui.mainscreen.ligue1.Ligue1Fragment"
+        android:label="Ligue1Fragment" />
 </navigation>

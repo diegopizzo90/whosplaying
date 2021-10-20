@@ -49,9 +49,10 @@ class FixtureComponent(context: Context, attributeSet: AttributeSet) :
     }
 
     private fun getFixtureStatus(statusShort: String, elapsed: String?, timeEvent: String): String {
-        if (elapsed == null) return timeEvent
         return when (statusShort) {
             StatusValue.FIRST_HALF.short, StatusValue.SECOND_HALF.short, StatusValue.EXTRA_TIME.short -> "$elapsed′"
+            StatusValue.NOT_STARTED.short -> timeEvent
+            StatusValue.MATCH_POSTPONED.short -> statusShort
             else -> statusShort
         }
     }
