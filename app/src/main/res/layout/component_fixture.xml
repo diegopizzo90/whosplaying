@@ -14,10 +14,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/divider_horizontal"
             app:layout_constraintStart_toEndOf="@id/divider_vertical1"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="20/10/2021" />
+            tools:text="Fri, 1 Oct 2021" />
 
         <TextView
             android:id="@+id/tv_status"
@@ -116,7 +117,7 @@
 
         <View
             android:id="@+id/divider_vertical1"
-            android:layout_width="2dp"
+            android:layout_width="3dp"
             android:layout_height="0dp"
             android:layout_marginStart="48dp"
             android:background="?android:attr/listDivider"
@@ -127,7 +128,7 @@
 
         <View
             android:id="@+id/divider_vertical2"
-            android:layout_width="2dp"
+            android:layout_width="3dp"
             android:layout_height="0dp"
             android:layout_marginEnd="78dp"
             android:background="?android:attr/listDivider"
@@ -139,7 +140,7 @@
         <View
             android:id="@+id/divider_horizontal"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="3dp"
             android:background="?android:attr/listDivider"
             android:backgroundTint="@color/teal_700"
             app:layout_constraintEnd_toEndOf="parent"

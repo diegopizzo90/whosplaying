@@ -24,7 +24,7 @@ class PremierLeagueFragment : BaseFragmentLeague<FragmentPremierLeagueBinding>()
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPremierLeagueBinding
         get() = FragmentPremierLeagueBinding::inflate
 
-    private val viewModel: MainViewModel by viewModel()
+    override val viewModel: MainViewModel by viewModel()
 
     override var shimmerLayout: ShimmerFrameLayout? = null
 

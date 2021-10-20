@@ -24,10 +24,11 @@ class SerieAFragment : BaseFragmentLeague<FragmentSerieABinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSerieABinding
         get() = FragmentSerieABinding::inflate
 
-    private val viewModel: MainViewModel by viewModel()
 
     override var shimmerLayout: ShimmerFrameLayout? = null
     override var noEventsView: AppCompatTextView? = null
+
+    override val viewModel: MainViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -18,7 +18,7 @@ class FixtureModelCreatorTest {
     @Test
     fun convertUtcDateTimeToLocalDate_dateConverted_assertEqualsTrue() {
         val date = creator.convertUtcDateTimeToLocalDate("2021-10-01T18:45:00+00:00")
-        assertEquals("01/10/2021", date)
+        assertEquals("Fri, 1 Oct 2021", date)
     }
 
     @Test

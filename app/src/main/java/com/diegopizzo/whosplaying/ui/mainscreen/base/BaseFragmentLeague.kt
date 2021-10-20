@@ -4,12 +4,14 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.viewbinding.ViewBinding
 import com.diegopizzo.whosplaying.ui.base.FragmentViewBinding
+import com.diegopizzo.whosplaying.ui.mainscreen.MainViewModel
 import com.facebook.shimmer.ShimmerFrameLayout
 
 abstract class BaseFragmentLeague<VB : ViewBinding> : FragmentViewBinding<VB>() {
 
     abstract var shimmerLayout: ShimmerFrameLayout?
     abstract var noEventsView: AppCompatTextView?
+    internal abstract val viewModel: MainViewModel
 
     protected fun startShimmer() {
         shimmerLayout?.visibility = View.VISIBLE
