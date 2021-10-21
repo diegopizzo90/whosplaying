@@ -125,13 +125,27 @@ class RetrofitApiTest {
         private val leagueSuccessResponse =
             Response.success(LeagueModel(listOf(LeagueResponse(leagueInfo))))
 
-        private val fixture = ResponseFixture(
-            Fixture("UTC", "2021-10-01T18:45:00+00:00", Status("NS", null)), Teams(
-                Home("Cagliari", "https://media.api-sports.io/football/teams/490.png"),
-                Away("Venezia", "https://media.api-sports.io/football/teams/517.png")
-            ), Goals(null, null)
+        private val fixtures = listOf(
+            ResponseFixture(
+                Fixture(731646,"UTC", "2021-10-01T18:45:00+00:00", Status("NS", null)), Teams(
+                    Home("Cagliari", "https://media.api-sports.io/football/teams/490.png"),
+                    Away("Venezia", "https://media.api-sports.io/football/teams/517.png")
+                ), Goals(null, null)
+            ),
+            ResponseFixture(
+                Fixture(731646,"UTC", "2021-09-01T16:45:00+00:00", Status("NS", null)), Teams(
+                    Home("Cagliari", "https://media.api-sports.io/football/teams/490.png"),
+                    Away("Venezia", "https://media.api-sports.io/football/teams/517.png")
+                ), Goals(null, null)
+            ),
+            ResponseFixture(
+                Fixture(731646,"UTC", "2021-10-01T17:45:00+00:00", Status("NS", null)), Teams(
+                    Home("Cagliari", "https://media.api-sports.io/football/teams/490.png"),
+                    Away("Venezia", "https://media.api-sports.io/football/teams/517.png")
+                ), Goals(null, null)
+            )
         )
         private val fixtureSuccessResponse =
-            Response.success(FixtureModel(listOf(fixture)))
+            Response.success(FixtureModel(fixtures))
     }
 }

@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "fixture")
 data class FixtureEntity(
-    @PrimaryKey(autoGenerate = true) val fixtureId: Long = 0,
+    @PrimaryKey val fixtureId: Long,
     val dateEvent: String,
     val timeEvent: String,
     val status: String,

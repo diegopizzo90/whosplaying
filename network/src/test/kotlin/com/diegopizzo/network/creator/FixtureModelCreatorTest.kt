@@ -32,17 +32,17 @@ class FixtureModelCreatorTest {
         private val model = FixtureModel(
             listOf(
                 ResponseFixture(
-                    Fixture("UTC", "2021-10-03T18:45:00+00:00", Status("NS", null)),
+                    Fixture(1,"UTC", "2021-10-03T18:45:00+00:00", Status("NS", null)),
                     Teams(Home("team1", "logoTeam1.it"), Away("team2", "logoTeam2.it")),
                     Goals(null, null)
                 ),
                 ResponseFixture(
-                    Fixture("UTC", "2021-10-02T18:45:00+00:00", Status("NS", null)),
+                    Fixture(1,"UTC", "2021-10-02T18:45:00+00:00", Status("NS", null)),
                     Teams(Home("team3", "logoTeam3.it"), Away("team4", "logoTeam4.it")),
                     Goals(null, null)
                 ),
                 ResponseFixture(
-                    Fixture("UTC", "2021-10-01T18:45:00+00:00", Status("1H", 54)),
+                    Fixture(1,"UTC", "2021-10-01T18:45:00+00:00", Status("1H", 54)),
                     Teams(Home("team5", "logoTeam5.it"), Away("team6", "logoTeam6.it")),
                     Goals(1, 1)
                 )
@@ -51,7 +51,8 @@ class FixtureModelCreatorTest {
 
         private val dataModel = listOf(
             FixtureDataModel(
-                "01/10/2021",
+                1,
+                "Fri, 1 Oct 2021",
                 "19:45",
                 "1H",
                 "54",
@@ -63,7 +64,8 @@ class FixtureModelCreatorTest {
                 "1"
             ),
             FixtureDataModel(
-                "02/10/2021",
+                1,
+                "Sat, 2 Oct 2021",
                 "19:45",
                 "NS",
                 null,
@@ -75,7 +77,8 @@ class FixtureModelCreatorTest {
                 ""
             ),
             FixtureDataModel(
-                "03/10/2021",
+                1,
+                "Sun, 3 Oct 2021",
                 "19:45",
                 "NS",
                 null,

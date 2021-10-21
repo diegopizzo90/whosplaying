@@ -6,6 +6,7 @@ import com.diegopizzo.whosplaying.database.entity.FixtureEntity
 class FixtureCreator {
     private fun toFixtureEntity(model: FixtureDataModel, leagueId: Long): FixtureEntity {
         return FixtureEntity(
+            model.fixtureId,
             dateEvent = model.dateEvent,
             timeEvent = model.timeEvent,
             status = model.status,
@@ -28,6 +29,7 @@ class FixtureCreator {
 
     private fun toFixtureDataModel(entity: FixtureEntity): FixtureDataModel {
         return FixtureDataModel(
+            entity.fixtureId,
             entity.dateEvent,
             entity.timeEvent,
             entity.status,

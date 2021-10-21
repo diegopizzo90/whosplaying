@@ -30,6 +30,7 @@ class FixtureModelCreator {
         val away = responseFixture.teams.away
         val goals = responseFixture.goals
         return FixtureDataModel(
+            fixture.id,
             convertUtcDateTimeToLocalDate(fixture.date),
             convertUtcDateTimeToLocalTime(fixture.date),
             fixture.status.short,
