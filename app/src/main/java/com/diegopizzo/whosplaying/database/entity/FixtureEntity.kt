@@ -6,8 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "fixture")
 data class FixtureEntity(
     @PrimaryKey val fixtureId: Long,
-    val dateEvent: String,
-    val timeEvent: String,
+    val dateTimeEvent: String,
     val status: String,
     val elapsed: String?,
     val homeTeam: String,

@@ -7,8 +7,7 @@ class FixtureCreator {
     private fun toFixtureEntity(model: FixtureDataModel, leagueId: Long): FixtureEntity {
         return FixtureEntity(
             model.fixtureId,
-            dateEvent = model.dateEvent,
-            timeEvent = model.timeEvent,
+            dateTimeEvent = model.dateTimeEventUtc,
             status = model.status,
             elapsed = model.elapsed,
             homeTeam = model.homeTeam,
@@ -30,8 +29,7 @@ class FixtureCreator {
     private fun toFixtureDataModel(entity: FixtureEntity): FixtureDataModel {
         return FixtureDataModel(
             entity.fixtureId,
-            entity.dateEvent,
-            entity.timeEvent,
+            entity.dateTimeEvent,
             entity.status,
             entity.elapsed,
             entity.homeTeam,

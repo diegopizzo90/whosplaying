@@ -2,8 +2,7 @@ package com.diegopizzo.network.model
 
 data class FixtureDataModel(
     val fixtureId: Long,
-    val dateEvent: String,
-    val timeEvent: String,
+    val dateTimeEventUtc: String,
     val status: String,
     val elapsed: String?,
     val homeTeam: String,

@@ -60,19 +60,19 @@ class FixtureInteractorTest {
     companion object {
         private val fixtures = listOf(
             ResponseFixture(
-                Fixture(1,"UTC", "2021-09-01T18:45:00+00:00", Status("NS", null)), Teams(
+                Fixture(1, "UTC", "2021-09-01T18:45:00+00:00", Status("NS", null)), Teams(
                     Home("Cagliari", "https://media.api-sports.io/football/teams/490.png"),
                     Away("Venezia", "https://media.api-sports.io/football/teams/517.png")
                 ), Goals(null, null)
             ),
             ResponseFixture(
-                Fixture(1,"UTC", "2021-10-01T18:45:00+00:00", Status("NS", null)), Teams(
+                Fixture(1, "UTC", "2021-10-01T18:45:00+00:00", Status("NS", null)), Teams(
                     Home("Cagliari", "https://media.api-sports.io/football/teams/490.png"),
                     Away("Venezia", "https://media.api-sports.io/football/teams/517.png")
                 ), Goals(null, null)
             ),
             ResponseFixture(
-                Fixture(1,"UTC", "2021-10-01T17:45:00+00:00", Status("NS", null)), Teams(
+                Fixture(1, "UTC", "2021-10-01T17:45:00+00:00", Status("NS", null)), Teams(
                     Home("Cagliari", "https://media.api-sports.io/football/teams/490.png"),
                     Away("Venezia", "https://media.api-sports.io/football/teams/517.png")
                 ), Goals(null, null)
@@ -84,8 +84,7 @@ class FixtureInteractorTest {
         private val dataModel = listOf(
             FixtureDataModel(
                 1,
-                "Wed, 1 Sep 2021",
-                "19:45",
+                "2021-09-01T18:45:00+00:00",
                 "NS",
                 null,
                 "Cagliari",
@@ -97,8 +96,7 @@ class FixtureInteractorTest {
             ),
             FixtureDataModel(
                 1,
-                "Fri, 1 Oct 2021",
-                "18:45",
+                "2021-10-01T17:45:00+00:00",
                 "NS",
                 null,
                 "Cagliari",
@@ -110,8 +108,7 @@ class FixtureInteractorTest {
             ),
             FixtureDataModel(
                 1,
-                "Fri, 1 Oct 2021",
-                "19:45",
+                "2021-10-01T18:45:00+00:00",
                 "NS",
                 null,
                 "Cagliari",

@@ -44,8 +44,7 @@ class FixtureDaoTest {
         private val fixtures = listOf(
             FixtureEntity(
                 11,
-                "01/10/2021",
-                "19:45",
+                "2021-10-01T17:45:00+00:00",
                 "1H",
                 "54",
                 "team5",
@@ -58,8 +57,7 @@ class FixtureDaoTest {
             ),
             FixtureEntity(
                 22,
-                "02/10/2021",
-                "19:45",
+                "2021-10-01T17:45:00+00:00",
                 "NS",
                 null,
                 "team3",
@@ -72,8 +70,7 @@ class FixtureDaoTest {
             ),
             FixtureEntity(
                 33,
-                "03/10/2021",
-                "19:45",
+                "2021-10-01T17:45:00+00:00",
                 "NS",
                 null,
                 "team1",
@@ -89,8 +86,7 @@ class FixtureDaoTest {
         private val fixturesFromQuery = listOf(
             FixtureEntity(
                 11,
-                "01/10/2021",
-                "19:45",
+                "2021-10-01T17:45:00+00:00",
                 "1H",
                 "54",
                 "team5",
@@ -103,8 +99,7 @@ class FixtureDaoTest {
             ),
             FixtureEntity(
                 22,
-                "02/10/2021",
-                "19:45",
+                "2021-10-01T17:45:00+00:00",
                 "NS",
                 null,
                 "team3",

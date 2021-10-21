@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
+import com.diegopizzo.network.CommonConstant.DATE_PATTERN
+import com.diegopizzo.network.CommonConstant.TIME_PATTERN
+import com.diegopizzo.network.Util
 import com.diegopizzo.network.model.FixtureDataModel
 import com.diegopizzo.network.model.StatusValue
 import com.diegopizzo.whosplaying.databinding.ComponentFixtureBinding
+import org.threeten.bp.ZoneId
 
 class FixtureComponent(context: Context, attributeSet: AttributeSet) :
     CardView(context, attributeSet) {
@@ -18,6 +22,11 @@ class FixtureComponent(context: Context, attributeSet: AttributeSet) :
     fun setFixture(fixture: FixtureDataModel) {
         binding.apply {
             fixture.apply {
+                val timeEvent = Util.convertUtcDateTimeToLocalTime(
+                    dateTimeEventUtc,
+                    ZoneId.systemDefault(),
+                    TIME_PATTERN
+                )
                 tvStatus.text = getFixtureStatus(status, elapsed, timeEvent)
                 tvTeamHome.text = homeTeam
                 setImageView(ivLogoHome, logoHomeTeam)
@@ -25,7 +34,11 @@ class FixtureComponent(context: Context, attributeSet: AttributeSet) :
                 setImageView(ivLogoAway, logoAwayTeam)
                 tvGoalHome.text = goalHomeTeam
                 tvGoalAway.text = goalAwayTeam
-                tvDateEvent.text = dateEvent
+                tvDateEvent.text = Util.convertUtcDateTimeToLocalDate(
+                    dateTimeEventUtc,
+                    ZoneId.systemDefault(),
+                    DATE_PATTERN
+                )
             }
         }
     }

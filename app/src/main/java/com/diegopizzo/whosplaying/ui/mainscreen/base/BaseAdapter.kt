@@ -3,6 +3,7 @@ package com.diegopizzo.whosplaying.ui.mainscreen.base
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.diegopizzo.network.Util
 import com.diegopizzo.network.model.FixtureDataModel
 import com.diegopizzo.whosplaying.databinding.ItemFixtureBinding
 
@@ -44,7 +45,10 @@ abstract class BaseAdapter : RecyclerView.Adapter<BaseAdapter.BaseViewHolder>() 
                 val previousFixture = fixtureList[position - 1]
                 val newFixture = fixtureList[position]
 
-                if (previousFixture.dateEvent == newFixture.dateEvent) {
+                if (Util.areDatesWithoutTimesEquals(
+                        previousFixture.dateTimeEventUtc, newFixture.dateTimeEventUtc
+                    )
+                ) {
                     binding.itemFixtureId.hideDateEvent()
                 } else binding.itemFixtureId.showDateEvent()
 
