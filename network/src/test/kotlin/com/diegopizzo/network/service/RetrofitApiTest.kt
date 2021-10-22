@@ -1,6 +1,8 @@
 package com.diegopizzo.network.service
 
 import com.diegopizzo.network.model.*
+import com.diegopizzo.network.model.EventType.*
+import com.diegopizzo.network.model.EventTypeDetail.*
 import com.diegopizzo.network.testutil.enqueueResponse
 import com.google.gson.Gson
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -13,6 +15,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.ArgumentMatchers.anyString
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -119,6 +122,17 @@ class RetrofitApiTest {
         }
     }
 
+    @Test
+    fun getEventByFixtureId_successResponse_assertEqualsTrue() {
+        server.enqueueResponse("event_success_response.json", 200)
+
+        runBlocking {
+            val actualValue = api.getEventByFixtureId(anyLong())
+
+            assertEquals(actualValue.body(), eventModel)
+        }
+    }
+
     companion object {
         private val leagueInfo =
             LeagueInfo(140, "La Liga", "https://media.api-sports.io/football/leagues/140.png")
@@ -127,19 +141,34 @@ class RetrofitApiTest {
 
         private val fixtures = listOf(
             ResponseFixture(
-                Fixture(731646,"UTC", "2021-10-01T18:45:00+00:00", Status("NS", null)), Teams(
+                Fixture(
+                    731646,
+                    "UTC",
+                    "2021-10-01T18:45:00+00:00",
+                    Status("Not Started", "NS", null)
+                ), Teams(
                     Home(490, "Cagliari", "https://media.api-sports.io/football/teams/490.png"),
                     Away(517, "Venezia", "https://media.api-sports.io/football/teams/517.png")
                 ), Goals(null, null)
             ),
             ResponseFixture(
-                Fixture(731646,"UTC", "2021-09-01T16:45:00+00:00", Status("NS", null)), Teams(
+                Fixture(
+                    731646,
+                    "UTC",
+                    "2021-09-01T16:45:00+00:00",
+                    Status("Not Started", "NS", null)
+                ), Teams(
                     Home(490, "Cagliari", "https://media.api-sports.io/football/teams/490.png"),
                     Away(517, "Venezia", "https://media.api-sports.io/football/teams/517.png")
                 ), Goals(null, null)
             ),
             ResponseFixture(
-                Fixture(731646,"UTC", "2021-10-01T17:45:00+00:00", Status("NS", null)), Teams(
+                Fixture(
+                    731646,
+                    "UTC",
+                    "2021-10-01T17:45:00+00:00",
+                    Status("Not Started", "NS", null)
+                ), Teams(
                     Home(490, "Cagliari", "https://media.api-sports.io/football/teams/490.png"),
                     Away(517, "Venezia", "https://media.api-sports.io/football/teams/517.png")
                 ), Goals(null, null)
@@ -147,5 +176,62 @@ class RetrofitApiTest {
         )
         private val fixtureSuccessResponse =
             Response.success(FixtureModel(fixtures))
+
+
+        private val eventModel = EventModel(
+            listOf(
+                ResponseEvents(
+                    Fixture(
+                        731646,
+                        "UTC",
+                        "2021-10-01T18:45:00+00:00",
+                        Status("Match Finished", "FT", 90)
+                    ),
+                    LeagueDetails(
+                        135,
+                        "Serie A",
+                        "https://media.api-sports.io/football/leagues/135.png",
+                        2021, "Regular Season - 7"
+                    ),
+                    Teams(
+                        Home(490, "Cagliari", "https://media.api-sports.io/football/teams/490.png"),
+                        Away(517, "Venezia", "https://media.api-sports.io/football/teams/517.png")
+                    ),
+                    Goals(1, 1),
+                    listOf(
+                        Event(
+                            Time(19, null),
+                            TeamEvent(
+                                490,
+                                "Cagliari",
+                                "https://media.api-sports.io/football/teams/490.png"
+                            ),
+                            Player(213, "K. Baldé"),
+                            Assist(854, "M. Cáceres"), GOAL, NORMAL_GOAL,
+                        ),
+                        Event(
+                            Time(22, null),
+                            TeamEvent(
+                                490,
+                                "Cagliari",
+                                "https://media.api-sports.io/football/teams/490.png"
+                            ),
+                            Player(2614, "Nahitan Nández"),
+                            Assist(null, null), CARD, YELLOW_CARD,
+                        ),
+                        Event(
+                            Time(46, null),
+                            TeamEvent(
+                                517,
+                                "Venezia",
+                                "https://media.api-sports.io/football/teams/517.png"
+                            ),
+                            Player(30752, "S. Kiyine"),
+                            Assist(48406, "D. Črnigoj"), SUBSTITUTION, SUBSTITUTION_1,
+                        )
+                    )
+                )
+            )
+        )
     }
 }

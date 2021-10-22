@@ -1,7 +1,7 @@
 package com.diegopizzo.network.interactor.fixture
 
+import com.diegopizzo.network.cache.CacheConstant.DEFAULT_DURATION_MILLIS
 import com.diegopizzo.network.cache.fixture.IFixtureInteractorCache
-import com.diegopizzo.network.cache.fixture.config.DEFAULT_DURATION_MILLIS
 import com.diegopizzo.network.creator.FixtureModelCreator
 import com.diegopizzo.network.model.FixtureDataModel
 import kotlinx.coroutines.delay

@@ -1,5 +1,6 @@
 package com.diegopizzo.network.service
 
+import com.diegopizzo.network.model.EventModel
 import com.diegopizzo.network.model.FixtureModel
 import com.diegopizzo.network.model.LeagueModel
 import retrofit2.Response
@@ -20,4 +21,7 @@ interface RetrofitApi {
         @Query("from") from: String,
         @Query("to") to: String
     ): Response<FixtureModel>
+
+    @GET("fixtures")
+    suspend fun getEventByFixtureId(@Query("id") fixtureId: Long): Response<EventModel>
 }

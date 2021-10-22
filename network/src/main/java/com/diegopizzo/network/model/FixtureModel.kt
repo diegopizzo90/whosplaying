@@ -1,6 +1,6 @@
 package com.diegopizzo.network.model
 
-data class Status(val short: String, val elapsed: Int?)
+data class Status(val long: String, val short: String, val elapsed: Int?)
 data class Fixture(
     val id: Long,
     val timezone: String,
