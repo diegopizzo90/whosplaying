@@ -1,7 +1,7 @@
-package com.diegopizzo.whosplaying.database.dao
+package com.diegopizzo.database.dao
 
 import androidx.room.*
-import com.diegopizzo.whosplaying.database.entity.LeagueEntity
+import com.diegopizzo.database.entity.LeagueEntity
 
 @Dao
 interface LeagueDao {

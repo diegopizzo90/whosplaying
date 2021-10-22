@@ -5,10 +5,10 @@ import com.diegopizzo.network.cache.fixture.config.fixtureInteractorCacheModule
 import com.diegopizzo.network.creator.fixtureModelCreatorModule
 import com.diegopizzo.network.interactor.fixture.fixtureInteractorModule
 import com.diegopizzo.network.interactor.league.leagueInteractorModule
-import com.diegopizzo.whosplaying.database.config.databaseModule
-import com.diegopizzo.whosplaying.database.config.fixtureDaoModule
-import com.diegopizzo.whosplaying.database.config.leagueDaoModule
-import com.diegopizzo.whosplaying.database.creator.fixture.fixtureCreatorModule
+import com.diegopizzo.database.config.databaseModule
+import com.diegopizzo.database.config.fixtureDaoModule
+import com.diegopizzo.database.config.leagueDaoModule
+import com.diegopizzo.database.creator.fixture.fixtureCreatorModule
 import com.diegopizzo.whosplaying.database.creator.league.leagueCreatorModule
 import com.diegopizzo.whosplaying.repository.fixture.fixtureRepositoryModule
 import com.diegopizzo.whosplaying.repository.league.leagueRepositoryModule

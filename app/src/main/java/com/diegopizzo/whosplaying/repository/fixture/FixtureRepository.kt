@@ -2,8 +2,8 @@ package com.diegopizzo.whosplaying.repository.fixture
 
 import com.diegopizzo.network.interactor.fixture.IFixtureInteractor
 import com.diegopizzo.network.model.FixtureDataModel
-import com.diegopizzo.whosplaying.database.creator.fixture.FixtureCreator
-import com.diegopizzo.whosplaying.database.dao.FixtureDao
+import com.diegopizzo.database.creator.fixture.FixtureCreator
+import com.diegopizzo.database.dao.FixtureDao
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

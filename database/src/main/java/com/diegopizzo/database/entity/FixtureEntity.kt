@@ -1,4 +1,4 @@
-package com.diegopizzo.whosplaying.database.entity
+package com.diegopizzo.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

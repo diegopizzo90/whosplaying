@@ -1,7 +1,7 @@
-package com.diegopizzo.whosplaying.database.creator.league
+package com.diegopizzo.database.creator.league
 
 import com.diegopizzo.network.model.LeagueInfo
-import com.diegopizzo.whosplaying.database.entity.LeagueEntity
+import com.diegopizzo.database.entity.LeagueEntity
 
 class LeagueCreator {
     fun toLeagueEntity(leagueInfo: LeagueInfo): LeagueEntity {

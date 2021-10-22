@@ -3,8 +3,8 @@ package com.diegopizzo.whosplaying.repository.league
 import com.diegopizzo.network.interactor.league.ILeagueInteractor
 import com.diegopizzo.network.interactor.league.LeagueName
 import com.diegopizzo.network.model.LeagueInfo
-import com.diegopizzo.whosplaying.database.creator.league.LeagueCreator
-import com.diegopizzo.whosplaying.database.dao.LeagueDao
+import com.diegopizzo.database.creator.league.LeagueCreator
+import com.diegopizzo.database.dao.LeagueDao
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 

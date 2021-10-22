@@ -1,12 +1,11 @@
-package com.diegopizzo.whosplaying.dao
+package com.diegopizzo.database.dao
 
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.diegopizzo.whosplaying.database.config.AppDatabase
-import com.diegopizzo.whosplaying.database.dao.FixtureDao
-import com.diegopizzo.whosplaying.database.entity.FixtureEntity
+import com.diegopizzo.database.config.AppDatabase
+import com.diegopizzo.database.entity.FixtureEntity
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before

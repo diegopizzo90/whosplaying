@@ -1,9 +1,9 @@
-package com.diegopizzo.whosplaying.database.config
+package com.diegopizzo.database.config
 
 import android.app.Application
 import androidx.room.Room
-import com.diegopizzo.whosplaying.database.dao.FixtureDao
-import com.diegopizzo.whosplaying.database.dao.LeagueDao
+import com.diegopizzo.database.dao.FixtureDao
+import com.diegopizzo.database.dao.LeagueDao
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 

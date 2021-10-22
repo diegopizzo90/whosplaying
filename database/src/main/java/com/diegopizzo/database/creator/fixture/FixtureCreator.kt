@@ -1,7 +1,7 @@
-package com.diegopizzo.whosplaying.database.creator.fixture
+package com.diegopizzo.database.creator.fixture
 
 import com.diegopizzo.network.model.FixtureDataModel
-import com.diegopizzo.whosplaying.database.entity.FixtureEntity
+import com.diegopizzo.database.entity.FixtureEntity
 
 class FixtureCreator {
     private fun toFixtureEntity(model: FixtureDataModel, leagueId: Long): FixtureEntity {
