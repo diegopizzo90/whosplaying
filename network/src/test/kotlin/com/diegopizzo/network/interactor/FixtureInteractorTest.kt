@@ -61,20 +61,20 @@ class FixtureInteractorTest {
         private val fixtures = listOf(
             ResponseFixture(
                 Fixture(1, "UTC", "2021-09-01T18:45:00+00:00", Status("NS", null)), Teams(
-                    Home("Cagliari", "https://media.api-sports.io/football/teams/490.png"),
-                    Away("Venezia", "https://media.api-sports.io/football/teams/517.png")
+                    Home(1, "Cagliari", "https://media.api-sports.io/football/teams/490.png"),
+                    Away(1, "Venezia", "https://media.api-sports.io/football/teams/517.png")
                 ), Goals(null, null)
             ),
             ResponseFixture(
                 Fixture(1, "UTC", "2021-10-01T18:45:00+00:00", Status("NS", null)), Teams(
-                    Home("Cagliari", "https://media.api-sports.io/football/teams/490.png"),
-                    Away("Venezia", "https://media.api-sports.io/football/teams/517.png")
+                    Home(2, "Cagliari", "https://media.api-sports.io/football/teams/490.png"),
+                    Away(2, "Venezia", "https://media.api-sports.io/football/teams/517.png")
                 ), Goals(null, null)
             ),
             ResponseFixture(
                 Fixture(1, "UTC", "2021-10-01T17:45:00+00:00", Status("NS", null)), Teams(
-                    Home("Cagliari", "https://media.api-sports.io/football/teams/490.png"),
-                    Away("Venezia", "https://media.api-sports.io/football/teams/517.png")
+                    Home(2, "Cagliari", "https://media.api-sports.io/football/teams/490.png"),
+                    Away(2, "Venezia", "https://media.api-sports.io/football/teams/517.png")
                 ), Goals(null, null)
             )
         )

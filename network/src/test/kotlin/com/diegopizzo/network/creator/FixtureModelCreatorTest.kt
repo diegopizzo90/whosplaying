@@ -21,17 +21,17 @@ class FixtureModelCreatorTest {
             listOf(
                 ResponseFixture(
                     Fixture(1, "UTC", "2021-10-03T18:45:00+00:00", Status("NS", null)),
-                    Teams(Home("team1", "logoTeam1.it"), Away("team2", "logoTeam2.it")),
+                    Teams(Home(1, "team1", "logoTeam1.it"), Away(1, "team2", "logoTeam2.it")),
                     Goals(null, null)
                 ),
                 ResponseFixture(
                     Fixture(1, "UTC", "2021-10-02T18:45:00+00:00", Status("NS", null)),
-                    Teams(Home("team3", "logoTeam3.it"), Away("team4", "logoTeam4.it")),
+                    Teams(Home(2, "team3", "logoTeam3.it"), Away(2, "team4", "logoTeam4.it")),
                     Goals(null, null)
                 ),
                 ResponseFixture(
                     Fixture(1, "UTC", "2021-10-01T18:45:00+00:00", Status("1H", 54)),
-                    Teams(Home("team5", "logoTeam5.it"), Away("team6", "logoTeam6.it")),
+                    Teams(Home(3, "team5", "logoTeam5.it"), Away(3, "team6", "logoTeam6.it")),
                     Goals(1, 1)
                 )
             )

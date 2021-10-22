@@ -11,7 +11,7 @@ import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalCoroutinesApi::class, ExperimentalTime::class)
-class FixtureInteractorCache(
+internal class FixtureInteractorCache(
     private val api: RetrofitApi,
     private val ttlCache: Long = DEFAULT_DURATION_MILLIS
 ) :

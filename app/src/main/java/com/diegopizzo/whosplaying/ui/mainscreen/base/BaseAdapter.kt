@@ -37,10 +37,10 @@ abstract class BaseAdapter : RecyclerView.Adapter<BaseAdapter.BaseViewHolder>() 
         RecyclerView.ViewHolder(binding.root) {
         fun setFixture(fixtureDataModel: FixtureDataModel, position: Int) {
             binding.itemFixtureId.setFixture(fixtureDataModel)
-            isFixturesHasSameDateEvent(position)
+            displayFixturesDateTime(position)
         }
 
-        private fun isFixturesHasSameDateEvent(position: Int) {
+        private fun displayFixturesDateTime(position: Int) {
             if (position > 0) {
                 val previousFixture = fixtureList[position - 1]
                 val newFixture = fixtureList[position]

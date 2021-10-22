@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flow
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 
-class FixtureInteractor(
+internal class FixtureInteractor(
     private val cache: IFixtureInteractorCache,
     private val creator: FixtureModelCreator,
     private val refreshIntervalMs: Long = DEFAULT_DURATION_MILLIS
