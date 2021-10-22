@@ -1,6 +1,6 @@
 package com.diegopizzo.network.cache.fixture
 
-import com.diegopizzo.network.cache.fixture.config.DEFAULT_DURATION_MILLIS
+import com.diegopizzo.network.cache.CacheConstant.DEFAULT_DURATION_MILLIS
 import com.diegopizzo.network.model.FixtureModel
 import com.diegopizzo.network.service.RetrofitApi
 import com.dropbox.android.external.store4.*

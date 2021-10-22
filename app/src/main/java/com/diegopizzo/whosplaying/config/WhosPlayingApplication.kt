@@ -9,6 +9,7 @@ import com.diegopizzo.database.config.databaseModule
 import com.diegopizzo.database.config.fixtureDaoModule
 import com.diegopizzo.database.config.leagueDaoModule
 import com.diegopizzo.database.creator.fixture.fixtureCreatorModule
+import com.diegopizzo.network.cache.event.config.eventInteractorCacheModule
 import com.diegopizzo.whosplaying.database.creator.league.leagueCreatorModule
 import com.diegopizzo.whosplaying.repository.fixture.fixtureRepositoryModule
 import com.diegopizzo.whosplaying.repository.league.leagueRepositoryModule
@@ -28,6 +29,7 @@ class WhosPlayingApplication : Application() {
             modules(
                 retrofitModule,
                 fixtureInteractorCacheModule,
+                eventInteractorCacheModule,
                 databaseModule,
                 leagueDaoModule,
                 fixtureDaoModule,

@@ -7,5 +7,3 @@ import org.koin.dsl.module
 val fixtureInteractorCacheModule = module {
     single<IFixtureInteractorCache> { FixtureInteractorCache(get()) }
 }
-
-internal const val DEFAULT_DURATION_MILLIS = 120000L //120 seconds
