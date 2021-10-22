@@ -12,7 +12,7 @@ interface FixtureDao {
     fun getAll(): List<FixtureEntity>?
 
     @Transaction
-    @Query("SELECT * FROM fixture WHERE fixtureLeagueId = :leagueId")
+    @Query("SELECT * FROM fixture WHERE fixtureLeagueId = :leagueId ORDER BY dateTimeEvent")
     fun getFixturesByLeagueId(leagueId: Long): List<FixtureEntity>?
 
     @Transaction
