@@ -1,5 +1,6 @@
 package com.diegopizzo.network.creator
 
+import com.diegopizzo.network.creator.fixture.FixtureModelCreator
 import com.diegopizzo.network.model.*
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -207,7 +207,7 @@ class RetrofitApiTest {
                                 "https://media.api-sports.io/football/teams/490.png"
                             ),
                             Player(213, "K. Baldé"),
-                            Assist(854, "M. Cáceres"), GOAL, NORMAL_GOAL,
+                            Assist(854, "M. Cáceres"), GOAL, NORMAL_GOAL
                         ),
                         Event(
                             Time(22, null),
@@ -217,7 +217,7 @@ class RetrofitApiTest {
                                 "https://media.api-sports.io/football/teams/490.png"
                             ),
                             Player(2614, "Nahitan Nández"),
-                            Assist(null, null), CARD, YELLOW_CARD,
+                            Assist(null, null), CARD, YELLOW_CARD
                         ),
                         Event(
                             Time(46, null),
@@ -227,7 +227,7 @@ class RetrofitApiTest {
                                 "https://media.api-sports.io/football/teams/517.png"
                             ),
                             Player(30752, "S. Kiyine"),
-                            Assist(48406, "D. Črnigoj"), SUBSTITUTION, SUBSTITUTION_1,
+                            Assist(48406, "D. Črnigoj"), SUBSTITUTION, SUBSTITUTION_1
                         )
                     )
                 )

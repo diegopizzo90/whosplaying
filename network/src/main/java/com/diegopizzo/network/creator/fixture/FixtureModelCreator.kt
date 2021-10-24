@@ -1,4 +1,4 @@
-package com.diegopizzo.network.creator
+package com.diegopizzo.network.creator.fixture
 
 import com.diegopizzo.network.model.FixtureDataModel
 import com.diegopizzo.network.model.FixtureModel

@@ -1,4 +1,4 @@
-package com.diegopizzo.network.creator
+package com.diegopizzo.network.creator.fixture
 
 import org.koin.dsl.module
 

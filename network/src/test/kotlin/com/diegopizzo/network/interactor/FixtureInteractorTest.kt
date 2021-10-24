@@ -1,7 +1,7 @@
 package com.diegopizzo.network.interactor
 
 import com.diegopizzo.network.cache.fixture.IFixtureInteractorCache
-import com.diegopizzo.network.creator.FixtureModelCreator
+import com.diegopizzo.network.creator.fixture.FixtureModelCreator
 import com.diegopizzo.network.interactor.fixture.FixtureInteractor
 import com.diegopizzo.network.interactor.fixture.IFixtureInteractor
 import com.diegopizzo.network.model.*

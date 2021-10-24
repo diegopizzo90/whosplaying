@@ -37,5 +37,11 @@ enum class StatusValue(val short: String) {
     MATCH_ABANDONED("ABD"),
     TECHNICAL_LOSS("AWD"),
     WALKOVER("WO"),
-    LIVE("LIVE")
+    LIVE("LIVE");
+
+    companion object {
+        fun getStatusValue(stringValue: String): StatusValue? {
+            return values().firstOrNull { it.short == stringValue }
+        }
+    }
 }
