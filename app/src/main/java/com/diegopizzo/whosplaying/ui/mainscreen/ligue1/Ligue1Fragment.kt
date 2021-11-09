@@ -53,15 +53,18 @@ class Ligue1Fragment : BaseFragmentLeague<FragmentLigue1Binding>() {
             ViewEffect.ShowErrorResult -> onError()
             ViewEffect.ShowSuccessResult -> onSuccess()
             ViewEffect.ShowProgressBar -> startShimmer()
+            is ViewEffect.ShowFixtureDetails -> toFixtureDetails(it.id)
         }
     }
 
     private fun setRecyclerView() {
         binding.rvLigue1.apply {
-            adapter = AdapterLigue1()
+            adapter = AdapterLigue1 {
+                viewModel.onFixtureSelected(it)
+            }
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
 }
 
-internal class AdapterLigue1 : BaseAdapter()
+internal class AdapterLigue1(itemClickListener: (id: Long) -> Unit) : BaseAdapter(itemClickListener)

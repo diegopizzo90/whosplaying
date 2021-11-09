@@ -54,15 +54,19 @@ class BundesligaFragment : BaseFragmentLeague<FragmentBundesligaBinding>() {
             ViewEffect.ShowErrorResult -> onError()
             ViewEffect.ShowSuccessResult -> onSuccess()
             ViewEffect.ShowProgressBar -> startShimmer()
+            is ViewEffect.ShowFixtureDetails -> toFixtureDetails(it.id)
         }
     }
 
     private fun setRecyclerView() {
         binding.rvBundesliga.apply {
-            adapter = AdapterBundesliga()
+            adapter = AdapterBundesliga {
+                viewModel.onFixtureSelected(it)
+            }
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
 }
 
-internal class AdapterBundesliga : BaseAdapter()
+internal class AdapterBundesliga(itemClickListener: (id: Long) -> Unit) :
+    BaseAdapter(itemClickListener)

@@ -16,7 +16,7 @@ import org.threeten.bp.ZonedDateTime
 
 internal class MainViewModel(
     private val leagueRepository: ILeagueRepository,
-    private val fixtureRepository: IFixtureRepository
+    private val fixtureRepository: IFixtureRepository,
 ) : ViewModel() {
 
     private val _viewStates: MutableLiveData<MainViewState> = MutableLiveData()
@@ -57,6 +57,10 @@ internal class MainViewModel(
         } else showError()
     }
 
+    fun onFixtureSelected(fixtureId: Long) {
+        _viewEffects.value = ShowFixtureDetails(fixtureId)
+    }
+
     private fun showError() {
         _viewEffects.value = ShowErrorResult
     }
@@ -73,4 +77,5 @@ internal sealed class ViewEffect {
     object ShowSuccessResult : ViewEffect()
     object ShowErrorResult : ViewEffect()
     object ShowProgressBar : ViewEffect()
+    data class ShowFixtureDetails(val id: Long) : ViewEffect()
 }

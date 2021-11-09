@@ -7,7 +7,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.diegopizzo.whosplaying.R
 import com.diegopizzo.whosplaying.databinding.ActivityMainBinding
 import com.diegopizzo.whosplaying.ui.base.ActivityViewBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainScreenActivity : ActivityViewBinding<ActivityMainBinding>() {
 

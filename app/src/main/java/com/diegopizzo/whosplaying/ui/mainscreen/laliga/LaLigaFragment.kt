@@ -54,15 +54,18 @@ class LaLigaFragment : BaseFragmentLeague<FragmentLaLigaBinding>() {
             ViewEffect.ShowErrorResult -> onError()
             ViewEffect.ShowSuccessResult -> onSuccess()
             ViewEffect.ShowProgressBar -> startShimmer()
+            is ViewEffect.ShowFixtureDetails -> toFixtureDetails(it.id)
         }
     }
 
     private fun setRecyclerView() {
         binding.rvLaLiga.apply {
-            adapter = AdapterLaLiga()
+            adapter = AdapterLaLiga {
+                viewModel.onFixtureSelected(it)
+            }
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
 }
 
-internal class AdapterLaLiga : BaseAdapter()
+internal class AdapterLaLiga(itemClickListener: (id: Long) -> Unit) : BaseAdapter(itemClickListener)

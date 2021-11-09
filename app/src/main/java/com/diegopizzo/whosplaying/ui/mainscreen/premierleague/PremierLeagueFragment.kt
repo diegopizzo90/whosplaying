@@ -54,15 +54,18 @@ class PremierLeagueFragment : BaseFragmentLeague<FragmentPremierLeagueBinding>()
             ViewEffect.ShowErrorResult -> onError()
             ViewEffect.ShowSuccessResult -> onSuccess()
             ViewEffect.ShowProgressBar -> startShimmer()
+            is ViewEffect.ShowFixtureDetails -> toFixtureDetails(it.id)
         }
     }
 
     private fun setRecyclerView() {
         binding.rvPremierLeague.apply {
-            adapter = AdapterPremierLeague()
+            adapter = AdapterPremierLeague {
+                viewModel.onFixtureSelected(it)
+            }
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
 }
 
-internal class AdapterPremierLeague : BaseAdapter()
+internal class AdapterPremierLeague(itemClickListener: (id: Long) -> Unit) : BaseAdapter(itemClickListener)

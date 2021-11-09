@@ -7,12 +7,13 @@ import com.diegopizzo.network.Util
 import com.diegopizzo.network.model.FixtureDataModel
 import com.diegopizzo.whosplaying.databinding.ItemFixtureBinding
 
-abstract class BaseAdapter : RecyclerView.Adapter<BaseAdapter.BaseViewHolder>() {
+abstract class BaseAdapter(private val itemClickListener: (id: Long) -> Unit) :
+    RecyclerView.Adapter<BaseAdapter.BaseViewHolder>() {
     protected val fixtureList: MutableList<FixtureDataModel> = mutableListOf()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): BaseViewHolder {
         val binding = ItemFixtureBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BaseViewHolder(binding)
@@ -38,6 +39,9 @@ abstract class BaseAdapter : RecyclerView.Adapter<BaseAdapter.BaseViewHolder>() 
         fun setFixture(fixtureDataModel: FixtureDataModel, position: Int) {
             binding.itemFixtureId.setFixture(fixtureDataModel)
             displayFixturesDateTime(position)
+            binding.itemFixtureId.setOnClickListener {
+                itemClickListener(fixtureDataModel.fixtureId)
+            }
         }
 
         private fun displayFixturesDateTime(position: Int) {

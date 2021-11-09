@@ -54,15 +54,18 @@ class SerieAFragment : BaseFragmentLeague<FragmentSerieABinding>() {
             ViewEffect.ShowErrorResult -> onError()
             ViewEffect.ShowSuccessResult -> onSuccess()
             ViewEffect.ShowProgressBar -> startShimmer()
+            is ViewEffect.ShowFixtureDetails -> toFixtureDetails(it.id)
         }
     }
 
     private fun setRecyclerView() {
         binding.rvSerieA.apply {
-            adapter = AdapterSerieA()
+            adapter = AdapterSerieA {
+                viewModel.onFixtureSelected(it)
+            }
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
 }
 
-internal class AdapterSerieA : BaseAdapter()
+internal class AdapterSerieA(itemClickListener: (id: Long) -> Unit) : BaseAdapter(itemClickListener)
