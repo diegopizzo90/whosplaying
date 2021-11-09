@@ -47,49 +47,49 @@ enum class EventType {
     VAR
 }
 
-enum class EventTypeDetail {
+enum class EventTypeDetail(val detail: String) {
     @SerializedName("Normal Goal")
-    NORMAL_GOAL,
+    NORMAL_GOAL("Normal Goal"),
 
     @SerializedName("Own Goal")
-    OWN_GOAL,
+    OWN_GOAL("Own Goal"),
 
     @SerializedName("Penalty")
-    PENALTY,
+    PENALTY("Penalty"),
 
     @SerializedName("Missed Penalty")
-    MISSED_PENALTY,
+    MISSED_PENALTY("Missed Penalty"),
 
     @SerializedName("Yellow Card")
-    YELLOW_CARD,
+    YELLOW_CARD("Yellow Card"),
 
     @SerializedName("Second Yellow card")
-    SECOND_YELLOW_CARD,
+    SECOND_YELLOW_CARD("Second Yellow card"),
 
     @SerializedName("Red card")
-    RED_CARD,
+    RED_CARD("Red card"),
 
     @SerializedName("Goal cancelled")
-    GOAL_CANCELLED,
+    GOAL_CANCELLED("Goal cancelled"),
 
     @SerializedName("Penalty confirmed")
-    PENALTY_CONFIRMED,
+    PENALTY_CONFIRMED("Penalty confirmed"),
 
     @SerializedName("Substitution 1")
-    SUBSTITUTION_1,
+    SUBSTITUTION_1("Substitution 1"),
 
     @SerializedName("Substitution 2")
-    SUBSTITUTION_2,
+    SUBSTITUTION_2("Substitution 2"),
 
     @SerializedName("Substitution 3")
-    SUBSTITUTION_3,
+    SUBSTITUTION_3("Substitution 3"),
 
     @SerializedName("Substitution 4")
-    SUBSTITUTION_4,
+    SUBSTITUTION_4("Substitution 4"),
 
     @SerializedName("Substitution 5")
-    SUBSTITUTION_5,
+    SUBSTITUTION_5("Substitution 5"),
 
     @SerializedName("Substitution 6")
-    SUBSTITUTION_6
+    SUBSTITUTION_6("Substitution 6")
 }

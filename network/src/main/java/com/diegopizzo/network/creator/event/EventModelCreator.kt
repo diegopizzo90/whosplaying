@@ -25,8 +25,8 @@ class EventModelCreator {
             awayTeamId = awayTeam.id,
             awayTeam = awayTeam.name,
             logoAwayTeam = awayTeam.logo,
-            scoreHomeTeam = goals.home?.toString(),
-            scoreAwayTeam = goals.away?.toString(),
+            scoreHomeTeam = goals.home?.toString() ?: "0",
+            scoreAwayTeam = goals.away?.toString() ?: "0",
             leagueDetails = response.league,
             events = events.map { toSingleEvent(it) }
         )
@@ -34,7 +34,7 @@ class EventModelCreator {
 
     private fun toSingleEvent(event: Event): SingleEvent {
         return SingleEvent(
-            elapsedEvent = if (event.time.extra == null) "${event.time.elapsed}′" else "${event.time.elapsed}′ + ${event.time.extra}′",
+            elapsedEvent = if (event.time.extra == null) "${event.time.elapsed}′" else "${event.time.elapsed}′+${event.time.extra}′",
             idTeamEvent = event.team.id,
             mainPlayer = event.player.name,
             secondPlayer = event.assist.name,

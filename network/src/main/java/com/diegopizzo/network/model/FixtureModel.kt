@@ -18,30 +18,31 @@ data class ResponseFixture(val fixture: Fixture, val teams: Teams, val goals: Go
 
 data class FixtureModel(val response: List<ResponseFixture>)
 
-enum class StatusValue(val short: String) {
-    TIME_TO_BE_DEFINED("TBD"),
-    NOT_STARTED("NS"),
-    FIRST_HALF("1H"),
-    HALF_TIME("HT"),
-    SECOND_HALF("2H"),
-    EXTRA_TIME("ET"),
-    PENALTY_IN_PROGRESS("P"),
-    MATCH_FINISHED("FT"),
-    MATCH_FINISHED_EXTRA_TIME("AET"),
-    MATCH_FINISHED_PENALTY("PEN"),
-    BREAK_TIME("BT"),
-    MATCH_SUSPENDED("SUSP"),
-    MATCH_INTERRUPTED("INT"),
-    MATCH_POSTPONED("PST"),
-    MATCH_CANCELED("CANC"),
-    MATCH_ABANDONED("ABD"),
-    TECHNICAL_LOSS("AWD"),
-    WALKOVER("WO"),
-    LIVE("LIVE");
+enum class StatusValue(val short: String, val long: String) {
+    TIME_TO_BE_DEFINED("TBD", "Time To Be Defined"),
+    NOT_STARTED("NS", "Not Started"),
+    FIRST_HALF("1H", "First Half, Kick Off"),
+    HALF_TIME("HT", "Halftime"),
+    SECOND_HALF("2H", "Second Half, 2nd Half Started"),
+    EXTRA_TIME("ET", "Extra Time"),
+    PENALTY_IN_PROGRESS("P", "Penalty In Progress"),
+    MATCH_FINISHED("FT", "Match Finished"),
+    MATCH_FINISHED_EXTRA_TIME("AET", "Match Finished After Extra Time"),
+    MATCH_FINISHED_PENALTY("PEN", "Match Finished After Penalty"),
+    BREAK_TIME("BT", "Break Time (in Extra Time)"),
+    MATCH_SUSPENDED("SUSP", "Match Suspended"),
+    MATCH_INTERRUPTED("INT", "Match Interrupted"),
+    MATCH_POSTPONED("PST", "Match Postponed"),
+    MATCH_CANCELED("CANC", "Match Cancelled"),
+    MATCH_ABANDONED("ABD", "Match Abandoned"),
+    TECHNICAL_LOSS("AWD", "Technical Loss"),
+    WALKOVER("WO", "WalkOver"),
+    LIVE("LIVE", "In Progress"),
+    NOT_AVAILABLE("NA", "Not Available");
 
     companion object {
-        fun getStatusValue(stringValue: String): StatusValue? {
-            return values().firstOrNull { it.short == stringValue }
+        fun getStatusValue(stringValue: String): StatusValue {
+            return values().firstOrNull { it.short == stringValue } ?: NOT_AVAILABLE
         }
     }
 }
