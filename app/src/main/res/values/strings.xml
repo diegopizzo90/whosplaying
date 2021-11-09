@@ -6,4 +6,5 @@
     <string name="bundesliga">Bundesliga</string>
     <string name="ligue_1">Ligue1</string>
     <string name="no_events_available">No events available</string>
+    <string name="match_events">Match events</string>
 </resources>
