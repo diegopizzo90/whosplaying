@@ -13,6 +13,7 @@ import com.diegopizzo.network.interactor.event.eventInteractorModule
 import com.diegopizzo.network.interactor.fixture.fixtureInteractorModule
 import com.diegopizzo.network.interactor.league.leagueInteractorModule
 import com.diegopizzo.whosplaying.database.creator.league.leagueCreatorModule
+import com.diegopizzo.whosplaying.repository.event.eventRepositoryModule
 import com.diegopizzo.whosplaying.repository.fixture.fixtureRepositoryModule
 import com.diegopizzo.whosplaying.repository.league.leagueRepositoryModule
 import com.diegopizzo.whosplaying.ui.mainscreen.config.mainViewModelModule
@@ -33,6 +34,7 @@ class WhosPlayingApplication : Application() {
                 fixtureInteractorCacheModule,
                 eventInteractorCacheModule,
                 eventModelCreatorModule,
+                eventRepositoryModule,
                 eventInteractorModule,
                 databaseModule,
                 leagueDaoModule,
