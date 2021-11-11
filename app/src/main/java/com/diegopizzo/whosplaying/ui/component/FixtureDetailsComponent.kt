@@ -7,13 +7,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.rememberImagePainter
 import com.diegopizzo.whosplaying.ui.component.attr.smallPadding
 import com.diegopizzo.whosplaying.ui.component.attr.tinyPadding
-import com.diegopizzo.whosplaying.ui.component.common.DefaultText
 import com.diegopizzo.whosplaying.ui.component.common.LargeText
 import com.diegopizzo.whosplaying.ui.component.common.MyCard
 import com.diegopizzo.whosplaying.ui.component.common.SmallText
+import com.diegopizzo.whosplaying.ui.component.common.TinyText
 
 @Composable
 fun ComposeFixturesDetails(
@@ -24,31 +25,40 @@ fun ComposeFixturesDetails(
     awayTeam: String,
     scoreAwayTeam: String,
     status: String,
-    onClick: (() -> Unit)? = null
+    onClick: (() -> Unit)? = null,
 ) {
     MyCard(content = {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(smallPadding),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                ComposeImage(logoHomeTeam)
-                DefaultText(homeTeam)
-            }
+        ConstraintLayout {
+            val (homeColumn, scoreView, awayColumn) = createRefs()
+
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                ComposeMatchScore(
-                    scoreHomeTeam,
-                    scoreAwayTeam,
-                    status
-                )
+                modifier = Modifier.constrainAs(homeColumn) {
+                    start.linkTo(parent.start, margin = smallPadding)
+                    top.linkTo(parent.top, margin = smallPadding)
+                    bottom.linkTo(parent.bottom, margin = smallPadding)
+                }) {
+
+                ComposeImage(logoHomeTeam)
+                SmallText(homeTeam)
             }
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
+            ComposeMatchScore(scoreHomeTeam, scoreAwayTeam, status,
+                modifier = Modifier
+                    .constrainAs(scoreView) {
+                        top.linkTo(parent.top, margin = smallPadding)
+                        bottom.linkTo(parent.bottom, margin = smallPadding)
+                    }
+                    .then(Modifier.fillMaxWidth()))
+
+            Column(horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.constrainAs(awayColumn) {
+                    end.linkTo(parent.end, margin = smallPadding)
+                    top.linkTo(parent.top, margin = smallPadding)
+                    bottom.linkTo(parent.bottom, margin = smallPadding)
+                }) {
                 ComposeImage(logoAwayTeam)
-                DefaultText(awayTeam)
+                SmallText(awayTeam)
             }
         }
     }, onClick)
@@ -64,20 +74,25 @@ private fun ComposeImage(logoUrl: String) {
             }
         ),
         contentDescription = null,
-        modifier = Modifier.size(64.dp)
+        modifier = Modifier.size(48.dp)
     )
 }
 
 @Composable
-private fun ComposeMatchScore(scoreHomeTeam: String?, scoreAwayTeam: String?, status: String) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+private fun ComposeMatchScore(
+    scoreHomeTeam: String?,
+    scoreAwayTeam: String?,
+    status: String,
+    modifier: Modifier = Modifier,
+) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = modifier) {
         Row {
             LargeText(text = scoreHomeTeam ?: "0", modifier = Modifier.padding(tinyPadding))
             LargeText(text = ":", modifier = Modifier.padding(tinyPadding))
             LargeText(text = scoreAwayTeam ?: "0", modifier = Modifier.padding(tinyPadding))
         }
         Row {
-            SmallText(text = status)
+            TinyText(text = status)
         }
     }
 }

@@ -36,10 +36,10 @@ fun MediumText(text: String, modifier: Modifier = Modifier) {
 
 @Composable
 fun DefaultText(text: String, modifier: Modifier = Modifier) {
-    Text(text = text, fontSize = 20.sp, color = MaterialTheme.colors.textColor, modifier = modifier)
+    Text(text = text, fontSize = 22.sp, color = MaterialTheme.colors.textColor, modifier = modifier)
 }
 
 @Composable
 fun LargeText(text: String, modifier: Modifier = Modifier) {
-    Text(text = text, fontSize = 34.sp, color = MaterialTheme.colors.textColor, modifier = modifier)
+    Text(text = text, fontSize = 30.sp, color = MaterialTheme.colors.textColor, modifier = modifier)
 }

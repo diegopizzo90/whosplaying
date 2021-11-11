@@ -18,7 +18,7 @@ fun MyAppTopBar(
     icon: ImageVector = Icons.Default.ArrowBack,
 ) {
     TopAppBar(
-        title = { SmallText(text = title) },
+        title = { MediumText(text = title) },
         backgroundColor = blueDark2,
         contentColor = white,
         navigationIcon = {
