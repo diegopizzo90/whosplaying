@@ -66,8 +66,8 @@ enum class EventTypeDetail(val detail: String) {
     @SerializedName("Second Yellow card")
     SECOND_YELLOW_CARD("Second Yellow card"),
 
-    @SerializedName("Red card")
-    RED_CARD("Red card"),
+    @SerializedName("Red Card")
+    RED_CARD("Red Card"),
 
     @SerializedName("Goal cancelled")
     GOAL_CANCELLED("Goal cancelled"),
