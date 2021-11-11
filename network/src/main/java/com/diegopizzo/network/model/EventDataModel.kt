@@ -1,19 +1,18 @@
 package com.diegopizzo.network.model
 
 data class EventDataModel(
-    val fixtureId: Long,
-    val dateTimeEventUtc: String,
-    val status: StatusValue,
-    val elapsed: String?,
-    val homeTeamId: Long,
-    val homeTeam: String,
-    val awayTeamId: Long,
-    val awayTeam: String,
-    val logoHomeTeam: String,
-    val logoAwayTeam: String,
-    val scoreHomeTeam: String,
-    val scoreAwayTeam: String,
-    val leagueDetails: LeagueDetails,
+    val fixtureId: Long = 0L,
+    val dateTimeEventUtc: String = "",
+    val status: StatusValue = StatusValue.NOT_AVAILABLE,
+    val elapsed: String? = null,
+    val homeTeamId: Long = 0L,
+    val homeTeam: String = NO_TEAM,
+    val awayTeamId: Long = 0L,
+    val awayTeam: String = NO_TEAM,
+    val logoHomeTeam: String = "",
+    val logoAwayTeam: String = "",
+    val scoreHomeTeam: String = "0",
+    val scoreAwayTeam: String = "0",
     val events: List<SingleEvent> = emptyList()
 )
 
@@ -25,3 +24,5 @@ data class SingleEvent(
     val type: EventType,
     val detail: EventTypeDetail
 )
+
+private const val NO_TEAM = "No Team"

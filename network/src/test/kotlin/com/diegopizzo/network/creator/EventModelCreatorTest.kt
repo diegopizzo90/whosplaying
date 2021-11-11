@@ -78,7 +78,6 @@ class EventModelCreatorTest {
             "logoTeam4.it",
             "1",
             "1",
-            LeagueDetails(2, "League", "www.league.it", 2021, "Round 4"),
             listOf(
                 SingleEvent(
                     "36′",

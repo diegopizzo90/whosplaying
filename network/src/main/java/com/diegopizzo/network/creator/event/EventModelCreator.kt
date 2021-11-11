@@ -27,7 +27,6 @@ class EventModelCreator {
             logoAwayTeam = awayTeam.logo,
             scoreHomeTeam = goals.home?.toString() ?: "0",
             scoreAwayTeam = goals.away?.toString() ?: "0",
-            leagueDetails = response.league,
             events = events.map { toSingleEvent(it) }
         )
     }
