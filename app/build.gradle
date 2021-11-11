@@ -79,6 +79,10 @@ dependencies {
     implementation "androidx.compose.foundation:foundation:1.0.5"
     // Material Design
     implementation "androidx.compose.material:material:1.0.5"
+    //Live data
+    implementation "androidx.compose.runtime:runtime-livedata:1.1.0-beta02"
+    //Constraints Layout
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc01"
     //https://coil-kt.github.io/coil/compose/
     implementation("io.coil-kt:coil-compose:1.4.0")
     //https://androidrepo.com/repo/valentinilk-compose-shimmer
