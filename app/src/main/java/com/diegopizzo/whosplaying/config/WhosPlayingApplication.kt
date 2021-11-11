@@ -16,6 +16,7 @@ import com.diegopizzo.whosplaying.database.creator.league.leagueCreatorModule
 import com.diegopizzo.whosplaying.repository.event.eventRepositoryModule
 import com.diegopizzo.whosplaying.repository.fixture.fixtureRepositoryModule
 import com.diegopizzo.whosplaying.repository.league.leagueRepositoryModule
+import com.diegopizzo.whosplaying.ui.detailsscreen.config.detailsScreenViewModelModule
 import com.diegopizzo.whosplaying.ui.mainscreen.config.mainViewModelModule
 import com.diegopizzo.whosplaying.ui.splashscreen.config.splashScreenViewModelModule
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -47,7 +48,8 @@ class WhosPlayingApplication : Application() {
                 leagueRepositoryModule,
                 fixtureRepositoryModule,
                 splashScreenViewModelModule,
-                mainViewModelModule
+                mainViewModelModule,
+                detailsScreenViewModelModule
             )
         }
     }
