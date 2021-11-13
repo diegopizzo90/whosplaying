@@ -13,7 +13,7 @@ list of scorers, assists, yellow/red card, substitutions, VAR reviews and other 
 The main purpose of this application is to experiment new library/framework like coroutine, flow and
 Jetpack compose.
 
-![App main screen](/assets/main_screen) ![App event screen 1](/assets/event_screen_1) ![App event screen 2](/assets/event_screen_2)
+<img src="/assets/main_screen.jpg" alt="App main screen" width=30% height=30%> <img src="/assets/event_screen_1.jpg" alt="App event screen 1" width=30% height=30%> <img src="/assets/event_screen_2.jpg" alt="App event screen 2" width=30% height=30%>
 
 **Architecture:**
 This project is based on MVVM pattern and written with Kotlin.
