@@ -72,6 +72,12 @@ enum class EventTypeDetail(val detail: String) {
     @SerializedName("Goal cancelled")
     GOAL_CANCELLED("Goal cancelled"),
 
+    @SerializedName("Card upgrade")
+    CARD_UPGRADE("Card upgrade"),
+
+    @SerializedName("Goal confirmed")
+    GOAL_CONFIRMED("Goal confirmed"),
+
     @SerializedName("Penalty confirmed")
     PENALTY_CONFIRMED("Penalty confirmed"),
 
@@ -91,5 +97,7 @@ enum class EventTypeDetail(val detail: String) {
     SUBSTITUTION_5("Substitution 5"),
 
     @SerializedName("Substitution 6")
-    SUBSTITUTION_6("Substitution 6")
+    SUBSTITUTION_6("Substitution 6"),
+
+    NOT_AVAILABLE("Not available")
 }

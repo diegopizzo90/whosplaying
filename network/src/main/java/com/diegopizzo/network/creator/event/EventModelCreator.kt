@@ -38,7 +38,7 @@ class EventModelCreator {
             mainPlayer = event.player.name,
             secondPlayer = event.assist.name,
             type = event.type,
-            detail = event.detail
+            detail = event.detail ?: EventTypeDetail.NOT_AVAILABLE
         )
     }
 }
