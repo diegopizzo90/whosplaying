@@ -13,6 +13,8 @@ list of scorers, assists, yellow/red card, substitutions, VAR reviews and other 
 The main purpose of this application is to experiment new library/framework like coroutine, flow and
 Jetpack compose.
 
+![App main screen](/assets/main_screen) ![App event screen 1](/assets/event_screen_1) ![App event screen 2](/assets/event_screen_2)
+
 **Architecture:**
 This project is based on MVVM pattern and written with Kotlin.
 
