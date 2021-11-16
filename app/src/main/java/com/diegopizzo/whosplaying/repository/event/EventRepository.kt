@@ -4,6 +4,7 @@ import com.diegopizzo.network.interactor.event.IEventInteractor
 import com.diegopizzo.network.model.EventDataModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 
 class EventRepository(
@@ -12,6 +13,8 @@ class EventRepository(
 ) : IEventRepository {
 
     override fun getEvent(fixtureId: Long): Flow<EventDataModel?> {
-        return interactor.getEvents(fixtureId).flowOn(defaultDispatcher)
+        return interactor.getEvents(fixtureId).flowOn(defaultDispatcher).catch {
+            emit(null)
+        }
     }
 }
