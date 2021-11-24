@@ -67,7 +67,7 @@ internal class MainViewModel(
 
     private fun getLocalDateRange(): Pair<LocalDate, LocalDate> {
         val now = ZonedDateTime.now(ZoneId.systemDefault())
-        return Pair(now.minusDays(5).toLocalDate(), now.plusDays(5).toLocalDate())
+        return Pair(now.minusDays(4).toLocalDate(), now.plusDays(4).toLocalDate())
     }
 }
 
