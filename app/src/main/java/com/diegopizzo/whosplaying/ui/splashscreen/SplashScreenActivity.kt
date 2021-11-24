@@ -17,6 +17,7 @@ class SplashScreenActivity : AppCompatActivity() {
         viewModel.retrieveLeaguesInfo()
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, MainScreenActivity::class.java))
+            finish()
         }, 3000)
     }
 }
