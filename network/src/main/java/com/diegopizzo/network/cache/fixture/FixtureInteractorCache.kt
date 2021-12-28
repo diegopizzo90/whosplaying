@@ -14,8 +14,7 @@ import kotlin.time.ExperimentalTime
 internal class FixtureInteractorCache(
     private val api: RetrofitApi,
     private val ttlCache: Long = DEFAULT_DURATION_MILLIS
-) :
-    IFixtureInteractorCache {
+) : IFixtureInteractorCache {
 
     @OptIn(FlowPreview::class)
     private val store: Store<FixtureParameters, Response<FixtureModel>> =
