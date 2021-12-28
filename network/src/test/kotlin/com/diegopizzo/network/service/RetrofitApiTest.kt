@@ -133,6 +133,17 @@ class RetrofitApiTest {
         }
     }
 
+    @Test
+    fun getStanding_successResponse_assertEqualsTrue() {
+        server.enqueueResponse("standings_success_response.json", 200)
+
+        runBlocking {
+            val actualValue = api.getStanding(anyString(), anyString())
+
+            assertEquals(actualValue.body(), standings)
+        }
+    }
+
     companion object {
         private val leagueInfo =
             LeagueInfo(140, "La Liga", "https://media.api-sports.io/football/leagues/140.png")
@@ -228,6 +239,85 @@ class RetrofitApiTest {
                             ),
                             Player(30752, "S. Kiyine"),
                             Assist(48406, "D. Črnigoj"), SUBSTITUTION, SUBSTITUTION_1
+                        )
+                    )
+                )
+            )
+        )
+
+        private val standings = StandingModel(
+            response = listOf(
+                ResponseStanding(
+                    LeagueData(
+                        listOf(
+                            listOf(
+                                Standing(
+                                    "1",
+                                    team = TeamEvent(
+                                        505,
+                                        "Inter",
+                                        "https://media.api-sports.io/football/teams/505.png"
+                                    ),
+                                    "46",
+                                    "34",
+                                    "WWWWW",
+                                    all = AllStandingInfo(
+                                        "19",
+                                        "14",
+                                        "4",
+                                        "1",
+                                        goals = GoalsInfo(
+                                            "49",
+                                            "15"
+                                        )
+                                    ),
+                                    "2021-12-22T00:00:00+00:00"
+                                ),
+                                Standing(
+                                    "2",
+                                    team = TeamEvent(
+                                        489,
+                                        "AC Milan",
+                                        "https://media.api-sports.io/football/teams/489.png"
+                                    ),
+                                    "42",
+                                    "18",
+                                    "WLDWW",
+                                    all = AllStandingInfo(
+                                        "19",
+                                        "13",
+                                        "3",
+                                        "3",
+                                        goals = GoalsInfo(
+                                            "40",
+                                            "22"
+                                        )
+                                    ),
+                                    "2021-12-22T00:00:00+00:00"
+                                ),
+                                Standing(
+                                    "3",
+                                    team = TeamEvent(
+                                        492,
+                                        "Napoli",
+                                        "https://media.api-sports.io/football/teams/492.png"
+                                    ),
+                                    "39",
+                                    "21",
+                                    "LWLLD",
+                                    all = AllStandingInfo(
+                                        "19",
+                                        "12",
+                                        "3",
+                                        "4",
+                                        goals = GoalsInfo(
+                                            "35",
+                                            "14"
+                                        )
+                                    ),
+                                    "2021-12-22T00:00:00+00:00"
+                                )
+                            )
                         )
                     )
                 )
