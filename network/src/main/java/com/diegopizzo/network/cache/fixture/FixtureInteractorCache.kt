@@ -1,6 +1,6 @@
 package com.diegopizzo.network.cache.fixture
 
-import com.diegopizzo.network.cache.CacheConstant.DEFAULT_DURATION_MILLIS
+import com.diegopizzo.network.cache.CacheConstant.DEFAULT_DURATION_SECOND
 import com.diegopizzo.network.model.FixtureModel
 import com.diegopizzo.network.service.RetrofitApi
 import com.dropbox.android.external.store4.*
@@ -13,7 +13,7 @@ import kotlin.time.ExperimentalTime
 @OptIn(ExperimentalCoroutinesApi::class, ExperimentalTime::class)
 internal class FixtureInteractorCache(
     private val api: RetrofitApi,
-    private val ttlCache: Long = DEFAULT_DURATION_MILLIS
+    private val ttlCache: Int = DEFAULT_DURATION_SECOND
 ) : IFixtureInteractorCache {
 
     @OptIn(FlowPreview::class)
@@ -27,7 +27,7 @@ internal class FixtureInteractorCache(
             )
         }).cachePolicy(
             MemoryPolicy.builder<Any, Any>()
-                .setExpireAfterWrite(Duration.milliseconds(ttlCache))
+                .setExpireAfterWrite(Duration.seconds(ttlCache))
                 .build()
         ).build()
 

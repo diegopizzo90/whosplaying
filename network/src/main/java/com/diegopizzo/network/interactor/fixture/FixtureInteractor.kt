@@ -1,6 +1,6 @@
 package com.diegopizzo.network.interactor.fixture
 
-import com.diegopizzo.network.cache.CacheConstant.DEFAULT_DURATION_MILLIS
+import com.diegopizzo.network.cache.CacheConstant.DEFAULT_DURATION_SECOND
 import com.diegopizzo.network.cache.fixture.IFixtureInteractorCache
 import com.diegopizzo.network.creator.fixture.FixtureModelCreator
 import com.diegopizzo.network.model.FixtureDataModel
@@ -13,7 +13,7 @@ import org.threeten.bp.format.DateTimeFormatter
 internal class FixtureInteractor(
     private val cache: IFixtureInteractorCache,
     private val creator: FixtureModelCreator,
-    private val refreshIntervalMs: Long = DEFAULT_DURATION_MILLIS
+    private val refreshIntervalMs: Int = DEFAULT_DURATION_SECOND
 ) : IFixtureInteractor {
     override fun getFixturesByLeagueAndDate(
         leagueId: String,
@@ -30,7 +30,7 @@ internal class FixtureInteractor(
                 )
                 val fixtures = creator.toFixturesDataModel(response)
                 emit(fixtures)
-                delay(refreshIntervalMs)
+                delay(refreshIntervalMs.toLong())
             }
         }
     }
