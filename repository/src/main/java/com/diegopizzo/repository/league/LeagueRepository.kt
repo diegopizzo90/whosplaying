@@ -1,4 +1,4 @@
-package com.diegopizzo.whosplaying.repository.league
+package com.diegopizzo.repository.league
 
 import com.diegopizzo.network.interactor.league.ILeagueInteractor
 import com.diegopizzo.network.interactor.league.LeagueName
@@ -8,7 +8,7 @@ import com.diegopizzo.database.dao.LeagueDao
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
-class LeagueRepository(
+internal class LeagueRepository(
     private val leagueDao: LeagueDao,
     private val interactor: ILeagueInteractor,
     private val creator: LeagueCreator,

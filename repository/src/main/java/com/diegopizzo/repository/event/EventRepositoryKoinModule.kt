@@ -1,4 +1,4 @@
-package com.diegopizzo.whosplaying.repository.event
+package com.diegopizzo.repository.event
 
 import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module

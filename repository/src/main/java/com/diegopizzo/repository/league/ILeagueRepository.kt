@@ -1,4 +1,4 @@
-package com.diegopizzo.whosplaying.repository.league
+package com.diegopizzo.repository.league
 
 import com.diegopizzo.network.interactor.league.LeagueName
 

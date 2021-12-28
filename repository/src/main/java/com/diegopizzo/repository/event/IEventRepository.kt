@@ -1,4 +1,4 @@
-package com.diegopizzo.whosplaying.repository.event
+package com.diegopizzo.repository.event
 
 import com.diegopizzo.network.model.EventDataModel
 import kotlinx.coroutines.flow.Flow

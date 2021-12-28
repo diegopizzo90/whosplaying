@@ -1,4 +1,4 @@
-package com.diegopizzo.whosplaying.repository.fixture
+package com.diegopizzo.repository.fixture
 
 import com.diegopizzo.network.interactor.fixture.IFixtureInteractor
 import com.diegopizzo.network.model.FixtureDataModel
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onEach
 import org.threeten.bp.LocalDate
 
-class FixtureRepository(
+internal class FixtureRepository(
     private val interactor: IFixtureInteractor,
     private val fixtureDao: FixtureDao,
     private val defaultDispatcher: CoroutineDispatcher,

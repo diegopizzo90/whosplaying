@@ -12,7 +12,7 @@ data class Event(
     val player: Player,
     val assist: Assist,
     val type: EventType,
-    val detail: EventTypeDetail
+    val detail: EventTypeDetail?
 )
 
 data class LeagueDetails(

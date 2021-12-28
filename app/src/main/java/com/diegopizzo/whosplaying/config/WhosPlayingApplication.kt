@@ -15,9 +15,9 @@ import com.diegopizzo.network.interactor.league.leagueInteractorModule
 import com.diegopizzo.network.service.retrofitModule
 import com.diegopizzo.whosplaying.BuildConfig
 import com.diegopizzo.whosplaying.database.creator.league.leagueCreatorModule
-import com.diegopizzo.whosplaying.repository.event.eventRepositoryModule
-import com.diegopizzo.whosplaying.repository.fixture.fixtureRepositoryModule
-import com.diegopizzo.whosplaying.repository.league.leagueRepositoryModule
+import com.diegopizzo.repository.event.eventRepositoryModule
+import com.diegopizzo.repository.fixture.fixtureRepositoryModule
+import com.diegopizzo.repository.league.leagueRepositoryModule
 import com.diegopizzo.whosplaying.ui.detailsscreen.config.detailsScreenViewModelModule
 import com.diegopizzo.whosplaying.ui.mainscreen.config.mainViewModelModule
 import com.diegopizzo.whosplaying.ui.splashscreen.config.splashScreenViewModelModule

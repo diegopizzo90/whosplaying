@@ -2,7 +2,7 @@ package com.diegopizzo.whosplaying.ui.splashscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.diegopizzo.whosplaying.repository.league.ILeagueRepository
+import com.diegopizzo.repository.league.ILeagueRepository
 import kotlinx.coroutines.launch
 
 class SplashScreenViewModel(private val repository: ILeagueRepository) : ViewModel() {

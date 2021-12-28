@@ -1,4 +1,4 @@
-package com.diegopizzo.whosplaying.repository.event
+package com.diegopizzo.repository.event
 
 import com.diegopizzo.network.interactor.event.IEventInteractor
 import com.diegopizzo.network.model.EventDataModel
@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 
-class EventRepository(
+internal class EventRepository(
     private val interactor: IEventInteractor,
     private val defaultDispatcher: CoroutineDispatcher
 ) : IEventRepository {

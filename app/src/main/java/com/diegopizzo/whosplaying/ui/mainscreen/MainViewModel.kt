@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.diegopizzo.network.interactor.league.LeagueName
 import com.diegopizzo.network.model.FixtureDataModel
-import com.diegopizzo.whosplaying.repository.fixture.IFixtureRepository
-import com.diegopizzo.whosplaying.repository.league.ILeagueRepository
+import com.diegopizzo.repository.fixture.IFixtureRepository
+import com.diegopizzo.repository.league.ILeagueRepository
 import com.diegopizzo.whosplaying.ui.base.SingleLiveEvent
 import com.diegopizzo.whosplaying.ui.mainscreen.ViewEffect.*
 import kotlinx.coroutines.flow.collect
@@ -43,17 +43,16 @@ internal class MainViewModel(
         val leagueId = leagueRepository.getLeagueId(leagueName)
         if (leagueId != null) {
             val range = getLocalDateRange()
-            fixtureRepository.getFixtures(leagueId.toString(), range.first, range.second)
-                .collect {
-                    when {
-                        it == null -> showError()
-                        it.isEmpty() -> showError()
-                        else -> {
-                            _viewEffects.value = ShowSuccessResult
-                            viewState = viewState.copy(fixtures = it)
-                        }
+            fixtureRepository.getFixtures(leagueId.toString(), range.first, range.second).collect {
+                when {
+                    it == null -> showError()
+                    it.isEmpty() -> showError()
+                    else -> {
+                        _viewEffects.value = ShowSuccessResult
+                        viewState = viewState.copy(fixtures = it)
                     }
                 }
+            }
         } else showError()
     }
 
