@@ -1,16 +1,12 @@
-package com.diegopizzo.whosplaying.config
+package com.diegopizzo.network.service
 
-import com.diegopizzo.network.NetworkConstant.BASE_URL
-import com.diegopizzo.network.NetworkConstant.HEADER_KEY_PARAMETER_NAME
-import com.diegopizzo.network.service.RetrofitApi
-import com.diegopizzo.whosplaying.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-val retrofitModule = module {
+fun retrofitModule(baseUrl: String, apiKeyValue: String) = module {
     single<RetrofitApi> {
 
         val interceptor = HttpLoggingInterceptor().apply {
@@ -20,16 +16,18 @@ val retrofitModule = module {
         val httpClient = OkHttpClient.Builder()
             .addInterceptor {
                 val request = it.request().newBuilder()
-                    .addHeader(HEADER_KEY_PARAMETER_NAME, BuildConfig.API_KEY_VALUE)
+                    .addHeader(HEADER_KEY_PARAMETER_NAME, apiKeyValue)
                     .build()
                 it.proceed(request)
             }.addNetworkInterceptor(interceptor)
 
         Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .client(httpClient.build())
             .build()
             .create(RetrofitApi::class.java)
     }
 }
+
+private const val HEADER_KEY_PARAMETER_NAME = "x-rapidapi-key"

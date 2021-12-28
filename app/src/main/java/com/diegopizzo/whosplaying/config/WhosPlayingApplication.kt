@@ -12,6 +12,8 @@ import com.diegopizzo.network.creator.fixture.fixtureModelCreatorModule
 import com.diegopizzo.network.interactor.event.eventInteractorModule
 import com.diegopizzo.network.interactor.fixture.fixtureInteractorModule
 import com.diegopizzo.network.interactor.league.leagueInteractorModule
+import com.diegopizzo.network.service.retrofitModule
+import com.diegopizzo.whosplaying.BuildConfig
 import com.diegopizzo.whosplaying.database.creator.league.leagueCreatorModule
 import com.diegopizzo.whosplaying.repository.event.eventRepositoryModule
 import com.diegopizzo.whosplaying.repository.fixture.fixtureRepositoryModule
@@ -31,7 +33,7 @@ class WhosPlayingApplication : Application() {
         startKoin {
             androidContext(this@WhosPlayingApplication)
             modules(
-                retrofitModule,
+                retrofitModule(BuildConfig.BASE_URL, BuildConfig.API_KEY_VALUE),
                 fixtureInteractorCacheModule,
                 eventInteractorCacheModule,
                 eventModelCreatorModule,
