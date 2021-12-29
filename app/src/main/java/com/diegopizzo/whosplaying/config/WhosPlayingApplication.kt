@@ -4,7 +4,9 @@ import android.app.Application
 import com.diegopizzo.database.config.databaseModule
 import com.diegopizzo.database.config.fixtureDaoModule
 import com.diegopizzo.database.config.leagueDaoModule
+import com.diegopizzo.database.config.standingDaoModule
 import com.diegopizzo.database.creator.fixture.fixtureCreatorModule
+import com.diegopizzo.database.creator.standing.standingCreatorModule
 import com.diegopizzo.network.cache.event.eventInteractorCacheModule
 import com.diegopizzo.network.cache.fixture.fixtureInteractorCacheModule
 import com.diegopizzo.network.cache.standing.standingInteractorCacheModule
@@ -48,8 +50,10 @@ class WhosPlayingApplication : Application() {
                 databaseModule,
                 leagueDaoModule,
                 fixtureDaoModule,
+                standingDaoModule,
                 leagueCreatorModule,
                 fixtureCreatorModule,
+                standingCreatorModule,
                 fixtureModelCreatorModule,
                 fixtureInteractorModule,
                 leagueInteractorModule,
