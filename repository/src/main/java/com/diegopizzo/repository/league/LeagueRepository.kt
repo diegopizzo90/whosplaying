@@ -36,9 +36,9 @@ internal class LeagueRepository(
         leagueInfo?.let { leagueDao.insertLeagues(creator.toLeagueEntity(it)) }
     }
 
-    override suspend fun getLeagueId(leagueName: LeagueName): Long? {
+    override suspend fun getLeagueId(leagueName: LeagueName): String? {
         return withContext(defaultDispatcher) {
-            leagueDao.getLeagueByName(leagueName.stringName)?.leagueId
+            leagueDao.getLeagueByName(leagueName.stringName)?.leagueId?.toString()
         }
     }
 }

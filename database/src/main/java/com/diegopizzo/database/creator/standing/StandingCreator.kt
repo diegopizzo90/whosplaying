@@ -5,7 +5,7 @@ import com.diegopizzo.network.model.StandingDataModel
 
 class StandingCreator {
 
-    fun fromEntityToDataModel(entity: StandingEntity): StandingDataModel {
+    private fun fromEntityToDataModel(entity: StandingEntity): StandingDataModel {
         entity.apply {
             return StandingDataModel(
                 idTeam,
@@ -25,7 +25,10 @@ class StandingCreator {
         }
     }
 
-    fun fromDataModelToEntity(dataModel: StandingDataModel, leagueId: Long): StandingEntity {
+    private fun fromDataModelToEntity(
+        dataModel: StandingDataModel,
+        leagueId: String
+    ): StandingEntity {
         dataModel.apply {
             return StandingEntity(
                 idTeam,
@@ -41,8 +44,24 @@ class StandingCreator {
                 lose,
                 scored,
                 against,
-                leagueId
+                leagueId.toLong()
             )
         }
+    }
+
+
+    fun fromDataModelListToEntities(
+        dataModels: List<StandingDataModel>,
+        leagueId: String
+    ): Array<StandingEntity> {
+        return dataModels.map {
+            fromDataModelToEntity(it, leagueId)
+        }.toTypedArray()
+    }
+
+    fun fromEntitiesToDataModelList(entities: List<StandingEntity>?): List<StandingDataModel> {
+        return entities?.map {
+            fromEntityToDataModel(it)
+        } ?: emptyList()
     }
 }

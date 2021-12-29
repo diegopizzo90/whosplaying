@@ -21,6 +21,7 @@ import com.diegopizzo.network.service.retrofitModule
 import com.diegopizzo.repository.event.eventRepositoryModule
 import com.diegopizzo.repository.fixture.fixtureRepositoryModule
 import com.diegopizzo.repository.league.leagueRepositoryModule
+import com.diegopizzo.repository.standing.standingRepositoryModule
 import com.diegopizzo.whosplaying.BuildConfig
 import com.diegopizzo.whosplaying.database.creator.league.leagueCreatorModule
 import com.diegopizzo.whosplaying.ui.detailsscreen.config.detailsScreenViewModelModule
@@ -59,6 +60,7 @@ class WhosPlayingApplication : Application() {
                 leagueInteractorModule,
                 leagueRepositoryModule,
                 fixtureRepositoryModule,
+                standingRepositoryModule,
                 splashScreenViewModelModule,
                 mainViewModelModule,
                 detailsScreenViewModelModule
