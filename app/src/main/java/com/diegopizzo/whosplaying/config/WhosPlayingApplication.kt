@@ -10,15 +10,17 @@ import com.diegopizzo.network.cache.fixture.fixtureInteractorCacheModule
 import com.diegopizzo.network.cache.standing.standingInteractorCacheModule
 import com.diegopizzo.network.creator.event.eventModelCreatorModule
 import com.diegopizzo.network.creator.fixture.fixtureModelCreatorModule
+import com.diegopizzo.network.creator.standing.standingModelCreatorModule
 import com.diegopizzo.network.interactor.event.eventInteractorModule
 import com.diegopizzo.network.interactor.fixture.fixtureInteractorModule
 import com.diegopizzo.network.interactor.league.leagueInteractorModule
+import com.diegopizzo.network.interactor.standing.standingInteractorModule
 import com.diegopizzo.network.service.retrofitModule
-import com.diegopizzo.whosplaying.BuildConfig
-import com.diegopizzo.whosplaying.database.creator.league.leagueCreatorModule
 import com.diegopizzo.repository.event.eventRepositoryModule
 import com.diegopizzo.repository.fixture.fixtureRepositoryModule
 import com.diegopizzo.repository.league.leagueRepositoryModule
+import com.diegopizzo.whosplaying.BuildConfig
+import com.diegopizzo.whosplaying.database.creator.league.leagueCreatorModule
 import com.diegopizzo.whosplaying.ui.detailsscreen.config.detailsScreenViewModelModule
 import com.diegopizzo.whosplaying.ui.mainscreen.config.mainViewModelModule
 import com.diegopizzo.whosplaying.ui.splashscreen.config.splashScreenViewModelModule
@@ -39,8 +41,10 @@ class WhosPlayingApplication : Application() {
                 eventInteractorCacheModule,
                 standingInteractorCacheModule,
                 eventModelCreatorModule,
+                standingModelCreatorModule,
                 eventRepositoryModule,
                 eventInteractorModule,
+                standingInteractorModule,
                 databaseModule,
                 leagueDaoModule,
                 fixtureDaoModule,

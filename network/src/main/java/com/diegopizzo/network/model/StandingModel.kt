@@ -21,6 +21,6 @@ data class Standing(
     val update: String
 )
 
-data class LeagueData(val standings: List<List<Standing>>)
-data class ResponseStanding(val league: LeagueData)
-data class StandingModel(val response: List<ResponseStanding>)
+data class LeagueData(val standings: List<List<Standing>>?)
+data class ResponseStanding(val league: LeagueData?)
+data class StandingModel(val response: List<ResponseStanding>?)
