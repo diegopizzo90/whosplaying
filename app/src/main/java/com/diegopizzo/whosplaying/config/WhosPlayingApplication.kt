@@ -5,8 +5,8 @@ import com.diegopizzo.database.config.databaseModule
 import com.diegopizzo.database.config.fixtureDaoModule
 import com.diegopizzo.database.config.leagueDaoModule
 import com.diegopizzo.database.creator.fixture.fixtureCreatorModule
-import com.diegopizzo.network.cache.event.config.eventInteractorCacheModule
-import com.diegopizzo.network.cache.fixture.config.fixtureInteractorCacheModule
+import com.diegopizzo.network.cache.event.eventInteractorCacheModule
+import com.diegopizzo.network.cache.fixture.fixtureInteractorCacheModule
 import com.diegopizzo.network.cache.standing.standingInteractorCacheModule
 import com.diegopizzo.network.creator.event.eventModelCreatorModule
 import com.diegopizzo.network.creator.fixture.fixtureModelCreatorModule
