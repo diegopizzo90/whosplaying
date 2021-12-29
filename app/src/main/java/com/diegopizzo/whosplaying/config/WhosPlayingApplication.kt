@@ -7,6 +7,7 @@ import com.diegopizzo.database.config.leagueDaoModule
 import com.diegopizzo.database.creator.fixture.fixtureCreatorModule
 import com.diegopizzo.network.cache.event.config.eventInteractorCacheModule
 import com.diegopizzo.network.cache.fixture.config.fixtureInteractorCacheModule
+import com.diegopizzo.network.cache.standing.standingInteractorCacheModule
 import com.diegopizzo.network.creator.event.eventModelCreatorModule
 import com.diegopizzo.network.creator.fixture.fixtureModelCreatorModule
 import com.diegopizzo.network.interactor.event.eventInteractorModule
@@ -36,6 +37,7 @@ class WhosPlayingApplication : Application() {
                 retrofitModule(BuildConfig.BASE_URL, BuildConfig.API_KEY_VALUE),
                 fixtureInteractorCacheModule,
                 eventInteractorCacheModule,
+                standingInteractorCacheModule,
                 eventModelCreatorModule,
                 eventRepositoryModule,
                 eventInteractorModule,
