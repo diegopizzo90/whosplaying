@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
     app:startDestination="@id/serieAFragment">
 
     <fragment
         android:id="@+id/serieAFragment"
         android:name="com.diegopizzo.whosplaying.ui.mainscreen.seriea.SerieAFragment"
-        android:label="SerieAFragment" />
+        android:label="SerieAFragment"
+        tools:layout="@layout/fragment_serie_a" />
     <fragment
         android:id="@+id/premierLeagueFragment"
         android:name="com.diegopizzo.whosplaying.ui.mainscreen.premierleague.PremierLeagueFragment"
-        android:label="PremierLeagueFragment" />
+        android:label="PremierLeagueFragment"
+        tools:layout="@layout/fragment_premier_league" />
     <fragment
         android:id="@+id/laLigaFragment"
         android:name="com.diegopizzo.whosplaying.ui.mainscreen.laliga.LaLigaFragment"
-        android:label="LaLigaFragment" />
+        android:label="LaLigaFragment"
+        tools:layout="@layout/fragment_la_liga" />
     <fragment
         android:id="@+id/bundesligaFragment"
         android:name="com.diegopizzo.whosplaying.ui.mainscreen.bundesliga.BundesligaFragment"
-        android:label="BundesligaFragment" />
+        android:label="BundesligaFragment"
+        tools:layout="@layout/fragment_bundesliga" />
     <fragment
         android:id="@+id/ligue1Fragment"
         android:name="com.diegopizzo.whosplaying.ui.mainscreen.ligue1.Ligue1Fragment"
-        android:label="Ligue1Fragment" />
+        android:label="Ligue1Fragment"
+        tools:layout="@layout/fragment_ligue_1" />
 </navigation>

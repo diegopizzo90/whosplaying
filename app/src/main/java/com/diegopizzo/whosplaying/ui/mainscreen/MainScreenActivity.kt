@@ -24,5 +24,11 @@ class MainScreenActivity : ActivityViewBinding<ActivityMainBinding>() {
             // Prevent to recreate the fragment if the item is already selected
             setOnItemReselectedListener {}
         }
+        binding.toolbar.inflateMenu(R.menu.toolbar_menu)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 }
