@@ -138,7 +138,7 @@ class RetrofitApiTest {
         server.enqueueResponse("standings_success_response.json", 200)
 
         runBlocking {
-            val actualValue = api.getStanding(anyString(), anyString())
+            val actualValue = api.getStandings(anyString(), anyString())
 
             assertEquals(actualValue.body(), standings)
         }
@@ -245,13 +245,13 @@ class RetrofitApiTest {
             )
         )
 
-        private val standings = StandingModel(
+        private val standings = StandingsModel(
             response = listOf(
-                ResponseStanding(
+                ResponseStandings(
                     LeagueData(
                         listOf(
                             listOf(
-                                Standing(
+                                Standings(
                                     "1",
                                     team = TeamEvent(
                                         505,
@@ -261,7 +261,7 @@ class RetrofitApiTest {
                                     "46",
                                     "34",
                                     "WWWWW",
-                                    all = AllStandingInfo(
+                                    all = AllStandingsInfo(
                                         "19",
                                         "14",
                                         "4",
@@ -273,7 +273,7 @@ class RetrofitApiTest {
                                     ),
                                     "2021-12-22T00:00:00+00:00"
                                 ),
-                                Standing(
+                                Standings(
                                     "2",
                                     team = TeamEvent(
                                         489,
@@ -283,7 +283,7 @@ class RetrofitApiTest {
                                     "42",
                                     "18",
                                     "WLDWW",
-                                    all = AllStandingInfo(
+                                    all = AllStandingsInfo(
                                         "19",
                                         "13",
                                         "3",
@@ -295,7 +295,7 @@ class RetrofitApiTest {
                                     ),
                                     "2021-12-22T00:00:00+00:00"
                                 ),
-                                Standing(
+                                Standings(
                                     "3",
                                     team = TeamEvent(
                                         492,
@@ -305,7 +305,7 @@ class RetrofitApiTest {
                                     "39",
                                     "21",
                                     "LWLLD",
-                                    all = AllStandingInfo(
+                                    all = AllStandingsInfo(
                                         "19",
                                         "12",
                                         "3",

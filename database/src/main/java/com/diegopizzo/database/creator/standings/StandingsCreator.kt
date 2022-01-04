@@ -1,13 +1,13 @@
-package com.diegopizzo.database.creator.standing
+package com.diegopizzo.database.creator.standings
 
-import com.diegopizzo.database.entity.StandingEntity
-import com.diegopizzo.network.model.StandingDataModel
+import com.diegopizzo.database.entity.StandingsEntity
+import com.diegopizzo.network.model.StandingsDataModel
 
-class StandingCreator {
+class StandingsCreator {
 
-    private fun fromEntityToDataModel(entity: StandingEntity): StandingDataModel {
+    private fun fromEntityToDataModel(entity: StandingsEntity): StandingsDataModel {
         entity.apply {
-            return StandingDataModel(
+            return StandingsDataModel(
                 idTeam,
                 nameTeam,
                 logoTeam,
@@ -26,11 +26,11 @@ class StandingCreator {
     }
 
     private fun fromDataModelToEntity(
-        dataModel: StandingDataModel,
+        dataModel: StandingsDataModel,
         leagueId: String
-    ): StandingEntity {
+    ): StandingsEntity {
         dataModel.apply {
-            return StandingEntity(
+            return StandingsEntity(
                 idTeam,
                 nameTeam,
                 logoTeam,
@@ -51,15 +51,15 @@ class StandingCreator {
 
 
     fun fromDataModelListToEntities(
-        dataModels: List<StandingDataModel>,
+        dataModels: List<StandingsDataModel>,
         leagueId: String
-    ): Array<StandingEntity> {
+    ): Array<StandingsEntity> {
         return dataModels.map {
             fromDataModelToEntity(it, leagueId)
         }.toTypedArray()
     }
 
-    fun fromEntitiesToDataModelList(entities: List<StandingEntity>?): List<StandingDataModel> {
+    fun fromEntitiesToDataModelList(entities: List<StandingsEntity>?): List<StandingsDataModel> {
         return entities?.map {
             fromEntityToDataModel(it)
         } ?: emptyList()

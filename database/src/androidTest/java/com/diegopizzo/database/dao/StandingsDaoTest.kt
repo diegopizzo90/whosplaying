@@ -5,17 +5,17 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.diegopizzo.database.config.AppDatabase
-import com.diegopizzo.database.entity.StandingEntity
+import com.diegopizzo.database.entity.StandingsEntity
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class StandingDaoTest {
+class StandingsDaoTest {
 
     private lateinit var database: AppDatabase
-    private lateinit var dao: StandingDao
+    private lateinit var dao: StandingsDao
 
     @Before
     fun setUp() {
@@ -34,7 +34,7 @@ class StandingDaoTest {
     companion object {
         private const val LEAGUE_ID = 135L
         private val standings = listOf(
-            StandingEntity(
+            StandingsEntity(
                 "505",
                 "Inter",
                 "https://media.api-sports.io/football/teams/505.png",
@@ -50,7 +50,7 @@ class StandingDaoTest {
                 "15",
                 LEAGUE_ID
             ),
-            StandingEntity(
+            StandingsEntity(
                 "489",
                 "AC Milan",
                 "https://media.api-sports.io/football/teams/489.png",
@@ -66,7 +66,7 @@ class StandingDaoTest {
                 "22",
                 LEAGUE_ID
             ),
-            StandingEntity(
+            StandingsEntity(
                 "492",
                 "Napoli",
                 "https://media.api-sports.io/football/teams/492.png",

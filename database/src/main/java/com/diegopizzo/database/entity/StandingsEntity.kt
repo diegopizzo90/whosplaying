@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "standing", indices = [Index(value = ["nameTeam"], unique = true)])
-data class StandingEntity(
+@Entity(tableName = "standings", indices = [Index(value = ["nameTeam"], unique = true)])
+data class StandingsEntity(
     @PrimaryKey val idTeam: String,
     val nameTeam: String,
     val logoTeam: String,
@@ -19,5 +19,5 @@ data class StandingEntity(
     val lose: String,
     val scored: String,
     val against: String,
-    val standingLeagueId: Long
+    val standingsLeagueId: Long
 )

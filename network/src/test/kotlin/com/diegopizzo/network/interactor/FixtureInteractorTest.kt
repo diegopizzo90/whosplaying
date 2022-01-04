@@ -36,7 +36,7 @@ class FixtureInteractorTest {
     }
 
     @Test
-    fun getFixtureByLeagueIdAndByDate_fisrtItem_assertEqualsTrue() {
+    fun getFixtureByLeagueIdAndByDate_firstItem_assertEqualsTrue() {
         runBlocking {
             `when`(
                 cache.getFixturesByLeagueIdAndByDate(

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/standingItem"
-        android:title="@string/standing"
+        android:title="@string/standings"
         android:icon="@drawable/ic_ranking"
         app:showAsAction="ifRoom" />
 </menu>

@@ -1,17 +1,17 @@
 package com.diegopizzo.network.creator
 
-import com.diegopizzo.network.creator.standing.StandingModelCreator
+import com.diegopizzo.network.creator.standings.StandingsModelCreator
 import com.diegopizzo.network.model.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-class StandingModelCreatorTest {
-    private lateinit var creator: StandingModelCreator
+class StandingsModelCreatorTest {
+    private lateinit var creator: StandingsModelCreator
 
     @Before
     fun setUp() {
-        creator = StandingModelCreator()
+        creator = StandingsModelCreator()
     }
 
     @Test
@@ -21,13 +21,13 @@ class StandingModelCreatorTest {
     }
 
     companion object {
-        private val model = StandingModel(
+        private val model = StandingsModel(
             response = listOf(
-                ResponseStanding(
+                ResponseStandings(
                     LeagueData(
                         listOf(
                             listOf(
-                                Standing(
+                                Standings(
                                     "1",
                                     team = TeamEvent(
                                         505,
@@ -37,7 +37,7 @@ class StandingModelCreatorTest {
                                     "46",
                                     "34",
                                     "WWWWW",
-                                    all = AllStandingInfo(
+                                    all = AllStandingsInfo(
                                         "19",
                                         "14",
                                         "4",
@@ -49,7 +49,7 @@ class StandingModelCreatorTest {
                                     ),
                                     "2021-12-22T00:00:00+00:00"
                                 ),
-                                Standing(
+                                Standings(
                                     "2",
                                     team = TeamEvent(
                                         489,
@@ -59,7 +59,7 @@ class StandingModelCreatorTest {
                                     "42",
                                     "18",
                                     "WLDWW",
-                                    all = AllStandingInfo(
+                                    all = AllStandingsInfo(
                                         "19",
                                         "13",
                                         "3",
@@ -71,7 +71,7 @@ class StandingModelCreatorTest {
                                     ),
                                     "2021-12-22T00:00:00+00:00"
                                 ),
-                                Standing(
+                                Standings(
                                     "3",
                                     team = TeamEvent(
                                         492,
@@ -81,7 +81,7 @@ class StandingModelCreatorTest {
                                     "39",
                                     "21",
                                     "LWLLD",
-                                    all = AllStandingInfo(
+                                    all = AllStandingsInfo(
                                         "19",
                                         "12",
                                         "3",
@@ -102,7 +102,7 @@ class StandingModelCreatorTest {
     }
 
     private val dataModel = listOf(
-        StandingDataModel(
+        StandingsDataModel(
             "505",
             "Inter",
             "https://media.api-sports.io/football/teams/505.png",
@@ -117,7 +117,7 @@ class StandingModelCreatorTest {
             "49",
             "15"
         ),
-        StandingDataModel(
+        StandingsDataModel(
             "489",
             "AC Milan",
             "https://media.api-sports.io/football/teams/489.png",
@@ -132,7 +132,7 @@ class StandingModelCreatorTest {
             "40",
             "22"
         ),
-        StandingDataModel(
+        StandingsDataModel(
             "492",
             "Napoli",
             "https://media.api-sports.io/football/teams/492.png",

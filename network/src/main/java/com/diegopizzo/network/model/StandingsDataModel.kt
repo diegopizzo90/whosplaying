@@ -1,6 +1,6 @@
 package com.diegopizzo.network.model
 
-data class StandingDataModel(
+data class StandingsDataModel(
     val idTeam: String,
     val nameTeam: String,
     val logoTeam: String,

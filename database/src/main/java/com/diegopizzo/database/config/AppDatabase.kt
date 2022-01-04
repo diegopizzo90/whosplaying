@@ -7,10 +7,10 @@ import com.diegopizzo.database.dao.LeagueDao
 import com.diegopizzo.database.dao.StandingDao
 import com.diegopizzo.database.entity.FixtureEntity
 import com.diegopizzo.database.entity.LeagueEntity
-import com.diegopizzo.database.entity.StandingEntity
+import com.diegopizzo.database.entity.StandingsEntity
 
 @Database(
-    entities = [LeagueEntity::class, FixtureEntity::class, StandingEntity::class],
+    entities = [LeagueEntity::class, FixtureEntity::class, StandingsEntity::class],
     version = 1
 )
 abstract class AppDatabase : RoomDatabase() {

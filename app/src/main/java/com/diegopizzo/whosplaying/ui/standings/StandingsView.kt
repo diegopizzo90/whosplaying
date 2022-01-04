@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.diegopizzo.network.model.StandingDataModel
+import com.diegopizzo.network.model.StandingsDataModel
 import com.diegopizzo.whosplaying.R
 import com.diegopizzo.whosplaying.ui.component.attr.teal700
 import com.diegopizzo.whosplaying.ui.component.attr.tinyPadding
@@ -49,7 +49,7 @@ private fun VerticalDivider(modifier: Modifier) {
 }
 
 @Composable
-private fun StandingsItemRow(item: StandingDataModel, fontWeight: FontWeight? = null) {
+private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? = null) {
     ConstraintLayout {
         val (rank, divider1, name, divider2, points, played, win, draw, lose, scored, against, goalsDiff) = createRefs()
         StandingsItemCell(
@@ -199,7 +199,7 @@ private fun StandingsItemRow(item: StandingDataModel, fontWeight: FontWeight? = 
 
 @Composable
 private fun StandingsFirstRow() {
-    val item = StandingDataModel(
+    val item = StandingsDataModel(
         "",
         stringResource(R.string.team),
         "",
@@ -218,7 +218,7 @@ private fun StandingsFirstRow() {
 }
 
 @Composable
-fun Standings(standings: List<StandingDataModel>) {
+fun Standings(standings: List<StandingsDataModel>) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         item {
             StandingsFirstRow()
@@ -253,7 +253,7 @@ fun StandingsPreview() {
 }
 
 private val standings = listOf(
-    StandingDataModel(
+    StandingsDataModel(
         "505",
         "Inter",
         "https://media.api-sports.io/football/teams/505.png",
@@ -268,7 +268,7 @@ private val standings = listOf(
         "49",
         "15"
     ),
-    StandingDataModel(
+    StandingsDataModel(
         "489",
         "AC Milan",
         "https://media.api-sports.io/football/teams/489.png",
@@ -283,7 +283,7 @@ private val standings = listOf(
         "40",
         "22"
     ),
-    StandingDataModel(
+    StandingsDataModel(
         "492",
         "Napoli",
         "https://media.api-sports.io/football/teams/492.png",

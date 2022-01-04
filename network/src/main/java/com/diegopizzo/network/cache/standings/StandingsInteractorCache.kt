@@ -1,7 +1,7 @@
-package com.diegopizzo.network.cache.standing
+package com.diegopizzo.network.cache.standings
 
-import com.diegopizzo.network.cache.CacheConstant.STANDING_DURATION_MINUTES
-import com.diegopizzo.network.model.StandingModel
+import com.diegopizzo.network.cache.CacheConstant.STANDINGS_DURATION_MINUTES
+import com.diegopizzo.network.model.StandingsModel
 import com.diegopizzo.network.service.RetrofitApi
 import com.dropbox.android.external.store4.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -10,14 +10,14 @@ import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalCoroutinesApi::class, ExperimentalTime::class)
-internal class StandingInteractorCache(
+internal class StandingsInteractorCache(
     private val api: RetrofitApi,
-    private val ttlCache: Int = STANDING_DURATION_MINUTES
-) : IStandingInteractorCache {
+    private val ttlCache: Int = STANDINGS_DURATION_MINUTES
+) : IStandingsInteractorCache {
 
-    private val store: Store<StandingParameters, Response<StandingModel>> = StoreBuilder.from(
-        fetcher = Fetcher.of { key: StandingParameters ->
-            api.getStanding(
+    private val store: Store<StandingsParameters, Response<StandingsModel>> = StoreBuilder.from(
+        fetcher = Fetcher.of { key: StandingsParameters ->
+            api.getStandings(
                 key.season,
                 key.leagueId
             )
@@ -28,14 +28,14 @@ internal class StandingInteractorCache(
             .build()
     ).build()
 
-    override suspend fun getStanding(
+    override suspend fun getStandings(
         season: String,
         leagueId: String
-    ): Response<StandingModel> {
-        return store.get(StandingParameters(season, leagueId))
+    ): Response<StandingsModel> {
+        return store.get(StandingsParameters(season, leagueId))
     }
 
-    private data class StandingParameters(
+    private data class StandingsParameters(
         val leagueId: String,
         val season: String
     )
