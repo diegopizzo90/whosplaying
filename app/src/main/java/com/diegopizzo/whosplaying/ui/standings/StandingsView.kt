@@ -1,9 +1,11 @@
 package com.diegopizzo.whosplaying.ui.standings
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -15,6 +17,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.diegopizzo.network.model.StandingsDataModel
 import com.diegopizzo.whosplaying.R
+import com.diegopizzo.whosplaying.ui.component.attr.backgroundColor
 import com.diegopizzo.whosplaying.ui.component.attr.teal700
 import com.diegopizzo.whosplaying.ui.component.attr.tinyPadding
 import com.diegopizzo.whosplaying.ui.component.common.ComposeImage
@@ -62,7 +65,7 @@ private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? =
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
                 }
-                .fillMaxWidth(.02F)
+                .fillMaxWidth(.01F)
         )
         VerticalDivider(Modifier.constrainAs(divider1) {
             start.linkTo(rank.end)
@@ -114,7 +117,7 @@ private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? =
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
                 }
-                .fillMaxWidth(.04F)
+                .fillMaxWidth(.05F)
         )
 
         StandingsItemCell(
@@ -127,7 +130,7 @@ private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? =
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
                 }
-                .fillMaxWidth(.04F)
+                .fillMaxWidth(.05F)
         )
 
         StandingsItemCell(
@@ -140,7 +143,7 @@ private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? =
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
                 }
-                .fillMaxWidth(.04F)
+                .fillMaxWidth(.05F)
         )
 
         StandingsItemCell(
@@ -153,7 +156,7 @@ private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? =
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
                 }
-                .fillMaxWidth(.04F)
+                .fillMaxWidth(.05F)
         )
 
         StandingsItemCell(
@@ -166,7 +169,7 @@ private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? =
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
                 }
-                .fillMaxWidth(.04F)
+                .fillMaxWidth(.05F)
         )
 
         StandingsItemCell(
@@ -179,7 +182,7 @@ private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? =
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
                 }
-                .fillMaxWidth(.04F)
+                .fillMaxWidth(.05F)
         )
 
         StandingsItemCell(
@@ -219,7 +222,9 @@ private fun StandingsFirstRow() {
 
 @Composable
 fun Standings(standings: List<StandingsDataModel>) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
+    LazyColumn(modifier = Modifier
+        .fillMaxSize()
+        .background(MaterialTheme.colors.backgroundColor)) {
         item {
             StandingsFirstRow()
             Divider(color = teal700, thickness = 2.dp)
@@ -249,10 +254,10 @@ fun StandingsFirstRowPreview() {
 @Preview
 @Composable
 fun StandingsPreview() {
-    Standings(standings)
+    Standings(standingsMock)
 }
 
-private val standings = listOf(
+val standingsMock = listOf(
     StandingsDataModel(
         "505",
         "Inter",

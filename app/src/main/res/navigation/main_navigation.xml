@@ -30,4 +30,8 @@
         android:name="com.diegopizzo.whosplaying.ui.mainscreen.ligue1.Ligue1Fragment"
         android:label="Ligue1Fragment"
         tools:layout="@layout/fragment_ligue_1" />
+    <fragment
+        android:id="@+id/standingsFragment"
+        android:name="com.diegopizzo.whosplaying.ui.standings.StandingsFragment"
+        android:label="StandingsFragment" />
 </navigation>

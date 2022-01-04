@@ -2,7 +2,7 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/standingItem"
+        android:id="@+id/standingsFragment"
         android:title="@string/standings"
         android:icon="@drawable/ic_ranking"
         app:showAsAction="ifRoom" />
