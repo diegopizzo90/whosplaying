@@ -43,7 +43,7 @@ internal class MainViewModel(
         val leagueId = leagueRepository.getLeagueId(leagueName)
         if (leagueId != null) {
             val range = getLocalDateRange()
-            fixtureRepository.getFixtures(leagueId.toString(), range.first, range.second).collect {
+            fixtureRepository.getFixtures(leagueId, range.first, range.second).collect {
                 when {
                     it == null -> showError()
                     it.isEmpty() -> showError()

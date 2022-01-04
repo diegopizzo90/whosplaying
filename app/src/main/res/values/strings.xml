@@ -7,4 +7,16 @@
     <string name="ligue_1">Ligue1</string>
     <string name="no_events_available">No events available</string>
     <string name="match_events">Match events</string>
+    <string name="standing">Standing</string>
+    <string name="rank">#</string>
+    <string name="team">Teams</string>
+    <string name="points">Pts</string>
+    <string name="played">P</string>
+    <string name="win">W</string>
+    <string name="draw">D</string>
+    <string name="lose">L</string>
+    <string name="scored">F</string>
+    <string name="againsts">A</string>
+    <string name="goals_difference">+/-</string>
+    <string name="form">Form</string>
 </resources>
