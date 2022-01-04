@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.diegopizzo.database.dao.FixtureDao
 import com.diegopizzo.database.dao.LeagueDao
-import com.diegopizzo.database.dao.StandingDao
+import com.diegopizzo.database.dao.StandingsDao
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
@@ -23,7 +23,7 @@ val fixtureDaoModule = module {
 }
 
 val standingDaoModule = module {
-    single { provideStandingDao(get()) }
+    single { provideStandingsDao(get()) }
 }
 
 private fun provideDatabase(application: Application): AppDatabase {
@@ -40,6 +40,6 @@ private fun provideFixtureDao(database: AppDatabase): FixtureDao {
     return database.fixtureDao()
 }
 
-private fun provideStandingDao(database: AppDatabase): StandingDao {
-    return database.standingDao()
+private fun provideStandingsDao(database: AppDatabase): StandingsDao {
+    return database.standingsDao()
 }

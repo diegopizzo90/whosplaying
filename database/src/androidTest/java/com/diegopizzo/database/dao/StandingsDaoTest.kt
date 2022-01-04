@@ -21,7 +21,7 @@ class StandingsDaoTest {
     fun setUp() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
-        dao = database.standingDao()
+        dao = database.standingsDao()
     }
 
     @Test

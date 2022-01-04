@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.diegopizzo.database.dao.FixtureDao
 import com.diegopizzo.database.dao.LeagueDao
-import com.diegopizzo.database.dao.StandingDao
+import com.diegopizzo.database.dao.StandingsDao
 import com.diegopizzo.database.entity.FixtureEntity
 import com.diegopizzo.database.entity.LeagueEntity
 import com.diegopizzo.database.entity.StandingsEntity
@@ -16,5 +16,5 @@ import com.diegopizzo.database.entity.StandingsEntity
 abstract class AppDatabase : RoomDatabase() {
     abstract fun leagueDao(): LeagueDao
     abstract fun fixtureDao(): FixtureDao
-    abstract fun standingDao(): StandingDao
+    abstract fun standingsDao(): StandingsDao
 }
