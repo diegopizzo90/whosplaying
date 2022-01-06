@@ -36,7 +36,7 @@ internal class StandingsInteractorCache(
     }
 
     private data class StandingsParameters(
-        val leagueId: String,
-        val season: String
+        val season: String,
+        val leagueId: String
     )
 }
