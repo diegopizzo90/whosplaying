@@ -1,6 +1,6 @@
 package com.diegopizzo.network.cache.event
 
-import com.diegopizzo.network.cache.CacheConstant.EVENT_DURATION_SECONDS
+import com.diegopizzo.network.cache.CacheConstant.EVENT_DURATION_MILLIS
 import com.diegopizzo.network.model.EventModel
 import com.diegopizzo.network.service.RetrofitApi
 import com.dropbox.android.external.store4.*
@@ -13,7 +13,7 @@ import kotlin.time.ExperimentalTime
 @OptIn(ExperimentalCoroutinesApi::class, ExperimentalTime::class)
 internal class EventInteractorCache(
     private val api: RetrofitApi,
-    private val ttlCache: Int = EVENT_DURATION_SECONDS
+    private val ttlCache: Long = EVENT_DURATION_MILLIS
 ) : IEventInteractorCache {
 
     @OptIn(FlowPreview::class)
@@ -21,7 +21,7 @@ internal class EventInteractorCache(
         StoreBuilder.from(fetcher = Fetcher.of { key: Long -> api.getEventByFixtureId(key) })
             .cachePolicy(
                 MemoryPolicy.builder<Any, Any>()
-                    .setExpireAfterWrite(Duration.seconds(ttlCache))
+                    .setExpireAfterWrite(Duration.milliseconds(ttlCache))
                     .build()
             ).build()
 
