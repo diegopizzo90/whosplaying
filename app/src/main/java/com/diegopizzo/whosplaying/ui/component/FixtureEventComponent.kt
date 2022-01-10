@@ -5,11 +5,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import coil.compose.rememberImagePainter
 import com.diegopizzo.whosplaying.R
 import com.diegopizzo.whosplaying.ui.component.attr.smallPadding
 import com.diegopizzo.whosplaying.ui.component.attr.tinyPadding
@@ -99,8 +101,9 @@ private fun ComposeAwayEvent(
 @Composable
 private fun EventIcon(@DrawableRes drawableRes: Int) {
     Image(
-        painter = painterResource(id = drawableRes),
-        contentDescription = ""
+        painter = rememberImagePainter(drawableRes),
+        contentDescription = null,
+        modifier = Modifier.size(24.dp)
     )
 }
 
