@@ -271,8 +271,8 @@ private fun StandingsFirstRow2() {
 }
 
 @Composable
-fun Standings(standings: List<StandingsDataModel>) {
-    Row(Modifier.fillMaxSize()) {
+fun Standings(standings: List<StandingsDataModel>, modifier: Modifier = Modifier) {
+    Row(modifier.then(Modifier.fillMaxSize())) {
         LazyColumn(Modifier.fillMaxWidth(.5F)) {
             item {
                 StandingsFirstRow1()

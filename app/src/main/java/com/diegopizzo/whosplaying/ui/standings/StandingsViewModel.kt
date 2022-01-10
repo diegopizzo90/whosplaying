@@ -26,7 +26,7 @@ class StandingsViewModel(private val repository: IStandingsRepository) : ViewMod
     }
 
     suspend fun getStandings() {
-        viewState = viewState.copy(isLoading = true)
+        viewState = viewState.copy(standings = emptyList(), isLoading = true)
         val list = repository.getStandingsByLeague(viewState.leagueName)
         viewState = viewState.copy(standings = list, isLoading = false)
     }

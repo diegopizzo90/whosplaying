@@ -40,5 +40,5 @@ internal class DetailsScreenViewModel(private val eventRepository: IEventReposit
 
 internal data class FixtureDetailsViewState(
     val eventDataModel: EventDataModel = EventDataModel(),
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = false
 )
