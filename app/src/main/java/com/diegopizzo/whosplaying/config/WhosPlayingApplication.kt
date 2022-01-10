@@ -27,6 +27,7 @@ import com.diegopizzo.whosplaying.database.creator.league.leagueCreatorModule
 import com.diegopizzo.whosplaying.ui.detailsscreen.config.detailsScreenViewModelModule
 import com.diegopizzo.whosplaying.ui.mainscreen.config.mainViewModelModule
 import com.diegopizzo.whosplaying.ui.splashscreen.config.splashScreenViewModelModule
+import com.diegopizzo.whosplaying.ui.standings.config.standingsViewModelModule
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -63,7 +64,8 @@ class WhosPlayingApplication : Application() {
                 standingsRepositoryModule,
                 splashScreenViewModelModule,
                 mainViewModelModule,
-                detailsScreenViewModelModule
+                detailsScreenViewModelModule,
+                standingsViewModelModule
             )
         }
     }

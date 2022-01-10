@@ -3,6 +3,7 @@ package com.diegopizzo.whosplaying.ui.standings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
@@ -28,19 +29,22 @@ private fun StandingsItemCell(
     text: String,
     modifier: Modifier = Modifier,
     logo: String = "",
-    fontWeight: FontWeight? = null
+    fontWeight: FontWeight? = null,
+    horizontalArrangement: Arrangement.Horizontal = Arrangement.Center
 ) {
-    Row(modifier = modifier) {
+    Row(
+        modifier = modifier.then(Modifier.height(24.dp)),
+        horizontalArrangement = horizontalArrangement
+    ) {
         if (logo.isNotEmpty()) ComposeImage(
             logo,
             modifier = Modifier
-                .size(20.dp)
+                .size(24.dp)
                 .padding(end = tinyPadding)
         )
         SmallText(
             text = text,
             fontWeight = fontWeight,
-            modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center
         )
     }
@@ -52,22 +56,22 @@ private fun VerticalDivider(modifier: Modifier) {
 }
 
 @Composable
-private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? = null) {
-    ConstraintLayout {
-        val (rank, divider1, name, divider2, points, played, win, draw, lose, scored, against, goalsDiff) = createRefs()
+private fun StandingsItemRowFirst(item: StandingsDataModel, fontWeight: FontWeight? = null) {
+    ConstraintLayout(Modifier.background(MaterialTheme.colors.backgroundColor)) {
+        val (rank, verticalDivider, name, verticalDivider2, horizontalDivider) = createRefs()
         StandingsItemCell(
             item.rank,
             fontWeight = fontWeight,
             modifier = Modifier
                 .constrainAs(rank) {
                     start.linkTo(parent.start, margin = tinyPadding)
-                    end.linkTo(divider1.start)
+                    end.linkTo(verticalDivider.start)
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
+                    width = Dimension.percent(.15F)
                 }
-                .fillMaxWidth(.01F)
         )
-        VerticalDivider(Modifier.constrainAs(divider1) {
+        VerticalDivider(Modifier.constrainAs(verticalDivider) {
             start.linkTo(rank.end)
             end.linkTo(name.start, margin = tinyPadding)
             top.linkTo(parent.top)
@@ -80,31 +84,50 @@ private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? =
             fontWeight = fontWeight,
             modifier = Modifier
                 .constrainAs(name) {
-                    start.linkTo(divider1.end)
-                    end.linkTo(points.start)
+                    start.linkTo(verticalDivider.end)
+                    end.linkTo(verticalDivider2.start, margin = tinyPadding)
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
-                }
-                .fillMaxWidth(.35F)
+                    width = Dimension.percent(.75F)
+                },
+            horizontalArrangement = Arrangement.Start
         )
-        VerticalDivider(Modifier.constrainAs(divider2) {
+        VerticalDivider(Modifier.constrainAs(verticalDivider2) {
             start.linkTo(name.end)
-            end.linkTo(points.start, margin = tinyPadding)
+            end.linkTo(parent.end)
             top.linkTo(parent.top)
             bottom.linkTo(parent.bottom)
             height = Dimension.fillToConstraints
         })
+
+        Divider(color = teal700, thickness = 2.dp, modifier = Modifier
+            .constrainAs(horizontalDivider) {
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                top.linkTo(rank.bottom)
+            })
+    }
+}
+
+@Composable
+private fun StandingsItemRowSecond(item: StandingsDataModel, fontWeight: FontWeight? = null) {
+    ConstraintLayout(
+        Modifier
+            .background(MaterialTheme.colors.backgroundColor)
+            .fillMaxWidth()
+    ) {
+        val (points, played, win, draw, lose, scored, against, goalsDiff, form, horizontalDivider) = createRefs()
         StandingsItemCell(
             item.points,
             fontWeight = fontWeight,
             modifier = Modifier
                 .constrainAs(points) {
-                    start.linkTo(divider2.end, margin = tinyPadding)
+                    start.linkTo(parent.start, margin = tinyPadding)
                     end.linkTo(played.start, margin = tinyPadding)
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
+                    width = Dimension.percent(.1F)
                 }
-                .fillMaxWidth(.06F)
         )
 
         StandingsItemCell(
@@ -112,12 +135,12 @@ private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? =
             fontWeight = fontWeight,
             modifier = Modifier
                 .constrainAs(played) {
-                    start.linkTo(points.end, margin = tinyPadding)
-                    end.linkTo(win.start, margin = tinyPadding)
+                    start.linkTo(points.end)
+                    end.linkTo(win.start)
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
+                    width = Dimension.percent(.08F)
                 }
-                .fillMaxWidth(.05F)
         )
 
         StandingsItemCell(
@@ -129,8 +152,8 @@ private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? =
                     end.linkTo(draw.start, margin = tinyPadding)
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
+                    width = Dimension.percent(.08F)
                 }
-                .fillMaxWidth(.05F)
         )
 
         StandingsItemCell(
@@ -142,8 +165,8 @@ private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? =
                     end.linkTo(lose.start, margin = tinyPadding)
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
+                    width = Dimension.percent(.06F)
                 }
-                .fillMaxWidth(.05F)
         )
 
         StandingsItemCell(
@@ -155,8 +178,8 @@ private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? =
                     end.linkTo(scored.start, margin = tinyPadding)
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
+                    width = Dimension.percent(.08F)
                 }
-                .fillMaxWidth(.05F)
         )
 
         StandingsItemCell(
@@ -168,8 +191,8 @@ private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? =
                     end.linkTo(against.start, margin = tinyPadding)
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
+                    width = Dimension.percent(.08F)
                 }
-                .fillMaxWidth(.05F)
         )
 
         StandingsItemCell(
@@ -181,8 +204,8 @@ private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? =
                     end.linkTo(goalsDiff.start, margin = tinyPadding)
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
+                    width = Dimension.percent(.08F)
                 }
-                .fillMaxWidth(.05F)
         )
 
         StandingsItemCell(
@@ -191,64 +214,92 @@ private fun StandingsItemRow(item: StandingsDataModel, fontWeight: FontWeight? =
             modifier = Modifier
                 .constrainAs(goalsDiff) {
                     start.linkTo(against.end, margin = tinyPadding)
-                    end.linkTo(parent.end, margin = tinyPadding)
+                    end.linkTo(form.start, margin = tinyPadding)
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
+                    width = Dimension.percent(.08F)
                 }
-                .fillMaxWidth(.05F)
         )
+
+        StandingsItemCell(
+            item.form,
+            fontWeight = fontWeight,
+            modifier = Modifier
+                .constrainAs(form) {
+                    start.linkTo(goalsDiff.end, margin = tinyPadding)
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                    width = Dimension.percent(.2F)
+                }
+        )
+
+        Divider(color = teal700, thickness = 2.dp, modifier = Modifier
+            .constrainAs(horizontalDivider) {
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                top.linkTo(points.bottom)
+                width = Dimension.fillToConstraints
+            })
     }
 }
 
 @Composable
-private fun StandingsFirstRow() {
-    val item = StandingsDataModel(
-        "",
-        stringResource(R.string.team),
-        "",
-        stringResource(R.string.rank),
-        stringResource(R.string.points),
-        stringResource(R.string.goals_difference),
-        stringResource(R.string.form),
-        stringResource(R.string.played),
-        stringResource(R.string.win),
-        stringResource(R.string.draw),
-        stringResource(R.string.lose),
-        stringResource(R.string.scored),
-        stringResource(R.string.againsts)
-    )
-    StandingsItemRow(item, fontWeight = FontWeight.Bold)
+private fun firstItemModel() = StandingsDataModel(
+    "",
+    stringResource(R.string.team),
+    "",
+    stringResource(R.string.rank),
+    stringResource(R.string.points),
+    stringResource(R.string.goals_difference),
+    stringResource(R.string.form),
+    stringResource(R.string.played),
+    stringResource(R.string.win),
+    stringResource(R.string.draw),
+    stringResource(R.string.lose),
+    stringResource(R.string.scored),
+    stringResource(R.string.against)
+)
+
+@Composable
+private fun StandingsFirstRow1() {
+    StandingsItemRowFirst(firstItemModel(), fontWeight = FontWeight.Bold)
+}
+
+@Composable
+private fun StandingsFirstRow2() {
+    StandingsItemRowSecond(firstItemModel(), fontWeight = FontWeight.Bold)
 }
 
 @Composable
 fun Standings(standings: List<StandingsDataModel>) {
-    LazyColumn(modifier = Modifier
-        .fillMaxSize()
-        .background(MaterialTheme.colors.backgroundColor)) {
-        item {
-            StandingsFirstRow()
-            Divider(color = teal700, thickness = 2.dp)
-        }
-        items(
-            items = standings,
-            itemContent = {
-                StandingsItemRow(item = it)
-                Divider(color = teal700, thickness = 2.dp)
+    Row(Modifier.fillMaxSize()) {
+        LazyColumn(Modifier.fillMaxWidth(.5F)) {
+            item {
+                StandingsFirstRow1()
             }
-        )
+            items(
+                items = standings,
+                itemContent = {
+                    StandingsItemRowFirst(item = it)
+                }
+            )
+        }
+        LazyRow {
+            item {
+                LazyColumn {
+                    item {
+                        StandingsFirstRow2()
+                    }
+                    items(
+                        items = standings,
+                        itemContent = {
+                            StandingsItemRowSecond(item = it)
+                        }
+                    )
+                }
+            }
+        }
     }
-}
-
-@Preview
-@Composable
-fun StandingsItemColumnPreview() {
-    StandingsItemCell("Pos", logo = "")
-}
-
-@Preview
-@Composable
-fun StandingsFirstRowPreview() {
-    StandingsFirstRow()
 }
 
 @Preview

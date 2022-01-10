@@ -38,7 +38,6 @@ fun MyRow(
 ) {
     Column {
         Row(
-            verticalAlignment = Alignment.CenterVertically,
             content = content,
             modifier = Modifier
                 .fillMaxWidth()

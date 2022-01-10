@@ -86,7 +86,7 @@ private fun isHomeTeamEvent(homeId: Long, eventTeamId: Long): Boolean {
 @Preview
 @Composable
 private fun ComposeDetailsView() {
-    ComposeDetailsView(dataModel = dataModel)
+    ComposeDetailsView(dataModel)
 }
 
 val dataModel = EventDataModel(
@@ -176,7 +176,7 @@ val dataModel = EventDataModel(
             EventTypeDetail.PENALTY
         ),
         SingleEvent(
-            "90′ + 2′",
+            "90′+2′",
             518,
             "H. Çalhanoğlu",
             null,

@@ -34,7 +34,7 @@ fun ComposeFixturesDetails(
                     bottom.linkTo(parent.bottom, margin = smallPadding)
                 }) {
 
-                ComposeImage(logoHomeTeam)
+                ComposeImage(logoHomeTeam, modifier = Modifier.size(48.dp))
                 SmallText(homeTeam)
             }
 

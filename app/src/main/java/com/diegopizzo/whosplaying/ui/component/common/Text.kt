@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import com.diegopizzo.whosplaying.ui.component.attr.textColor
 
@@ -20,14 +21,21 @@ fun TinyText(text: String) {
 }
 
 @Composable
-fun SmallText(text: String, modifier: Modifier = Modifier, fontWeight: FontWeight? = null, textAlign: TextAlign? = null) {
+fun SmallText(
+    text: String,
+    modifier: Modifier = Modifier,
+    fontWeight: FontWeight? = null,
+    textAlign: TextAlign? = null
+) {
     Text(
         text = text,
         fontSize = 14.sp,
         color = MaterialTheme.colors.textColor,
         fontWeight = fontWeight,
         modifier = modifier,
-        textAlign = textAlign
+        textAlign = textAlign,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis
     )
 }
 

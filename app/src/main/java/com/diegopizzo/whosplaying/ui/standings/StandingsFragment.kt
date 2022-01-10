@@ -5,14 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.diegopizzo.network.model.StandingsDataModel
 import com.diegopizzo.whosplaying.ui.component.attr.WhosPlayingTheme
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class StandingsFragment : Fragment() {
+
+    private val viewModel: StandingsViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,8 +29,16 @@ class StandingsFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                AddContentView(listOf())
+                val state = viewModel.viewStates().observeAsState()
+                AddContentView(state.value?.standings ?: emptyList())
             }
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getStandings()
         }
     }
 
