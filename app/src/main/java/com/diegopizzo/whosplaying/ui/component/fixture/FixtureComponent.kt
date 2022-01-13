@@ -1,4 +1,4 @@
-package com.diegopizzo.whosplaying.ui.component
+package com.diegopizzo.whosplaying.ui.component.fixture
 
 import android.content.Context
 import android.util.AttributeSet

@@ -10,22 +10,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import com.diegopizzo.whosplaying.ui.component.attr.*
 
 @Composable
 fun MyCard(
     content: @Composable () -> Unit,
-    onClick: (() -> Unit)? = null
+    onClick: (() -> Unit)? = null,
+    elevation: Dp = 1.dp,
+    shape: Shape = MaterialTheme.shapes.medium,
+    padding: Dp = smallPadding
 ) {
     Card(
         backgroundColor = MaterialTheme.colors.card,
         content = content,
+        elevation = elevation,
+        shape = shape,
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(smallPadding)
+            .padding(padding)
             .clickable { onClick?.invoke() }
     )
 }
@@ -46,9 +54,7 @@ fun MyRow(
                 .clickable { onClick?.invoke() },
             horizontalArrangement = horizontalArrangement
         )
-        Divider(
-            color = teal700,
-        )
+        MyDivider()
     }
 }
 
