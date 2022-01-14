@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,10 +24,11 @@ fun MyCard(
     onClick: (() -> Unit)? = null,
     elevation: Dp = 1.dp,
     shape: Shape = MaterialTheme.shapes.medium,
-    padding: Dp = smallPadding
+    padding: Dp = smallPadding,
+    backgroundColor: Color = MaterialTheme.colors.card
 ) {
     Card(
-        backgroundColor = MaterialTheme.colors.card,
+        backgroundColor = backgroundColor,
         content = content,
         elevation = elevation,
         shape = shape,

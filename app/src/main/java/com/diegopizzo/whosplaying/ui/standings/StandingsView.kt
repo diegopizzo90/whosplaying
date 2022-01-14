@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,6 +21,7 @@ import com.diegopizzo.whosplaying.ui.component.attr.backgroundColor
 import com.diegopizzo.whosplaying.ui.component.attr.teal700
 import com.diegopizzo.whosplaying.ui.component.attr.tinyPadding
 import com.diegopizzo.whosplaying.ui.component.common.ComposeImage
+import com.diegopizzo.whosplaying.ui.component.common.MyDivider
 import com.diegopizzo.whosplaying.ui.component.common.SmallText
 
 @Composable
@@ -52,7 +52,7 @@ private fun StandingsItemCell(
 
 @Composable
 private fun VerticalDivider(modifier: Modifier) {
-    Divider(color = teal700, modifier = modifier.then(Modifier.width(1.dp)))
+    MyDivider(modifier = modifier.then(Modifier.width(1.dp)))
 }
 
 @Composable
@@ -100,7 +100,7 @@ private fun StandingsItemRowFirst(item: StandingsDataModel, fontWeight: FontWeig
             height = Dimension.fillToConstraints
         })
 
-        Divider(color = teal700, thickness = 2.dp, modifier = Modifier
+        MyDivider(color = teal700, thickness = 2.dp, modifier = Modifier
             .constrainAs(horizontalDivider) {
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
@@ -233,7 +233,7 @@ private fun StandingsItemRowSecond(item: StandingsDataModel, fontWeight: FontWei
                 }
         )
 
-        Divider(color = teal700, thickness = 2.dp, modifier = Modifier
+        MyDivider(color = teal700, thickness = 2.dp, modifier = Modifier
             .constrainAs(horizontalDivider) {
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
