@@ -19,4 +19,5 @@
     <string name="against">A</string>
     <string name="goals_difference">+/-</string>
     <string name="form">Form</string>
+    <string name="today">Today</string>
 </resources>

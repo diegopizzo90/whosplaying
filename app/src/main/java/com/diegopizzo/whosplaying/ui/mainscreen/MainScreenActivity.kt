@@ -8,6 +8,8 @@ import com.diegopizzo.network.interactor.league.LeagueName
 import com.diegopizzo.whosplaying.R
 import com.diegopizzo.whosplaying.databinding.ActivityMainBinding
 import com.diegopizzo.whosplaying.ui.base.ActivityViewBinding
+import com.diegopizzo.whosplaying.ui.component.attr.WhosPlayingTheme
+import com.diegopizzo.whosplaying.ui.component.datepickerslider.DatePickerSlider
 import com.diegopizzo.whosplaying.ui.standings.StandingsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -41,6 +43,15 @@ class MainScreenActivity : ActivityViewBinding<ActivityMainBinding>() {
             setOnMenuItemClickListener {
                 navController.navigate(R.id.standingsFragment)
                 true
+            }
+        }
+        setDatePickerSlider()
+    }
+
+    private fun setDatePickerSlider() {
+        binding.datePickerSlider.setContent {
+            WhosPlayingTheme {
+                DatePickerSlider()
             }
         }
     }

@@ -3,6 +3,7 @@ package com.diegopizzo.whosplaying.ui.component.datepickerslider
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -14,16 +15,21 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.diegopizzo.whosplaying.ui.component.attr.*
+import com.diegopizzo.whosplaying.R
+import com.diegopizzo.whosplaying.ui.component.attr.blueDark
+import com.diegopizzo.whosplaying.ui.component.attr.blueDark3
+import com.diegopizzo.whosplaying.ui.component.attr.smallPadding
+import com.diegopizzo.whosplaying.ui.component.attr.tinyPadding
 import com.diegopizzo.whosplaying.ui.component.common.DefaultText
 import com.diegopizzo.whosplaying.ui.component.common.MyCard
 import com.diegopizzo.whosplaying.ui.component.common.MyDivider
 import com.diegopizzo.whosplaying.ui.component.common.SmallText
-import com.diegopizzo.whosplaying.ui.component.datepickerslider.DateSlider.DaySlider
 import com.diegopizzo.whosplaying.ui.component.datepickerslider.DateSlider.NumberItemsVisible
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
 
 @Composable
 private fun DatePickerDay(
@@ -38,7 +44,7 @@ private fun DatePickerDay(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.then(
             Modifier
-                .background(if (isSelected) blueDark2 else blueDark)
+                .background(if (isSelected) blueDark3 else blueDark)
                 .clickable { onClick?.invoke() }
         )
     ) {
@@ -54,12 +60,10 @@ private fun DatePickerDay(
 
 @Composable
 fun DatePickerSlider(
-    dateSliderData: DateSlider,
-    optionText: String = "",
-    onOptionClick: (() -> Unit)? = null,
-    onDayClick: ((index: Int) -> Unit)? = null,
+    onDaySelected: ((date: LocalDate) -> Unit)? = null,
     numberItemsVisible: NumberItemsVisible = NumberItemsVisible.FIVE
 ) {
+    val dateSliderData = createDatePickerSliderModel()
     MyCard(
         elevation = 0.dp,
         shape = RoundedCornerShape(0.dp),
@@ -71,32 +75,47 @@ fun DatePickerSlider(
                 val daySliderList = dateSliderData.daySlider
                 val listState = rememberLazyListState()
                 val scope = rememberCoroutineScope()
-                val itemSelected = remember { mutableStateOf(dateSliderData.indexItemSelected) }
+                val itemSelected = remember { mutableStateOf(dateSliderData.indexItemCurrentDay) }
+                val year = remember { mutableStateOf(dateSliderData.currentYear) }
+                val month = remember { mutableStateOf(dateSliderData.currentMonth) }
+
+                fun onDayClicked(daySlider: DateSlider.DaySlider, index: Int) = run {
+                    val offset = numberItemsVisible.offset
+
+                    itemSelected.value = daySliderList.indexOf(daySlider)
+                    year.value = daySlider.year
+                    month.value = daySlider.month
+                    onDaySelected?.invoke(daySlider.fullDate)
+                    scope.launch {
+                        listState.animateScrollToItem(index - offset)
+                    }
+                }
 
                 BoxWithConstraints(Modifier.fillMaxWidth(), contentAlignment = Center) {
                     Row {
                         SmallText(
-                            text = dateSliderData.year,
+                            text = month.value,
                             Modifier.padding(vertical = tinyPadding, horizontal = tinyPadding)
                         )
                         SmallText(
-                            text = dateSliderData.month,
+                            text = year.value,
                             Modifier.padding(vertical = tinyPadding)
                         )
                     }
-                    SmallText(
-                        text = optionText,
-                        modifier = Modifier
-                            .clickable { onOptionClick?.invoke() }
-                            .align(Alignment.CenterEnd)
-                            .padding(vertical = tinyPadding, horizontal = smallPadding)
-                            .clickable { onOptionClick?.invoke() })
+                    SmallText(text = stringResource(R.string.today), modifier = Modifier
+                        .clickable {
+                            val indexCurrentDay = dateSliderData.indexItemCurrentDay
+                            onDayClicked(daySliderList[indexCurrentDay], indexCurrentDay)
+                        }
+                        .align(Alignment.CenterEnd)
+                        .padding(vertical = tinyPadding, horizontal = smallPadding))
                 }
                 LazyRow(state = listState) {
 
                     scope.launch {
-                        listState.animateScrollToItem(itemSelected.value - numberItemsVisible.offset)
+                        listState.scrollToItem(itemSelected.value - numberItemsVisible.offset)
                     }
+                    onDaySelected?.invoke(daySliderList[itemSelected.value].fullDate)
 
                     items(
                         items = daySliderList,
@@ -106,11 +125,7 @@ fun DatePickerSlider(
                                 dayNumber = it.dayNumber,
                                 isSelected = daySliderList.indexOf(it) == itemSelected.value,
                                 onClick = {
-                                    itemSelected.value = daySliderList.indexOf(it)
-                                    onDayClick?.invoke(daySliderList.indexOf(it))
-                                    scope.launch {
-                                        listState.animateScrollToItem(itemSelected.value - numberItemsVisible.offset)
-                                    }
+                                    onDayClicked(it, daySliderList.indexOf(it))
                                 },
                                 modifier = Modifier.fillParentMaxWidth(
                                     itemPercentage(numberItemsVisible.value)
@@ -123,24 +138,6 @@ fun DatePickerSlider(
             }
         })
 }
-
-data class DateSlider(
-    val year: String,
-    val month: String,
-    val daySlider: List<DaySlider>,
-    val indexItemSelected: Int
-) {
-    data class DaySlider(
-        val dayName: String,
-        val dayNumber: String
-    )
-
-    enum class NumberItemsVisible(val value: Int, val offset: Int) {
-        ONE(1, 0), THREE(3, 1), FIVE(5, 2)
-    }
-}
-
-private fun itemPercentage(numberItemsVisible: Int): Float = 1.div(numberItemsVisible.toFloat())
 
 @Preview
 @Composable
@@ -157,21 +154,5 @@ fun DatePickerDayPreview2() {
 @Preview
 @Composable
 fun DatePickerSliderPreview() {
-    DatePickerSlider(dateSliderData, "Today")
+    DatePickerSlider()
 }
-
-val dateSliderData = DateSlider(
-    "January", "2022", listOf(
-        DaySlider("Sun", "17"),
-        DaySlider("Mon", "18"),
-        DaySlider("Tue", "19"),
-        DaySlider("Wed", "20"),
-        DaySlider("Thu", "21"),
-        DaySlider("Fri", "22"),
-        DaySlider("Sat", "23"),
-        DaySlider("Sun", "24"),
-        DaySlider("Mon", "25"),
-        DaySlider("Tue", "26"),
-        DaySlider("Wed", "27")
-    ), 5
-)
