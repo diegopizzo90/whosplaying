@@ -13,9 +13,11 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.diegopizzo.whosplaying.R
 import com.diegopizzo.whosplaying.ui.component.attr.*
 
 @Composable
@@ -71,7 +73,7 @@ fun MySurface(content: @Composable () -> Unit) {
 fun MyScaffold(
     content: @Composable () -> Unit, modifier: Modifier = Modifier,
     navigationOnClick: (() -> Unit)? = null,
-    icon: ImageVector = Icons.Default.ArrowBack, title: String,
+    icon: ImageVector = Icons.Default.ArrowBack, title: String = stringResource(R.string.app_name),
 ) {
     Scaffold(
         modifier = modifier,

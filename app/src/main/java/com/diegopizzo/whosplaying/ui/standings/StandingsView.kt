@@ -18,6 +18,7 @@ import androidx.constraintlayout.compose.Dimension
 import com.diegopizzo.network.model.StandingsDataModel
 import com.diegopizzo.whosplaying.R
 import com.diegopizzo.whosplaying.ui.component.attr.backgroundColor
+import com.diegopizzo.whosplaying.ui.component.attr.row
 import com.diegopizzo.whosplaying.ui.component.attr.teal700
 import com.diegopizzo.whosplaying.ui.component.attr.tinyPadding
 import com.diegopizzo.whosplaying.ui.component.common.ComposeImage
@@ -57,7 +58,7 @@ private fun VerticalDivider(modifier: Modifier) {
 
 @Composable
 private fun StandingsItemRowFirst(item: StandingsDataModel, fontWeight: FontWeight? = null) {
-    ConstraintLayout(Modifier.background(MaterialTheme.colors.backgroundColor)) {
+    ConstraintLayout(Modifier.background(MaterialTheme.colors.row)) {
         val (rank, verticalDivider, name, verticalDivider2, horizontalDivider) = createRefs()
         StandingsItemCell(
             item.rank,
@@ -113,7 +114,7 @@ private fun StandingsItemRowFirst(item: StandingsDataModel, fontWeight: FontWeig
 private fun StandingsItemRowSecond(item: StandingsDataModel, fontWeight: FontWeight? = null) {
     ConstraintLayout(
         Modifier
-            .background(MaterialTheme.colors.backgroundColor)
+            .background(MaterialTheme.colors.row)
             .fillMaxWidth()
     ) {
         val (points, played, win, draw, lose, scored, against, goalsDiff, form, horizontalDivider) = createRefs()
@@ -272,7 +273,13 @@ private fun StandingsFirstRow2() {
 
 @Composable
 fun Standings(standings: List<StandingsDataModel>, modifier: Modifier = Modifier) {
-    Row(modifier.then(Modifier.fillMaxSize())) {
+    Row(
+        modifier.then(
+            Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.backgroundColor)
+        )
+    ) {
         LazyColumn(Modifier.fillMaxWidth(.5F)) {
             item {
                 StandingsFirstRow1()

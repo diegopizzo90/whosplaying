@@ -29,7 +29,7 @@ val Colors.row: Color
     get() = blueDark3
 
 val Colors.backgroundColor: Color
-    get() = blueDark3
+    get() = blueDark2
 
 val Colors.textColor: Color
     get() = white
