@@ -5,10 +5,9 @@ import com.diegopizzo.network.model.FixtureDataModel
 import com.diegopizzo.database.creator.fixture.FixtureCreator
 import com.diegopizzo.database.dao.FixtureDao
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.*
 import org.threeten.bp.LocalDate
 
 internal class FixtureRepository(
@@ -21,8 +20,9 @@ internal class FixtureRepository(
     override fun getFixtures(
         leagueId: String, from: LocalDate, to: LocalDate
     ): Flow<List<FixtureDataModel>?> {
-        return interactor.getFixturesByLeagueAndDate(leagueId, from, to)
+        return interactor.getFixturesByLeagueAndDate(leagueId, from, to).cancellable()
             .onEach { dataModelList ->
+                currentCoroutineContext().ensureActive()
                 dataModelList?.let {
                     fixtureDao.deleteAllByLeagueId(leagueId.toLong())
                     val entities = creator.toFixtureEntityArray(it, leagueId)

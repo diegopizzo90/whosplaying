@@ -3,16 +3,20 @@ package com.diegopizzo.whosplaying.ui.mainscreen
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.diegopizzo.network.interactor.league.LeagueName
 import com.diegopizzo.network.model.FixtureDataModel
 import com.diegopizzo.repository.fixture.IFixtureRepository
 import com.diegopizzo.repository.league.ILeagueRepository
 import com.diegopizzo.whosplaying.ui.base.SingleLiveEvent
+import com.diegopizzo.whosplaying.ui.component.datepickerslider.DatePickerSliderModel
+import com.diegopizzo.whosplaying.ui.component.datepickerslider.createDatePickerSliderModel
+import com.diegopizzo.whosplaying.ui.component.datepickerslider.indexCurrentDate
 import com.diegopizzo.whosplaying.ui.mainscreen.ViewEffect.*
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZonedDateTime
 
 internal class MainViewModel(
     private val leagueRepository: ILeagueRepository,
@@ -34,47 +38,70 @@ internal class MainViewModel(
             _viewStates.value = value
         }
 
+    private var job: Job? = null
+
     init {
-        viewState = MainViewState()
+        val datePickerList = createDatePickerSliderModel()
+        viewState = MainViewState(
+            datePickerSliderModel = datePickerList,
+            indexDateSelected = datePickerList.indexCurrentDate()
+        )
     }
 
-    suspend fun getFixturesByLeagueName(leagueName: LeagueName) {
+    fun getFixturesByLeagueName(leagueName: LeagueName, localDate: LocalDate? = null) {
+        if (localDate == null) return
         _viewEffects.value = ShowProgressBar
-        val leagueId = leagueRepository.getLeagueId(leagueName)
-        if (leagueId != null) {
-            val range = getLocalDateRange()
-            fixtureRepository.getFixtures(leagueId, range.first, range.second).collect {
-                when {
-                    it == null -> showError()
-                    it.isEmpty() -> showError()
-                    else -> {
-                        _viewEffects.value = ShowSuccessResult
-                        viewState = viewState.copy(fixtures = it)
+
+        job?.cancel() //Cancel previous requests
+        job = viewModelScope.launch {
+            val leagueId = leagueRepository.getLeagueId(leagueName)
+            if (leagueId != null) {
+                fixtureRepository.getFixtures(leagueId, localDate, localDate).collect {
+                    when {
+                        it == null || it.isEmpty() -> onError()
+                        else -> onSuccess(it)
                     }
                 }
-            }
-        } else showError()
+            } else onError()
+        }
     }
 
-    fun onFixtureSelected(fixtureId: Long) {
-        _viewEffects.value = ShowFixtureDetails(fixtureId)
+    private fun onSuccess(list: List<FixtureDataModel>) {
+        _viewEffects.value = ShowSuccessResult
+        viewState = viewState.copy(fixtures = list, updateFixture = false)
     }
 
-    private fun showError() {
+    private fun onError() {
+        viewState = viewState.copy(fixtures = emptyList(), updateFixture = false)
         _viewEffects.value = ShowErrorResult
     }
 
-    private fun getLocalDateRange(): Pair<LocalDate, LocalDate> {
-        val now = ZonedDateTime.now(ZoneId.systemDefault())
-        return Pair(now.minusDays(4).toLocalDate(), now.plusDays(4).toLocalDate())
+    fun onDaySelected(datePickerModel: DatePickerSliderModel) {
+        viewState = viewState.copy(
+            dateSelected = datePickerModel.fullDate,
+            indexDateSelected = datePickerModel.index,
+            fixtures = emptyList(),
+            updateFixture = true
+        )
+    }
+
+    fun onMenuNavigationSelected(name: LeagueName) {
+        viewState =
+            viewState.copy(leagueSelected = name, updateFixture = true, fixtures = emptyList())
     }
 }
 
-internal data class MainViewState(val fixtures: List<FixtureDataModel> = emptyList())
+internal data class MainViewState(
+    val fixtures: List<FixtureDataModel> = emptyList(),
+    val leagueSelected: LeagueName = LeagueName.SERIE_A,
+    val dateSelected: LocalDate? = null,
+    val updateFixture: Boolean = false,
+    val datePickerSliderModel: List<DatePickerSliderModel>,
+    val indexDateSelected: Int
+)
 
 internal sealed class ViewEffect {
     object ShowSuccessResult : ViewEffect()
     object ShowErrorResult : ViewEffect()
     object ShowProgressBar : ViewEffect()
-    data class ShowFixtureDetails(val id: Long) : ViewEffect()
 }

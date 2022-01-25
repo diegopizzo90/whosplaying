@@ -1,4 +1,4 @@
-package com.diegopizzo.whosplaying.ui.mainscreen.base
+package com.diegopizzo.whosplaying.ui.mainscreen.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,9 +7,9 @@ import com.diegopizzo.network.Util
 import com.diegopizzo.network.model.FixtureDataModel
 import com.diegopizzo.whosplaying.databinding.ItemFixtureBinding
 
-abstract class BaseAdapter(private val itemClickListener: (id: Long) -> Unit) :
-    RecyclerView.Adapter<BaseAdapter.BaseViewHolder>() {
-    protected val fixtureList: MutableList<FixtureDataModel> = mutableListOf()
+class FixtureAdapter(private val itemClickListener: (id: Long) -> Unit) :
+    RecyclerView.Adapter<FixtureAdapter.BaseViewHolder>() {
+    private val fixtureList: MutableList<FixtureDataModel> = mutableListOf()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
