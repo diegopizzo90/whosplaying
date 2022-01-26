@@ -2,7 +2,7 @@
 buildscript {
     ext {
         koin_version = "3.1.4"
-        room_version = "2.4.0"
+        room_version = "2.4.1"
         nav_version = "2.3.5"
         kotlin_coroutines = "1.5.2"
     }
