@@ -38,6 +38,7 @@
         <item name="android:background">@color/blue_dark</item>
         <item name="itemTextColor">@color/white</item>
         <item name="itemIconTint">@color/white</item>
+        <item name="itemBackground">@drawable/bg_bottom_navigation_item</item>
         <item name="itemTextAppearanceActive">@style/MyBottomNavigationViewText.Active</item>
         <item name="itemTextAppearanceInactive">@style/MyBottomNavigationViewText</item>
         <item name="labelVisibilityMode">labeled</item>
@@ -45,13 +46,13 @@
     </style>
 
     <style name="MyBottomNavigationViewText" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">9sp</item>
+        <item name="android:textSize">11sp</item>
         <item name="itemIconSize">20dp</item>
     </style>
 
     <style name="MyBottomNavigationViewText.Active" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">11sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="itemIconSize">20dp</item>
     </style>
     <!-- END Bottom Navigation View-->
 
