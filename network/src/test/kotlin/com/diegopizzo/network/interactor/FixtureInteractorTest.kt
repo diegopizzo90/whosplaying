@@ -96,7 +96,7 @@ class FixtureInteractorTest {
             ),
             FixtureDataModel(
                 1,
-                "2021-10-01T17:45:00+00:00",
+                "2021-10-01T18:45:00+00:00",
                 "NS",
                 null,
                 "Cagliari",
@@ -108,7 +108,7 @@ class FixtureInteractorTest {
             ),
             FixtureDataModel(
                 1,
-                "2021-10-01T18:45:00+00:00",
+                "2021-10-01T17:45:00+00:00",
                 "NS",
                 null,
                 "Cagliari",

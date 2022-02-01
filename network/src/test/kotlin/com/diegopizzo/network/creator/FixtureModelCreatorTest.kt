@@ -16,7 +16,6 @@ class FixtureModelCreatorTest {
         assertEquals(dataModel, actual)
     }
 
-
     companion object {
         private val model = FixtureModel(
             listOf(
@@ -41,15 +40,15 @@ class FixtureModelCreatorTest {
         private val dataModel = listOf(
             FixtureDataModel(
                 1,
-                "2021-10-01T18:45:00+00:00",
-                "1H",
-                "54",
-                "team5",
-                "team6",
-                "logoTeam5.it",
-                "logoTeam6.it",
-                "1",
-                "1"
+                "2021-10-03T18:45:00+00:00",
+                "NS",
+                null,
+                "team1",
+                "team2",
+                "logoTeam1.it",
+                "logoTeam2.it",
+                "",
+                ""
             ),
             FixtureDataModel(
                 1,
@@ -65,15 +64,15 @@ class FixtureModelCreatorTest {
             ),
             FixtureDataModel(
                 1,
-                "2021-10-03T18:45:00+00:00",
-                "NS",
-                null,
-                "team1",
-                "team2",
-                "logoTeam1.it",
-                "logoTeam2.it",
-                "",
-                ""
+                "2021-10-01T18:45:00+00:00",
+                "1H",
+                "54",
+                "team5",
+                "team6",
+                "logoTeam5.it",
+                "logoTeam6.it",
+                "1",
+                "1"
             )
         )
     }

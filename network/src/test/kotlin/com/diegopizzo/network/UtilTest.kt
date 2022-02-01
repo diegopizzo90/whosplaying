@@ -2,10 +2,14 @@ package com.diegopizzo.network
 
 import com.diegopizzo.network.CommonConstant.DATE_PATTERN
 import com.diegopizzo.network.CommonConstant.TIME_PATTERN
-import org.junit.Assert
+import com.diegopizzo.network.Util.toEndZoneDateTime
+import com.diegopizzo.network.Util.toStartZoneDateTime
+import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.threeten.bp.ZoneId
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalTime
 import org.threeten.bp.ZoneOffset
+import org.threeten.bp.ZonedDateTime
 
 class UtilTest {
 
@@ -16,7 +20,7 @@ class UtilTest {
             ZoneOffset.UTC,
             TIME_PATTERN
         )
-        Assert.assertEquals("18:45", date)
+        assertEquals("18:45", date)
     }
 
     @Test
@@ -26,24 +30,22 @@ class UtilTest {
             ZoneOffset.UTC,
             DATE_PATTERN
         )
-        Assert.assertEquals("Fri, 1 Oct 2021", date)
+        assertEquals("Fri, 1 Oct 2021", date)
     }
 
     @Test
-    fun areDatesWithoutTimesEquals_assertEqualsTrue() {
-        val isEquals = Util.areDatesWithoutTimesEquals(
-            "2021-10-01T18:45:00+00:00",
-            "2021-10-01T17:45:00+00:00"
-        )
-        Assert.assertEquals(isEquals, true)
+    fun toStartZoneDateTime_dateConverted_assertEqualsTrue() {
+        val localDate = LocalDate.of(2021, 11, 12)
+        val actual = localDate.toStartZoneDateTime()
+        val expected = ZonedDateTime.of(localDate, LocalTime.MIDNIGHT, ZoneOffset.UTC)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun areDatesWithoutTimesEquals_assertEqualsFalse() {
-        val isEquals = Util.areDatesWithoutTimesEquals(
-            "2021-10-01T18:45:00+00:00",
-            "2021-10-02T18:45:00+00:00"
-        )
-        Assert.assertEquals(isEquals, false)
+    fun toEndZoneDateTime_dateConverted_assertEqualsTrue() {
+        val localDate = LocalDate.of(2021, 11, 12)
+        val actual = localDate.toEndZoneDateTime()
+        val expected = ZonedDateTime.of(localDate, LocalTime.MAX, ZoneOffset.UTC)
+        assertEquals(expected, actual)
     }
 }
