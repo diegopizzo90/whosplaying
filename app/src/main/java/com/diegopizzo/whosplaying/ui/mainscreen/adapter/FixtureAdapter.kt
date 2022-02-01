@@ -3,7 +3,6 @@ package com.diegopizzo.whosplaying.ui.mainscreen.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.diegopizzo.network.Util
 import com.diegopizzo.network.model.FixtureDataModel
 import com.diegopizzo.whosplaying.databinding.ItemFixtureBinding
 
@@ -21,7 +20,7 @@ class FixtureAdapter(private val itemClickListener: (id: Long) -> Unit) :
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         val fixture = fixtureList[position]
-        holder.setFixture(fixture, position)
+        holder.setFixture(fixture)
     }
 
     override fun getItemCount(): Int {
@@ -36,27 +35,11 @@ class FixtureAdapter(private val itemClickListener: (id: Long) -> Unit) :
 
     inner class BaseViewHolder(private val binding: ItemFixtureBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun setFixture(fixtureDataModel: FixtureDataModel, position: Int) {
+        fun setFixture(fixtureDataModel: FixtureDataModel) {
             binding.itemFixtureId.setFixture(fixtureDataModel)
-            displayFixturesDateTime(position)
             binding.itemFixtureId.setOnClickListener {
                 itemClickListener(fixtureDataModel.fixtureId)
             }
-        }
-
-        private fun displayFixturesDateTime(position: Int) {
-            if (position > 0) {
-                val previousFixture = fixtureList[position - 1]
-                val newFixture = fixtureList[position]
-
-                if (Util.areDatesWithoutTimesEquals(
-                        previousFixture.dateTimeEventUtc, newFixture.dateTimeEventUtc
-                    )
-                ) {
-                    binding.itemFixtureId.hideDateEvent()
-                } else binding.itemFixtureId.showDateEvent()
-
-            } else binding.itemFixtureId.showDateEvent()
         }
     }
 }

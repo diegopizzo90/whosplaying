@@ -34,31 +34,12 @@ class FixtureComponent(context: Context, attributeSet: AttributeSet) :
                 setImageView(ivLogoAway, logoAwayTeam)
                 tvGoalHome.text = goalHomeTeam
                 tvGoalAway.text = goalAwayTeam
-                tvDateEvent.text = Util.convertUtcDateTimeToLocalDate(
-                    dateTimeEventUtc,
-                    ZoneId.systemDefault(),
-                    DATE_PATTERN
-                )
             }
         }
     }
 
     private fun setImageView(imageView: ImageView, logo: String) {
         Glide.with(this).load(logo).into(imageView)
-    }
-
-    fun hideDateEvent() {
-        binding.apply {
-            tvDateEvent.visibility = GONE
-            dividerHorizontal.visibility = GONE
-        }
-    }
-
-    fun showDateEvent() {
-        binding.apply {
-            tvDateEvent.visibility = VISIBLE
-            dividerHorizontal.visibility = VISIBLE
-        }
     }
 
     private fun getFixtureStatus(statusShort: String, elapsed: String?, timeEvent: String): String {
