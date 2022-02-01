@@ -2,6 +2,7 @@ package com.diegopizzo.database.dao
 
 import androidx.room.*
 import com.diegopizzo.database.entity.FixtureEntity
+import org.threeten.bp.ZonedDateTime
 
 @Dao
 interface FixtureDao {
@@ -12,10 +13,10 @@ interface FixtureDao {
     fun getAll(): List<FixtureEntity>?
 
     @Transaction
-    @Query("SELECT * FROM fixture WHERE fixtureLeagueId = :leagueId ORDER BY dateTimeEvent")
-    fun getFixturesByLeagueId(leagueId: Long): List<FixtureEntity>?
-
-    @Transaction
-    @Query("DELETE FROM fixture WHERE fixtureLeagueId = :leagueId")
-    fun deleteAllByLeagueId(leagueId: Long)
+    @Query("SELECT * FROM fixture WHERE fixtureLeagueId = :leagueId AND dateTimeEvent BETWEEN :from AND :to")
+    fun getFixturesByLeagueId(
+        leagueId: Long,
+        from: ZonedDateTime,
+        to: ZonedDateTime
+    ): List<FixtureEntity>?
 }
