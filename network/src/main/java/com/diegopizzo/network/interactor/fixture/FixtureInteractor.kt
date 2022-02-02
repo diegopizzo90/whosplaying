@@ -1,5 +1,6 @@
 package com.diegopizzo.network.interactor.fixture
 
+import com.diegopizzo.network.CommonConstant.SEASON
 import com.diegopizzo.network.cache.CacheConstant.DEFAULT_DURATION_MILLIS
 import com.diegopizzo.network.cache.fixture.IFixtureInteractorCache
 import com.diegopizzo.network.creator.fixture.FixtureModelCreator
@@ -24,7 +25,7 @@ internal class FixtureInteractor(
             while (true) {
                 val response = cache.getFixturesByLeagueIdAndByDate(
                     leagueId,
-                    LocalDate.now().year.toString(),
+                    SEASON,
                     from.format(DateTimeFormatter.ISO_DATE),
                     to.format(DateTimeFormatter.ISO_DATE)
                 )

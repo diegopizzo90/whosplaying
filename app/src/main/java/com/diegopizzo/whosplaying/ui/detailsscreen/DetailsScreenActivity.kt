@@ -13,7 +13,6 @@ import com.diegopizzo.network.model.EventDataModel
 import com.diegopizzo.whosplaying.R
 import com.diegopizzo.whosplaying.ui.component.attr.WhosPlayingTheme
 import com.diegopizzo.whosplaying.ui.component.common.MyScaffold
-import com.diegopizzo.whosplaying.ui.mainscreen.base.BaseFragmentLeague.Companion.FIXTURE_ID_KEY
 import com.valentinilk.shimmer.shimmer
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -43,10 +42,13 @@ class DetailsScreenActivity : ComponentActivity() {
     private fun AddContentView(dataModel: EventDataModel, isLoading: Boolean) {
         val modifier = if (isLoading) Modifier.shimmer() else Modifier
         MyScaffold(modifier = modifier,
-            title = stringResource(R.string.app_name),
             content = {
                 ComposeDetailsView(dataModel)
             }, navigationOnClick = { onBackPressed() })
+    }
+
+    companion object {
+        const val FIXTURE_ID_KEY = "FIXTURE_ID_KEY"
     }
 
     @Preview

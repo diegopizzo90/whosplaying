@@ -9,3 +9,4 @@ rootProject.name = "whosplaying"
 include ':app'
 include ':network'
 include ':database'
+include ':repository'

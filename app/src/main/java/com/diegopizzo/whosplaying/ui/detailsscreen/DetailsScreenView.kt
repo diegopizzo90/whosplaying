@@ -10,8 +10,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.diegopizzo.network.model.*
 import com.diegopizzo.whosplaying.R
-import com.diegopizzo.whosplaying.ui.component.ComposeEvent
-import com.diegopizzo.whosplaying.ui.component.ComposeFixturesDetails
+import com.diegopizzo.whosplaying.ui.component.fixture.ComposeEvent
+import com.diegopizzo.whosplaying.ui.component.fixture.ComposeFixturesDetails
 import com.diegopizzo.whosplaying.ui.component.attr.smallPadding
 import com.diegopizzo.whosplaying.ui.component.common.MediumText
 import com.diegopizzo.whosplaying.ui.component.common.MyCard
@@ -86,7 +86,7 @@ private fun isHomeTeamEvent(homeId: Long, eventTeamId: Long): Boolean {
 @Preview
 @Composable
 private fun ComposeDetailsView() {
-    ComposeDetailsView(dataModel = dataModel)
+    ComposeDetailsView(dataModel)
 }
 
 val dataModel = EventDataModel(
@@ -176,7 +176,7 @@ val dataModel = EventDataModel(
             EventTypeDetail.PENALTY
         ),
         SingleEvent(
-            "90′ + 2′",
+            "90′+2′",
             518,
             "H. Çalhanoğlu",
             null,

@@ -3,21 +3,12 @@ package com.diegopizzo.network.creator.fixture
 import com.diegopizzo.network.model.FixtureDataModel
 import com.diegopizzo.network.model.FixtureModel
 import com.diegopizzo.network.model.ResponseFixture
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.format.DateTimeFormatter
 import retrofit2.Response
 
 class FixtureModelCreator {
 
     fun toFixturesDataModel(fixtureModel: Response<FixtureModel>): List<FixtureDataModel>? {
-        val listSorted = fixtureModel.body()?.response?.map { it }
-            ?.sortedBy {
-                LocalDateTime.parse(
-                    it.fixture.date,
-                    DateTimeFormatter.ISO_OFFSET_DATE_TIME
-                )
-            }
-        return listSorted?.map {
+        return fixtureModel.body()?.response?.map {
             toFixtureDataModel(it)
         }
     }

@@ -9,12 +9,10 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
+        android:layout_height="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/toolbar_border"
         app:title="@string/app_name" />
 
     <View
@@ -26,6 +24,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/date_picker_slider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_border" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_nav_controller"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -35,16 +41,15 @@
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_border"
+        app:layout_constraintTop_toBottomOf="@+id/date_picker_slider"
         app:navGraph="@navigation/main_navigation"
-        tools:layout="@layout/fragment_serie_a" />
-
+        tools:layout="@layout/fragment_fixture" />
 
     <View
         android:id="@+id/bottom_navigation_border"
-        android:background="@color/teal_700"
         android:layout_width="0dp"
         android:layout_height="1dp"
+        android:background="@color/teal_700"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -52,7 +57,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

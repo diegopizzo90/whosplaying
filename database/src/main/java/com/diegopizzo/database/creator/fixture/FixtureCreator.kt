@@ -1,13 +1,15 @@
 package com.diegopizzo.database.creator.fixture
 
-import com.diegopizzo.network.model.FixtureDataModel
 import com.diegopizzo.database.entity.FixtureEntity
+import com.diegopizzo.network.Util.dateTimeFormatter
+import com.diegopizzo.network.model.FixtureDataModel
+import org.threeten.bp.ZonedDateTime
 
 class FixtureCreator {
     private fun toFixtureEntity(model: FixtureDataModel, leagueId: Long): FixtureEntity {
         return FixtureEntity(
             model.fixtureId,
-            dateTimeEvent = model.dateTimeEventUtc,
+            dateTimeEvent = ZonedDateTime.parse(model.dateTimeEventUtc, dateTimeFormatter),
             status = model.status,
             elapsed = model.elapsed,
             homeTeam = model.homeTeam,
@@ -20,7 +22,10 @@ class FixtureCreator {
         )
     }
 
-    fun toFixtureEntityArray(models: List<FixtureDataModel>, leagueId: String): Array<FixtureEntity> {
+    fun toFixtureEntityArray(
+        models: List<FixtureDataModel>,
+        leagueId: String
+    ): Array<FixtureEntity> {
         return models.map {
             toFixtureEntity(it, leagueId.toLong())
         }.toTypedArray()
@@ -29,7 +34,7 @@ class FixtureCreator {
     private fun toFixtureDataModel(entity: FixtureEntity): FixtureDataModel {
         return FixtureDataModel(
             entity.fixtureId,
-            entity.dateTimeEvent,
+            entity.dateTimeEvent.format(dateTimeFormatter),
             entity.status,
             entity.elapsed,
             entity.homeTeam,

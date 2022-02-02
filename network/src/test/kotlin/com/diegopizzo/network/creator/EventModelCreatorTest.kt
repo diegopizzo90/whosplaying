@@ -88,7 +88,7 @@ class EventModelCreatorTest {
                     EventTypeDetail.SUBSTITUTION_1
                 ),
                 SingleEvent(
-                    "90′ + 2′",
+                    "90′+2′",
                     517,
                     "S. Kiyine",
                     "D. Črnigoj",

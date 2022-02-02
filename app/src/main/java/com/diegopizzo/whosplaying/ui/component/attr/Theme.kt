@@ -28,6 +28,9 @@ val Colors.card: Color
 val Colors.row: Color
     get() = blueDark3
 
+val Colors.backgroundColor: Color
+    get() = blueDark2
+
 val Colors.textColor: Color
     get() = white
 

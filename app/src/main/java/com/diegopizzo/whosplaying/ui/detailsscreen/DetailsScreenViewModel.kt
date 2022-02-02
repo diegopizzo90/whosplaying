@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.diegopizzo.network.model.EventDataModel
-import com.diegopizzo.whosplaying.repository.event.IEventRepository
+import com.diegopizzo.repository.event.IEventRepository
 import kotlinx.coroutines.flow.collect
 
 internal class DetailsScreenViewModel(private val eventRepository: IEventRepository) : ViewModel() {
@@ -40,5 +40,5 @@ internal class DetailsScreenViewModel(private val eventRepository: IEventReposit
 
 internal data class FixtureDetailsViewState(
     val eventDataModel: EventDataModel = EventDataModel(),
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = false
 )

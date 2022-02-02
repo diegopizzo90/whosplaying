@@ -10,22 +10,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import com.diegopizzo.whosplaying.R
 import com.diegopizzo.whosplaying.ui.component.attr.*
 
 @Composable
 fun MyCard(
     content: @Composable () -> Unit,
-    onClick: (() -> Unit)? = null
+    onClick: (() -> Unit)? = null,
+    elevation: Dp = 1.dp,
+    shape: Shape = MaterialTheme.shapes.medium,
+    padding: Dp = smallPadding,
+    backgroundColor: Color = MaterialTheme.colors.card
 ) {
     Card(
-        backgroundColor = MaterialTheme.colors.card,
+        backgroundColor = backgroundColor,
         content = content,
+        elevation = elevation,
+        shape = shape,
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(smallPadding)
+            .padding(padding)
             .clickable { onClick?.invoke() }
     )
 }
@@ -38,7 +50,6 @@ fun MyRow(
 ) {
     Column {
         Row(
-            verticalAlignment = Alignment.CenterVertically,
             content = content,
             modifier = Modifier
                 .fillMaxWidth()
@@ -47,9 +58,7 @@ fun MyRow(
                 .clickable { onClick?.invoke() },
             horizontalArrangement = horizontalArrangement
         )
-        Divider(
-            color = teal700,
-        )
+        MyDivider()
     }
 }
 
@@ -64,7 +73,7 @@ fun MySurface(content: @Composable () -> Unit) {
 fun MyScaffold(
     content: @Composable () -> Unit, modifier: Modifier = Modifier,
     navigationOnClick: (() -> Unit)? = null,
-    icon: ImageVector = Icons.Default.ArrowBack, title: String,
+    icon: ImageVector = Icons.Default.ArrowBack, title: String = stringResource(R.string.app_name),
 ) {
     Scaffold(
         modifier = modifier,

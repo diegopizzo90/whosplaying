@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.diegopizzo.database.dao.FixtureDao
 import com.diegopizzo.database.dao.LeagueDao
+import com.diegopizzo.database.dao.StandingsDao
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
@@ -21,6 +22,10 @@ val fixtureDaoModule = module {
     single { provideFixtureDao(get()) }
 }
 
+val standingDaoModule = module {
+    single { provideStandingsDao(get()) }
+}
+
 private fun provideDatabase(application: Application): AppDatabase {
     return Room.databaseBuilder(application, AppDatabase::class.java, "whosplaying-db")
         .allowMainThreadQueries()
@@ -33,4 +38,8 @@ private fun provideLeagueDao(database: AppDatabase): LeagueDao {
 
 private fun provideFixtureDao(database: AppDatabase): FixtureDao {
     return database.fixtureDao()
+}
+
+private fun provideStandingsDao(database: AppDatabase): StandingsDao {
+    return database.standingsDao()
 }
