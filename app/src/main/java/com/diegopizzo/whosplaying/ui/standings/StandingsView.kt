@@ -231,7 +231,7 @@ private fun StandingsItemRowRightSide(item: StandingsDataModel, fontWeight: Font
                     bottom.linkTo(parent.bottom)
                     end.linkTo(parent.end)
                     width = Dimension.percent(.22F)
-                }.fillMaxWidth()
+                }
         )
 
         MyDivider(color = teal700, thickness = 2.dp, modifier = Modifier
@@ -240,7 +240,7 @@ private fun StandingsItemRowRightSide(item: StandingsDataModel, fontWeight: Font
                 end.linkTo(parent.end)
                 top.linkTo(points.bottom)
                 width = Dimension.fillToConstraints
-            }.fillMaxWidth())
+            })
     }
 }
 
