@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -57,7 +56,7 @@ private fun VerticalDivider(modifier: Modifier) {
 }
 
 @Composable
-private fun StandingsItemRowFirst(item: StandingsDataModel, fontWeight: FontWeight? = null) {
+private fun StandingsItemRowLeftSide(item: StandingsDataModel, fontWeight: FontWeight? = null) {
     ConstraintLayout(Modifier.background(MaterialTheme.colors.row)) {
         val (rank, verticalDivider, name, verticalDivider2, horizontalDivider) = createRefs()
         StandingsItemCell(
@@ -111,7 +110,7 @@ private fun StandingsItemRowFirst(item: StandingsDataModel, fontWeight: FontWeig
 }
 
 @Composable
-private fun StandingsItemRowSecond(item: StandingsDataModel, fontWeight: FontWeight? = null) {
+private fun StandingsItemRowRightSide(item: StandingsDataModel, fontWeight: FontWeight? = null) {
     ConstraintLayout(
         Modifier
             .background(MaterialTheme.colors.row)
@@ -230,8 +229,9 @@ private fun StandingsItemRowSecond(item: StandingsDataModel, fontWeight: FontWei
                     start.linkTo(goalsDiff.end, margin = tinyPadding)
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
-                    width = Dimension.percent(.2F)
-                }
+                    end.linkTo(parent.end)
+                    width = Dimension.percent(.22F)
+                }.fillMaxWidth()
         )
 
         MyDivider(color = teal700, thickness = 2.dp, modifier = Modifier
@@ -240,7 +240,7 @@ private fun StandingsItemRowSecond(item: StandingsDataModel, fontWeight: FontWei
                 end.linkTo(parent.end)
                 top.linkTo(points.bottom)
                 width = Dimension.fillToConstraints
-            })
+            }.fillMaxWidth())
     }
 }
 
@@ -262,47 +262,31 @@ private fun firstItemModel() = StandingsDataModel(
 )
 
 @Composable
-private fun StandingsFirstRow1() {
-    StandingsItemRowFirst(firstItemModel(), fontWeight = FontWeight.Bold)
-}
-
-@Composable
-private fun StandingsFirstRow2() {
-    StandingsItemRowSecond(firstItemModel(), fontWeight = FontWeight.Bold)
-}
-
-@Composable
 fun Standings(standings: List<StandingsDataModel>, modifier: Modifier = Modifier) {
-    Row(
+    LazyColumn(
         modifier.then(
             Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colors.backgroundColor)
         )
     ) {
-        LazyColumn(Modifier.fillMaxWidth(.5F)) {
-            item {
-                StandingsFirstRow1()
-            }
-            items(
-                items = standings,
-                itemContent = {
-                    StandingsItemRowFirst(item = it)
-                }
-            )
-        }
-        LazyRow {
-            item {
-                LazyColumn {
-                    item {
-                        StandingsFirstRow2()
+        item {
+            Row {
+                Column(Modifier.fillMaxWidth(.5F)) {
+                    StandingsItemRowLeftSide(firstItemModel(), FontWeight.Bold)
+                    repeat(standings.size) {
+                        StandingsItemRowLeftSide(item = standings[it])
                     }
-                    items(
-                        items = standings,
-                        itemContent = {
-                            StandingsItemRowSecond(item = it)
+                }
+                LazyRow {
+                    item {
+                        Column {
+                            StandingsItemRowRightSide(firstItemModel(), FontWeight.Bold)
+                            repeat(standings.size) {
+                                StandingsItemRowRightSide(item = standings[it])
+                            }
                         }
-                    )
+                    }
                 }
             }
         }
