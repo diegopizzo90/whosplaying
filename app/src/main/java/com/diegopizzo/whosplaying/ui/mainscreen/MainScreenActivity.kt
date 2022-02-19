@@ -25,8 +25,6 @@ class MainScreenActivity : ActivityViewBinding<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val navController =
-            (supportFragmentManager.findFragmentById(R.id.fragment_nav_controller) as NavHostFragment).navController
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.serieA -> mainViewModel.onMenuNavigationSelected(LeagueName.SERIE_A)
