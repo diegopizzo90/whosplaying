@@ -144,6 +144,17 @@ class RetrofitApiTest {
         }
     }
 
+    @Test
+    fun getStatistics_successResponse_assertEqualsTrue() {
+        server.enqueueResponse("statistics_success_response.json", 200)
+
+        runBlocking {
+            val actualValue = api.getStatistics(anyLong())
+
+            assertEquals(actualValue.body(), statistics)
+        }
+    }
+
     companion object {
         private val leagueInfo =
             LeagueInfo(140, "La Liga", "https://media.api-sports.io/football/leagues/140.png")
@@ -319,6 +330,52 @@ class RetrofitApiTest {
                                 )
                             )
                         )
+                    )
+                )
+            )
+        )
+
+        private val statistics = StatisticsModel(
+            listOf(
+                TeamStatistics(
+                    Team("497", "AS Roma"),
+                    listOf(
+                        Statistics("Shots on Goal", "3"),
+                        Statistics("Shots off Goal", "3"),
+                        Statistics("Total Shots", "7"),
+                        Statistics("Blocked Shots", "1"),
+                        Statistics("Shots insidebox", "5"),
+                        Statistics("Shots outsidebox", "2"),
+                        Statistics("Fouls", "18"),
+                        Statistics("Corner Kicks", "4"),
+                        Statistics("Offsides", "1"),
+                        Statistics("Ball Possession", "58%"),
+                        Statistics("Yellow Cards", "3"),
+                        Statistics("Red Cards", null),
+                        Statistics("Goalkeeper Saves", "1"),
+                        Statistics("Total passes", "495"),
+                        Statistics("Passes accurate", "374"),
+                        Statistics("Passes %", "76%")
+                    )
+                ), TeamStatistics(
+                    Team("504", "Verona"),
+                    listOf(
+                        Statistics("Shots on Goal", "3"),
+                        Statistics("Shots off Goal", null),
+                        Statistics("Total Shots", "5"),
+                        Statistics("Blocked Shots", "2"),
+                        Statistics("Shots insidebox", "3"),
+                        Statistics("Shots outsidebox", "2"),
+                        Statistics("Fouls", "14"),
+                        Statistics("Corner Kicks", "2"),
+                        Statistics("Offsides", "3"),
+                        Statistics("Ball Possession", "42%"),
+                        Statistics("Yellow Cards", "2"),
+                        Statistics("Red Cards", null),
+                        Statistics("Goalkeeper Saves", "1"),
+                        Statistics("Total passes", "375"),
+                        Statistics("Passes accurate", "272"),
+                        Statistics("Passes %", "73%")
                     )
                 )
             )

@@ -18,7 +18,9 @@ internal class EventInteractor(
         return flow {
             while (true) {
                 val response = cache.getEventByFixtureId(fixtureId)
-                val dataModel = creator.toEventDataModel(response.body())
+                val statisticsResponse = cache.getStatistics(fixtureId)
+
+                val dataModel = creator.toEventDataModel(response.body(), statisticsResponse.body())
                 emit(dataModel)
                 delay(refreshIntervalMs)
             }

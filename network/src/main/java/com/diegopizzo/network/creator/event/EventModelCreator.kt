@@ -1,10 +1,12 @@
 package com.diegopizzo.network.creator.event
 
 import com.diegopizzo.network.model.*
+import com.diegopizzo.network.model.EventStatistics.StatisticsDataModel
+import com.diegopizzo.network.model.EventStatistics.StatisticsType
 
 class EventModelCreator {
 
-    fun toEventDataModel(model: EventModel?): EventDataModel? {
+    fun toEventDataModel(model: EventModel?, statisticsModel: StatisticsModel?): EventDataModel? {
         if (model == null) return null
         val response = model.response.first()
         val fixture = response.fixture
@@ -27,7 +29,8 @@ class EventModelCreator {
             logoAwayTeam = awayTeam.logo,
             scoreHomeTeam = goals.home?.toString() ?: "0",
             scoreAwayTeam = goals.away?.toString() ?: "0",
-            events = events.map { toSingleEvent(it) }
+            events = events.map { toSingleEvent(it) },
+            statistics = statisticsModel?.let { toEventStatistics(it) } ?: emptyList()
         )
     }
 
@@ -40,5 +43,17 @@ class EventModelCreator {
             type = event.type,
             detail = event.detail ?: EventTypeDetail.NOT_AVAILABLE
         )
+    }
+
+    private fun toEventStatistics(statisticsModel: StatisticsModel): List<EventStatistics> {
+        return statisticsModel.response.map {
+            EventStatistics(it.team.id.toLong(), toStatisticsType(it.statistics))
+        }
+    }
+
+    private fun toStatisticsType(statistics: List<Statistics>): List<StatisticsDataModel> {
+        return statistics.map {
+            StatisticsDataModel(StatisticsType.getByValue(it.type), it.value ?: "0")
+        }
     }
 }

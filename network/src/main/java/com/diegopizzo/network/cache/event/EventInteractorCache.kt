@@ -2,6 +2,7 @@ package com.diegopizzo.network.cache.event
 
 import com.diegopizzo.network.cache.CacheConstant.EVENT_DURATION_MILLIS
 import com.diegopizzo.network.model.EventModel
+import com.diegopizzo.network.model.StatisticsModel
 import com.diegopizzo.network.service.RetrofitApi
 import com.dropbox.android.external.store4.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -17,8 +18,17 @@ internal class EventInteractorCache(
 ) : IEventInteractorCache {
 
     @OptIn(FlowPreview::class)
-    private val store: Store<Long, Response<EventModel>> =
+    private val eventStore: Store<Long, Response<EventModel>> =
         StoreBuilder.from(fetcher = Fetcher.of { key: Long -> api.getEventByFixtureId(key) })
+            .cachePolicy(
+                MemoryPolicy.builder<Any, Any>()
+                    .setExpireAfterWrite(Duration.milliseconds(ttlCache))
+                    .build()
+            ).build()
+
+    @OptIn(FlowPreview::class)
+    private val statisticsStore: Store<Long, Response<StatisticsModel>> =
+        StoreBuilder.from(fetcher = Fetcher.of { key: Long -> api.getStatistics(key) })
             .cachePolicy(
                 MemoryPolicy.builder<Any, Any>()
                     .setExpireAfterWrite(Duration.milliseconds(ttlCache))
@@ -27,6 +37,10 @@ internal class EventInteractorCache(
 
 
     override suspend fun getEventByFixtureId(fixtureId: Long): Response<EventModel> {
-        return store.get(fixtureId)
+        return eventStore.get(fixtureId)
+    }
+
+    override suspend fun getStatistics(fixtureId: Long): Response<StatisticsModel> {
+        return statisticsStore.get(fixtureId)
     }
 }

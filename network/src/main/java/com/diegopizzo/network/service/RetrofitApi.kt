@@ -1,9 +1,6 @@
 package com.diegopizzo.network.service
 
-import com.diegopizzo.network.model.EventModel
-import com.diegopizzo.network.model.FixtureModel
-import com.diegopizzo.network.model.LeagueModel
-import com.diegopizzo.network.model.StandingsModel
+import com.diegopizzo.network.model.*
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -31,4 +28,7 @@ interface RetrofitApi {
         @Query("season") season: String,
         @Query("league") leagueId: String
     ): Response<StandingsModel>
+
+    @GET("fixtures/statistics")
+    suspend fun getStatistics(@Query("fixture") fixtureId: Long): Response<StatisticsModel>
 }
