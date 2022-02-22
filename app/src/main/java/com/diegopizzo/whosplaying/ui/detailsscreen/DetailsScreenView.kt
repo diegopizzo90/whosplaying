@@ -10,8 +10,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.diegopizzo.network.model.*
 import com.diegopizzo.whosplaying.R
-import com.diegopizzo.whosplaying.ui.component.fixture.ComposeEvent
-import com.diegopizzo.whosplaying.ui.component.fixture.ComposeFixturesDetails
+import com.diegopizzo.whosplaying.ui.detailsscreen.event.ComposeEvent
+import com.diegopizzo.whosplaying.ui.detailsscreen.event.ComposeEventScoreBoard
 import com.diegopizzo.whosplaying.ui.component.attr.smallPadding
 import com.diegopizzo.whosplaying.ui.component.common.MediumText
 import com.diegopizzo.whosplaying.ui.component.common.MyCard
@@ -19,7 +19,7 @@ import com.diegopizzo.whosplaying.ui.component.common.MyCard
 @Composable
 fun ComposeDetailsView(dataModel: EventDataModel) {
     Column {
-        ComposeFixturesDetails(
+        ComposeEventScoreBoard(
             dataModel.logoHomeTeam,
             dataModel.homeTeam,
             dataModel.scoreHomeTeam,

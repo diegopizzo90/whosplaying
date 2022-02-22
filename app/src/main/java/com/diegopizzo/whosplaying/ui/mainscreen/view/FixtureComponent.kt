@@ -1,4 +1,4 @@
-package com.diegopizzo.whosplaying.ui.component.fixture
+package com.diegopizzo.whosplaying.ui.mainscreen.view
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
-import com.diegopizzo.network.CommonConstant.DATE_PATTERN
 import com.diegopizzo.network.CommonConstant.TIME_PATTERN
 import com.diegopizzo.network.Util
 import com.diegopizzo.network.model.FixtureDataModel

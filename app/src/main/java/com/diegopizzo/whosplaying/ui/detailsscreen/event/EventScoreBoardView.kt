@@ -1,4 +1,4 @@
-package com.diegopizzo.whosplaying.ui.component.fixture
+package com.diegopizzo.whosplaying.ui.detailsscreen.event
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -12,7 +12,7 @@ import com.diegopizzo.whosplaying.ui.component.attr.tinyPadding
 import com.diegopizzo.whosplaying.ui.component.common.*
 
 @Composable
-fun ComposeFixturesDetails(
+fun ComposeEventScoreBoard(
     logoHomeTeam: String,
     homeTeam: String,
     scoreHomeTeam: String,
@@ -82,7 +82,7 @@ private fun ComposeMatchScore(
 @Preview
 @Composable
 private fun FixturesDetailsPreview() {
-    ComposeFixturesDetails(
+    ComposeEventScoreBoard(
         "",
         "AC Milan",
         "3",

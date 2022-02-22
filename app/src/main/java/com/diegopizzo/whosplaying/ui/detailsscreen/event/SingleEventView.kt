@@ -1,4 +1,4 @@
-package com.diegopizzo.whosplaying.ui.component.fixture
+package com.diegopizzo.whosplaying.ui.detailsscreen.event
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
