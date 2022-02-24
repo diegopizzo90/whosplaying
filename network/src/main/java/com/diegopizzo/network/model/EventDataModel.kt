@@ -1,5 +1,8 @@
 package com.diegopizzo.network.model
 
+import com.diegopizzo.network.model.EventStatistics.StatisticsFormat.INT
+import com.diegopizzo.network.model.EventStatistics.StatisticsFormat.PERCENT
+
 data class EventDataModel(
     val fixtureId: Long = 0L,
     val dateTimeEventUtc: String = "",
@@ -26,23 +29,33 @@ data class SingleEvent(
     val detail: EventTypeDetail
 )
 
-data class EventStatistics(val idTeam: Long, val statistics: List<StatisticsDataModel>) {
+data class EventStatistics(
+    val idTeamHome: Long,
+    val idTeamAway: Long,
+    val type: StatisticsType? = null,
+    val valueTeamHome: String,
+    val valueTeamAway: String,
+    val percentageValueTeamHome: Float,
+    val percentageValueTeamAway: Float,
+) {
 
-    data class StatisticsDataModel(val type: StatisticsType? = null, val value: String?)
-
-    enum class StatisticsType(val value: String) {
+    enum class StatisticsType(val value: String, val format: StatisticsFormat = INT) {
         SHOTS_ON_GOAL("Shots on Goal"), SHOTS_OFF_GOAL("Shots off Goal"),
         TOTAL_SHOTS("Total Shots"), BLOCKED_SHOTS("Blocked Shots"),
         SHOTS_INSIDE_BOX("Shots insidebox"), SHOTS_OUTSIDE_BOX("Shots outsidebox"),
         FOULS("Fouls"), CORNER_KICKS("Corner Kicks"), OFFSIDES("Offsides"),
-        BALL_POSSESSION("Ball Possession"), YELLOW_CARDS("Yellow Cards"),
+        BALL_POSSESSION("Ball Possession", PERCENT), YELLOW_CARDS("Yellow Cards"),
         RED_CARDS("Red Cards"), GOALKEEPER_SAVES("Goalkeeper Saves"),
         TOTAL_PASSES("Total passes"), PASSES_ACCURATE("Passes accurate"),
-        PASSES("Passes %");
+        PASSES("Passes %", PERCENT);
 
         companion object {
             fun getByValue(value: String) = values().firstOrNull { it.value == value }
         }
+    }
+
+    enum class StatisticsFormat {
+        INT, PERCENT
     }
 }
 

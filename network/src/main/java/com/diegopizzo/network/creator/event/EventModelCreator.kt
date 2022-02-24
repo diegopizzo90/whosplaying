@@ -1,8 +1,11 @@
 package com.diegopizzo.network.creator.event
 
 import com.diegopizzo.network.model.*
-import com.diegopizzo.network.model.EventStatistics.StatisticsDataModel
+import com.diegopizzo.network.model.EventStatistics.StatisticsFormat
+import com.diegopizzo.network.model.EventStatistics.StatisticsFormat.PERCENT
 import com.diegopizzo.network.model.EventStatistics.StatisticsType
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class EventModelCreator {
 
@@ -46,14 +49,57 @@ class EventModelCreator {
     }
 
     private fun toEventStatistics(statisticsModel: StatisticsModel): List<EventStatistics> {
-        return statisticsModel.response.map {
-            EventStatistics(it.team.id.toLong(), toStatisticsType(it.statistics))
+        val response = statisticsModel.response
+        val teamsId = response.run {
+            Pair(component1().team.id.toLong(), component2().team.id.toLong())
+        }
+
+        val homeTeamStatistics = response.first().statistics
+        val awayTeamStatistics = response.component2().statistics
+
+        return homeTeamStatistics.zip(awayTeamStatistics) { home, away ->
+            val statisticsType = StatisticsType.getByValue(home.type)
+            val valueTeamHome = home.value?.filter { it.isDigit() } ?: "0"
+            val valueTeamAway = away.value?.filter { it.isDigit() } ?: "0"
+            val percentage =
+                calculatePercentageStatisticsValues(valueTeamHome.toInt(), valueTeamAway.toInt(), statisticsType?.format)
+
+            EventStatistics(
+                teamsId.first,
+                teamsId.second,
+                statisticsType,
+                addFormat(valueTeamHome, statisticsType?.format),
+                addFormat(valueTeamAway, statisticsType?.format),
+                percentage.first,
+                percentage.second
+            )
         }
     }
 
-    private fun toStatisticsType(statistics: List<Statistics>): List<StatisticsDataModel> {
-        return statistics.map {
-            StatisticsDataModel(StatisticsType.getByValue(it.type), it.value ?: "0")
+    private fun calculatePercentageStatisticsValues(
+        homeValue: Int,
+        awayValue: Int,
+        format: StatisticsFormat?
+    ): Pair<Float, Float> {
+        val totalCount = homeValue + awayValue
+        val homeValueF =
+            if (format == PERCENT) homeValue.toFloat() / 100 else roundOffDecimal(homeValue.toFloat() / totalCount)
+        val awayValueF =
+            if (format == PERCENT) awayValue.toFloat() / 100 else roundOffDecimal(awayValue.toFloat() / totalCount)
+        return Pair(homeValueF, awayValueF)
+    }
+
+    private fun roundOffDecimal(number: Float): Float {
+        if (number.isNaN()) return 0.0f
+        val df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.CEILING
+        return df.format(number).toFloat()
+    }
+
+    private fun addFormat(str: String, format: StatisticsFormat?): String {
+        return when (format) {
+            PERCENT -> "$str%"
+            else -> str
         }
     }
 }

@@ -2,7 +2,6 @@ package com.diegopizzo.network.creator
 
 import com.diegopizzo.network.creator.event.EventModelCreator
 import com.diegopizzo.network.model.*
-import com.diegopizzo.network.model.EventStatistics.StatisticsDataModel
 import com.diegopizzo.network.model.EventStatistics.StatisticsType.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -114,45 +113,22 @@ class EventModelCreatorTest {
         )
 
         private val statisticsDataModel = listOf(
-            EventStatistics(
-                497, listOf(
-                    StatisticsDataModel(SHOTS_ON_GOAL, "3"),
-                    StatisticsDataModel(SHOTS_OFF_GOAL, "3"),
-                    StatisticsDataModel(TOTAL_SHOTS, "7"),
-                    StatisticsDataModel(BLOCKED_SHOTS, "1"),
-                    StatisticsDataModel(SHOTS_INSIDE_BOX, "5"),
-                    StatisticsDataModel(SHOTS_OUTSIDE_BOX, "2"),
-                    StatisticsDataModel(FOULS, "18"),
-                    StatisticsDataModel(CORNER_KICKS, "4"),
-                    StatisticsDataModel(OFFSIDES, "1"),
-                    StatisticsDataModel(BALL_POSSESSION, "58%"),
-                    StatisticsDataModel(YELLOW_CARDS, "3"),
-                    StatisticsDataModel(RED_CARDS, "0"),
-                    StatisticsDataModel(GOALKEEPER_SAVES, "1"),
-                    StatisticsDataModel(TOTAL_PASSES, "495"),
-                    StatisticsDataModel(PASSES_ACCURATE, "374"),
-                    StatisticsDataModel(PASSES, "76%")
-                )
-            ), EventStatistics(
-                504, listOf(
-                    StatisticsDataModel(SHOTS_ON_GOAL, "3"),
-                    StatisticsDataModel(SHOTS_OFF_GOAL, "0"),
-                    StatisticsDataModel(TOTAL_SHOTS, "5"),
-                    StatisticsDataModel(BLOCKED_SHOTS, "2"),
-                    StatisticsDataModel(SHOTS_INSIDE_BOX, "3"),
-                    StatisticsDataModel(SHOTS_OUTSIDE_BOX, "2"),
-                    StatisticsDataModel(FOULS, "14"),
-                    StatisticsDataModel(CORNER_KICKS, "2"),
-                    StatisticsDataModel(OFFSIDES, "3"),
-                    StatisticsDataModel(BALL_POSSESSION, "42%"),
-                    StatisticsDataModel(YELLOW_CARDS, "2"),
-                    StatisticsDataModel(RED_CARDS, "0"),
-                    StatisticsDataModel(GOALKEEPER_SAVES, "1"),
-                    StatisticsDataModel(TOTAL_PASSES, "375"),
-                    StatisticsDataModel(PASSES_ACCURATE, "272"),
-                    StatisticsDataModel(PASSES, "73%")
-                )
-            )
+            EventStatistics(497, 504, SHOTS_ON_GOAL, "3", "3", 0.5f, 0.5f),
+            EventStatistics(497, 504, SHOTS_OFF_GOAL, "3", "0", 1.0f, 0.0f),
+            EventStatistics(497, 504, TOTAL_SHOTS, "7", "5", 0.59f, 0.42f),
+            EventStatistics(497, 504, BLOCKED_SHOTS, "1", "2", 0.34f, 0.67f),
+            EventStatistics(497, 504, SHOTS_INSIDE_BOX, "5", "3", 0.63f, 0.38f),
+            EventStatistics(497, 504, SHOTS_OUTSIDE_BOX, "2", "2", .5f, .5f),
+            EventStatistics(497, 504, FOULS, "18", "14", 0.57f, 0.44f),
+            EventStatistics(497, 504, CORNER_KICKS, "4", "2", 0.67f, 0.34f),
+            EventStatistics(497, 504, OFFSIDES, "1", "3", 0.25f, 0.75f),
+            EventStatistics(497, 504, BALL_POSSESSION, "58%", "42%", 0.58f, 0.42f),
+            EventStatistics(497, 504, YELLOW_CARDS, "3", "2", 0.61f, 0.41f),
+            EventStatistics(497, 504, RED_CARDS, "0", "0", 0.0f, 0.0f),
+            EventStatistics(497, 504, GOALKEEPER_SAVES, "1", "1", .5f, .5f),
+            EventStatistics(497, 504, TOTAL_PASSES, "495", "375", 0.57f, 0.44f),
+            EventStatistics(497, 504, PASSES_ACCURATE, "374", "272", 0.58f, 0.43f),
+            EventStatistics(497, 504, PASSES, "76%", "73%", .76f, .73f)
         )
 
         private val dataModel = EventDataModel(
