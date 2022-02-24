@@ -12,8 +12,10 @@ import com.diegopizzo.whosplaying.ui.base.FragmentViewBinding
 import com.diegopizzo.whosplaying.ui.detailsscreen.DetailsScreenActivity
 import com.diegopizzo.whosplaying.ui.detailsscreen.DetailsScreenActivity.Companion.FIXTURE_ID_KEY
 import com.diegopizzo.whosplaying.ui.mainscreen.adapter.FixtureAdapter
+import com.google.accompanist.pager.ExperimentalPagerApi
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
+@ExperimentalPagerApi
 class FixtureFragment : FragmentViewBinding<FragmentFixtureBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentFixtureBinding

@@ -13,10 +13,12 @@ import com.diegopizzo.network.model.EventDataModel
 import com.diegopizzo.whosplaying.R
 import com.diegopizzo.whosplaying.ui.component.attr.WhosPlayingTheme
 import com.diegopizzo.whosplaying.ui.component.common.MyScaffold
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.valentinilk.shimmer.shimmer
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@ExperimentalPagerApi
 class DetailsScreenActivity : ComponentActivity() {
 
     private val viewModel: DetailsScreenViewModel by viewModel()

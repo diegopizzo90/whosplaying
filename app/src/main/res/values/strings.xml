@@ -21,4 +21,20 @@
     <string name="goals_difference">+/-</string>
     <string name="form">Form</string>
     <string name="today">Today</string>
+    <string name="shots_on_goal">Shots on goal</string>
+    <string name="shots_off_goal">Shots off goal</string>
+    <string name="total_shots">Total shots</string>
+    <string name="blocked_shots">Blocked shots</string>
+    <string name="shots_inside_box">Shots inside box</string>
+    <string name="shots_outside_box">Shots outside box</string>
+    <string name="fouls">Fouls</string>
+    <string name="corner_kicks">Corner kicks</string>
+    <string name="offsides">Offsides</string>
+    <string name="ball_possession">Ball possession</string>
+    <string name="yellow_cards">Yellow cards</string>
+    <string name="red_cards">Red cards</string>
+    <string name="goalkeeper_saves">Goalkeeper saves</string>
+    <string name="total_passes">Total passes</string>
+    <string name="passes_accurate">Passes accurate</string>
+    <string name="passes_percentage">Passes %</string>
 </resources>

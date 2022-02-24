@@ -1,21 +1,21 @@
 package com.diegopizzo.whosplaying.ui.detailsscreen
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.diegopizzo.network.model.*
+import com.diegopizzo.network.model.EventStatistics.StatisticsType.*
 import com.diegopizzo.whosplaying.R
+import com.diegopizzo.whosplaying.ui.component.viewpager.TabViewPager
 import com.diegopizzo.whosplaying.ui.detailsscreen.event.ComposeEvent
 import com.diegopizzo.whosplaying.ui.detailsscreen.event.ComposeEventScoreBoard
-import com.diegopizzo.whosplaying.ui.component.attr.smallPadding
-import com.diegopizzo.whosplaying.ui.component.common.MediumText
-import com.diegopizzo.whosplaying.ui.component.common.MyCard
+import com.diegopizzo.whosplaying.ui.detailsscreen.statistics.StatisticsView
+import com.google.accompanist.pager.ExperimentalPagerApi
 
+@ExperimentalPagerApi
 @Composable
 fun ComposeDetailsView(dataModel: EventDataModel) {
     Column {
@@ -28,30 +28,30 @@ fun ComposeDetailsView(dataModel: EventDataModel) {
             dataModel.scoreAwayTeam,
             dataModel.status.long
         )
-        MyCard(content = {
-            Column {
-                MediumText(
-                    text = stringResource(R.string.match_events),
-                    modifier = Modifier.padding(smallPadding)
-                )
-                LazyColumn {
-                    items(
-                        items = dataModel.events,
-                        itemContent = {
-                            val eventPair = getEventDrawableAndDetail(it.type, it.detail)
+        TabViewPager(
+            tabList = listOf(
+                stringResource(R.string.match_events),
+                stringResource(R.string.statistics)
+            )
+        ) {
+            when (it) {
+                stringResource(R.string.match_events) -> {
+                    LazyColumn {
+                        items(items = dataModel.events, itemContent = { event ->
+                            val eventPair = getEventDrawableAndDetail(event.type, event.detail)
                             ComposeEvent(
-                                it.elapsedEvent,
-                                eventPair.first,
-                                it.mainPlayer,
-                                it.secondPlayer,
-                                eventPair.second,
-                                isHomeTeamEvent(dataModel.homeTeamId, it.idTeamEvent)
+                                event.elapsedEvent, eventPair.first,
+                                event.mainPlayer, event.secondPlayer, eventPair.second,
+                                isHomeTeamEvent(dataModel.homeTeamId, event.idTeamEvent)
                             )
-                        }
-                    )
+                        })
+                    }
+                }
+                stringResource(R.string.statistics) -> {
+                    StatisticsView(dataModel.statistics)
                 }
             }
-        })
+        }
     }
 }
 
@@ -83,6 +83,7 @@ private fun isHomeTeamEvent(homeId: Long, eventTeamId: Long): Boolean {
     return homeId == eventTeamId
 }
 
+@ExperimentalPagerApi
 @Preview
 @Composable
 private fun ComposeDetailsView() {
@@ -183,5 +184,22 @@ val dataModel = EventDataModel(
             EventType.CARD,
             EventTypeDetail.RED_CARD
         )
+    ), statistics = listOf(
+        EventStatistics(497, 504, SHOTS_ON_GOAL, "3", "3", 0.5f, 0.5f),
+        EventStatistics(497, 504, SHOTS_OFF_GOAL, "3", "0", 1.0f, 0.0f),
+        EventStatistics(497, 504, TOTAL_SHOTS, "7", "5", 0.59f, 0.42f),
+        EventStatistics(497, 504, BLOCKED_SHOTS, "1", "2", 0.34f, 0.67f),
+        EventStatistics(497, 504, SHOTS_INSIDE_BOX, "5", "3", 0.63f, 0.38f),
+        EventStatistics(497, 504, SHOTS_OUTSIDE_BOX, "2", "2", .5f, .5f),
+        EventStatistics(497, 504, FOULS, "18", "14", 0.57f, 0.44f),
+        EventStatistics(497, 504, CORNER_KICKS, "4", "2", 0.67f, 0.34f),
+        EventStatistics(497, 504, OFFSIDES, "1", "3", 0.25f, 0.75f),
+        EventStatistics(497, 504, BALL_POSSESSION, "58%", "42%", 0.58f, 0.42f),
+        EventStatistics(497, 504, YELLOW_CARDS, "3", "2", 0.61f, 0.41f),
+        EventStatistics(497, 504, RED_CARDS, "0", "0", 0.0f, 0.0f),
+        EventStatistics(497, 504, GOALKEEPER_SAVES, "1", "1", .5f, .5f),
+        EventStatistics(497, 504, TOTAL_PASSES, "495", "375", 0.57f, 0.44f),
+        EventStatistics(497, 504, PASSES_ACCURATE, "374", "272", 0.58f, 0.43f),
+        EventStatistics(497, 504, PASSES, "76%", "73%", .76f, .73f)
     )
 )

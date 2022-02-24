@@ -46,6 +46,7 @@ fun MyCard(
 fun MyRow(
     content: @Composable RowScope.() -> Unit,
     horizontalArrangement: Arrangement.Horizontal,
+    verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
     onClick: (() -> Unit)? = null,
 ) {
     Column {
@@ -56,7 +57,8 @@ fun MyRow(
                 .wrapContentHeight()
                 .background(color = MaterialTheme.colors.row)
                 .clickable { onClick?.invoke() },
-            horizontalArrangement = horizontalArrangement
+            horizontalArrangement = horizontalArrangement,
+            verticalAlignment = verticalAlignment
         )
         MyDivider()
     }
