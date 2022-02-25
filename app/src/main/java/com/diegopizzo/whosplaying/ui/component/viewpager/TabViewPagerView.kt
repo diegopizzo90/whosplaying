@@ -52,7 +52,6 @@ fun TabViewPager(
             MyCard(content = {
                 Column(
                     modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     tabSelected.value = tabList[index]
