@@ -2,6 +2,7 @@ package com.diegopizzo.network.cache.event
 
 import com.diegopizzo.network.cache.CacheConstant.EVENT_DURATION_MILLIS
 import com.diegopizzo.network.model.EventModel
+import com.diegopizzo.network.model.LineupsModel
 import com.diegopizzo.network.model.StatisticsModel
 import com.diegopizzo.network.service.RetrofitApi
 import com.dropbox.android.external.store4.*
@@ -35,6 +36,14 @@ internal class EventInteractorCache(
                     .build()
             ).build()
 
+    @OptIn(FlowPreview::class)
+    private val lineupsStore: Store<Long, Response<LineupsModel>> =
+        StoreBuilder.from(fetcher = Fetcher.of { key: Long -> api.getLineups(key) })
+            .cachePolicy(
+                MemoryPolicy.builder<Any, Any>()
+                    .setExpireAfterWrite(Duration.milliseconds(ttlCache))
+                    .build()
+            ).build()
 
     override suspend fun getEventByFixtureId(fixtureId: Long): Response<EventModel> {
         return eventStore.get(fixtureId)
@@ -42,5 +51,9 @@ internal class EventInteractorCache(
 
     override suspend fun getStatistics(fixtureId: Long): Response<StatisticsModel> {
         return statisticsStore.get(fixtureId)
+    }
+
+    override suspend fun getLineups(fixtureId: Long): Response<LineupsModel> {
+        return lineupsStore.get(fixtureId)
     }
 }

@@ -4,12 +4,13 @@ import com.diegopizzo.network.model.*
 import com.diegopizzo.network.model.EventStatistics.StatisticsFormat
 import com.diegopizzo.network.model.EventStatistics.StatisticsFormat.PERCENT
 import com.diegopizzo.network.model.EventStatistics.StatisticsType
+import com.diegopizzo.network.model.LineupsDataModel.PlayerDataModel
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
 class EventModelCreator {
 
-    fun toEventDataModel(model: EventModel?, statisticsModel: StatisticsModel?): EventDataModel? {
+    fun toEventDataModel(model: EventModel?, statisticsModel: StatisticsModel?, lineupsModel: LineupsModel?): EventDataModel? {
         if (model == null) return null
         val response = model.response.first()
         val fixture = response.fixture
@@ -33,7 +34,8 @@ class EventModelCreator {
             scoreHomeTeam = goals.home?.toString() ?: "0",
             scoreAwayTeam = goals.away?.toString() ?: "0",
             events = events.map { toSingleEvent(it) },
-            statistics = statisticsModel?.let { toEventStatistics(it) } ?: emptyList()
+            statistics = statisticsModel?.let { toEventStatistics(it) } ?: emptyList(),
+            lineups = toLineupsDataModel(lineupsModel)
         )
     }
 
@@ -62,7 +64,11 @@ class EventModelCreator {
             val valueTeamHome = home.value?.filter { it.isDigit() } ?: "0"
             val valueTeamAway = away.value?.filter { it.isDigit() } ?: "0"
             val percentage =
-                calculatePercentageStatisticsValues(valueTeamHome.toInt(), valueTeamAway.toInt(), statisticsType?.format)
+                calculatePercentageStatisticsValues(
+                    valueTeamHome.toInt(),
+                    valueTeamAway.toInt(),
+                    statisticsType?.format
+                )
 
             EventStatistics(
                 teamsId.first,
@@ -74,6 +80,43 @@ class EventModelCreator {
                 percentage.second
             )
         }
+    }
+
+    private fun toLineupsDataModel(model: LineupsModel?): LineupsDataModel? {
+        if (model == null) return null
+        val homeTeamModel = model.response.first()
+        val awayTeamModel = model.response.component2()
+
+        fun createLineupPlayer(player: PlayerLineup): PlayerDataModel {
+            return PlayerDataModel(player.id, player.name, player.number, player.pos)
+        }
+
+        return LineupsDataModel(
+            homeTeamLineup = LineupsDataModel.TeamLineup(
+                homeTeamModel.team.id,
+                homeTeamModel.team.name,
+                homeTeamModel.coach.name,
+                homeTeamModel.formation,
+                startEleven = homeTeamModel.startXI.map {
+                    createLineupPlayer(it.player)
+                },
+                substitutions = homeTeamModel.substitutes.map {
+                    createLineupPlayer(it.player)
+                }
+            ),
+            awayTeamLineup = LineupsDataModel.TeamLineup(
+                awayTeamModel.team.id,
+                awayTeamModel.team.name,
+                awayTeamModel.coach.name,
+                awayTeamModel.formation,
+                startEleven = awayTeamModel.startXI.map {
+                    createLineupPlayer(it.player)
+                },
+                substitutions = awayTeamModel.substitutes.map {
+                    createLineupPlayer(it.player)
+                }
+            )
+        )
     }
 
     private fun calculatePercentageStatisticsValues(

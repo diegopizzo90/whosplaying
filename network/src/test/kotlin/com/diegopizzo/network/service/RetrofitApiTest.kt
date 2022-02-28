@@ -155,6 +155,17 @@ class RetrofitApiTest {
         }
     }
 
+    @Test
+    fun getLineups_successResponse_assertEqualsTrue() {
+        server.enqueueResponse("lineup_success_response.json", 200)
+
+        runBlocking {
+            val actualValue = api.getLineups(anyLong())
+
+            assertEquals(actualValue.body(), lineupsModel)
+        }
+    }
+
     companion object {
         private val leagueInfo =
             LeagueInfo(140, "La Liga", "https://media.api-sports.io/football/leagues/140.png")
@@ -377,6 +388,47 @@ class RetrofitApiTest {
                         Statistics("Passes accurate", "272"),
                         Statistics("Passes %", "73%")
                     )
+                )
+            )
+        )
+
+        private val lineupsModel = LineupsModel(
+            listOf(
+                Lineup(
+                    TeamLineup(497, "AS Roma"),
+                    CoachLineup(2462, "José Mourinho"),
+                    "3-4-1-2",
+                    startXI = listOf(
+                        StartEleven(PlayerLineup(2674, "Rui Patrício", "1", "G", "1:1")),
+                        StartEleven(PlayerLineup(892, "C. Smalling", "6", "D", "2:3")),
+                        StartEleven(PlayerLineup(770, "R. Karsdorp", "2", "D", "2:2")),
+                        StartEleven(PlayerLineup(30924, "M. Kumbulla", "24", "D", "2:1")),
+                        StartEleven(PlayerLineup(51572, "M. Viña", "5", "M", "3:4")),
+                        StartEleven(PlayerLineup(2375, "Sérgio Oliveira", "27", "M", "3:3")),
+                        StartEleven(PlayerLineup(778, "B. Cristante", "4", "M", "3:2")),
+                        StartEleven(PlayerLineup(1456, "A. Maitland-Niles", "15", "M", "3:1")),
+                        StartEleven(PlayerLineup(782, "L. Pellegrini", "7", "F", "4:1")),
+                        StartEleven(PlayerLineup(19194, "T. Abraham", "9", "F", "5:2")),
+                        StartEleven(PlayerLineup(342038, "F. Afena-Gyan", "64", "F", "5:1"))
+                    ),
+                    substitutes = listOf(
+                        Substitutes(PlayerLineup(30409, "J. Veretout", "17", "M", null)),
+                        Substitutes(PlayerLineup(203474, "N. Zalewski", "59", "F", null)),
+                        Substitutes(PlayerLineup(342035, "C. Volpato", "62", "M", null)),
+                        Substitutes(PlayerLineup(286475, "E. Bove", "52", "M", null)),
+                        Substitutes(PlayerLineup(763, "Daniel Fuzato", "87", "G", null)),
+                        Substitutes(PlayerLineup(342653, "F. Missori", "58", "D", null)),
+                        Substitutes(PlayerLineup(342071, "D. Mastrantonio", "67", "G", null)),
+                        Substitutes(PlayerLineup(324, "A. Diawara", "42", "M", null)),
+                        Substitutes(PlayerLineup(343385, "D. Keramitsis", "75", "D", null)),
+                        Substitutes(PlayerLineup(158059, "E. Darboe", "55", "M", null))
+                    )
+                ), Lineup(
+                    TeamLineup(504, "Verona"),
+                    CoachLineup(2432, "I. Tudor"),
+                    "3-4-2-1",
+                    startXI = emptyList(),
+                    substitutes = emptyList()
                 )
             )
         )

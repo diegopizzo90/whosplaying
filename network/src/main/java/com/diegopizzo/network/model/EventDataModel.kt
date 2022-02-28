@@ -17,8 +17,13 @@ data class EventDataModel(
     val scoreHomeTeam: String = "0",
     val scoreAwayTeam: String = "0",
     val events: List<SingleEvent> = emptyList(),
-    val statistics: List<EventStatistics> = emptyList()
-)
+    val statistics: List<EventStatistics> = emptyList(),
+    val lineups: LineupsDataModel? = null
+) {
+    companion object {
+        private const val NO_TEAM = "No Team"
+    }
+}
 
 data class SingleEvent(
     val elapsedEvent: String,
@@ -59,4 +64,18 @@ data class EventStatistics(
     }
 }
 
-private const val NO_TEAM = "No Team"
+data class LineupsDataModel(
+    val homeTeamLineup: TeamLineup,
+    val awayTeamLineup: TeamLineup
+) {
+    data class TeamLineup(
+        val teamId: Long,
+        val teamName: String,
+        val coachName: String,
+        val formation: String,
+        val startEleven: List<PlayerDataModel>,
+        val substitutions: List<PlayerDataModel>
+    )
+
+    data class PlayerDataModel(val id: Long, val name: String, val number: String, val pos: String)
+}

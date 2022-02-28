@@ -31,4 +31,7 @@ interface RetrofitApi {
 
     @GET("fixtures/statistics")
     suspend fun getStatistics(@Query("fixture") fixtureId: Long): Response<StatisticsModel>
+
+    @GET("fixtures/lineups")
+    suspend fun getLineups(@Query("fixture") fixtureId: Long): Response<LineupsModel>
 }
