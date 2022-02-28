@@ -12,6 +12,7 @@ import com.diegopizzo.whosplaying.R
 import com.diegopizzo.whosplaying.ui.component.viewpager.TabViewPager
 import com.diegopizzo.whosplaying.ui.detailsscreen.event.ComposeEvent
 import com.diegopizzo.whosplaying.ui.detailsscreen.event.ComposeEventScoreBoard
+import com.diegopizzo.whosplaying.ui.detailsscreen.lineups.LineupsView
 import com.diegopizzo.whosplaying.ui.detailsscreen.statistics.StatisticsView
 import com.google.accompanist.pager.ExperimentalPagerApi
 
@@ -31,7 +32,8 @@ fun ComposeDetailsView(dataModel: EventDataModel) {
         TabViewPager(
             tabList = listOf(
                 stringResource(R.string.match_events),
-                stringResource(R.string.statistics)
+                stringResource(R.string.statistics),
+                stringResource(R.string.lineups)
             )
         ) {
             when (it) {
@@ -49,6 +51,9 @@ fun ComposeDetailsView(dataModel: EventDataModel) {
                 }
                 stringResource(R.string.statistics) -> {
                     StatisticsView(dataModel.statistics)
+                }
+                stringResource(R.string.lineups) -> {
+                    dataModel.lineups?.let { lineups -> LineupsView(lineups) }
                 }
             }
         }
@@ -201,5 +206,67 @@ val dataModel = EventDataModel(
         EventStatistics(497, 504, TOTAL_PASSES, "495", "375", 0.57f, 0.44f),
         EventStatistics(497, 504, PASSES_ACCURATE, "374", "272", 0.58f, 0.43f),
         EventStatistics(497, 504, PASSES, "76%", "73%", .76f, .73f)
+    ), lineups = LineupsDataModel(
+        LineupsDataModel.TeamLineup(
+            497,
+            "AS Roma",
+            "José Mourinho",
+            "3-4-1-2",
+            listOf(
+                LineupsDataModel.PlayerDataModel(2674, "Rui Patrício", "1", "G"),
+                LineupsDataModel.PlayerDataModel(892, "C. Smalling", "6", "D"),
+                LineupsDataModel.PlayerDataModel(770, "R. Karsdorp", "2", "D"),
+                LineupsDataModel.PlayerDataModel(30924, "M. Kumbulla", "24", "D"),
+                LineupsDataModel.PlayerDataModel(51572, "M. Viña", "5", "M"),
+                LineupsDataModel.PlayerDataModel(2375, "Sérgio Oliveira", "27", "M"),
+                LineupsDataModel.PlayerDataModel(778, "B. Cristante", "4", "M"),
+                LineupsDataModel.PlayerDataModel(1456, "A. Maitland-Niles", "15", "M"),
+                LineupsDataModel.PlayerDataModel(782, "L. Pellegrini", "7", "F"),
+                LineupsDataModel.PlayerDataModel(19194, "T. Abraham", "9", "F"),
+                LineupsDataModel.PlayerDataModel(342038, "F. Afena-Gyan", "64", "F")
+            ),
+            listOf(
+                LineupsDataModel.PlayerDataModel(30409, "J. Veretout", "17", "M"),
+                LineupsDataModel.PlayerDataModel(203474, "N. Zalewski", "59", "F"),
+                LineupsDataModel.PlayerDataModel(342035, "C. Volpato", "62", "M"),
+                LineupsDataModel.PlayerDataModel(286475, "E. Bove", "52", "M"),
+                LineupsDataModel.PlayerDataModel(763, "Daniel Fuzato", "87", "G"),
+                LineupsDataModel.PlayerDataModel(342653, "F. Missori", "58", "D"),
+                LineupsDataModel.PlayerDataModel(342071, "D. Mastrantonio", "67", "G"),
+                LineupsDataModel.PlayerDataModel(324, "A. Diawara", "42", "M"),
+                LineupsDataModel.PlayerDataModel(343385, "D. Keramitsis", "75", "D"),
+                LineupsDataModel.PlayerDataModel(158059, "E. Darboe", "55", "M")
+            )
+        ), LineupsDataModel.TeamLineup(
+            497,
+            "AS Roma",
+            "José Mourinho",
+            "3-4-1-2",
+            listOf(
+                LineupsDataModel.PlayerDataModel(2674, "Rui Patrício", "1", "G"),
+                LineupsDataModel.PlayerDataModel(892, "C. Smalling", "6", "D"),
+                LineupsDataModel.PlayerDataModel(770, "R. Karsdorp", "2", "D"),
+                LineupsDataModel.PlayerDataModel(30924, "M. Kumbulla", "24", "D"),
+                LineupsDataModel.PlayerDataModel(51572, "M. Viña", "5", "M"),
+                LineupsDataModel.PlayerDataModel(2375, "Sérgio Oliveira", "27", "M"),
+                LineupsDataModel.PlayerDataModel(778, "B. Cristante", "4", "M"),
+                LineupsDataModel.PlayerDataModel(1456, "A. Maitland-Niles", "15", "M"),
+                LineupsDataModel.PlayerDataModel(782, "L. Pellegrini", "7", "F"),
+                LineupsDataModel.PlayerDataModel(19194, "T. Abraham", "9", "F"),
+                LineupsDataModel.PlayerDataModel(342038, "F. Afena-Gyan", "64", "F")
+            ),
+            listOf(
+                LineupsDataModel.PlayerDataModel(30409, "J. Veretout", "17", "M"),
+                LineupsDataModel.PlayerDataModel(203474, "N. Zalewski", "59", "F"),
+                LineupsDataModel.PlayerDataModel(342035, "C. Volpato", "62", "M"),
+                LineupsDataModel.PlayerDataModel(286475, "E. Bove", "52", "M"),
+                LineupsDataModel.PlayerDataModel(763, "Daniel Fuzato", "87", "G"),
+                LineupsDataModel.PlayerDataModel(342653, "F. Missori", "58", "D"),
+                LineupsDataModel.PlayerDataModel(342071, "D. Mastrantonio", "67", "G"),
+                LineupsDataModel.PlayerDataModel(324, "A. Diawara", "42", "M"),
+                LineupsDataModel.PlayerDataModel(343385, "D. Keramitsis", "75", "D"),
+                LineupsDataModel.PlayerDataModel(158059, "E. Darboe", "55", "M")
+            )
+        )
     )
 )

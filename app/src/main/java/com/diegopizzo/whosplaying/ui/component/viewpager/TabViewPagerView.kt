@@ -1,6 +1,5 @@
 package com.diegopizzo.whosplaying.ui.component.viewpager
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Tab
@@ -15,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.diegopizzo.whosplaying.ui.component.attr.blueDark2
 import com.diegopizzo.whosplaying.ui.component.common.MediumText
-import com.diegopizzo.whosplaying.ui.component.common.MyCard
+import com.diegopizzo.whosplaying.ui.component.common.SmallText
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -44,20 +43,18 @@ fun TabViewPager(
                         pagerState.animateScrollToPage(index)
                         tabSelected.value = tabList[index]
                     }
-                }, text = { MediumText(tab) })
+                }, text = { SmallText(tab) })
             }
         }
 
         HorizontalPager(state = pagerState) { index ->
-            MyCard(content = {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    tabSelected.value = tabList[index]
-                    content.invoke(tabSelected.value)
-                }
-            })
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                tabSelected.value = tabList[index]
+                content.invoke(tabSelected.value)
+            }
         }
     }
 }

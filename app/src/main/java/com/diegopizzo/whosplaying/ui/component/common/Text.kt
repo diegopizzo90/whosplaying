@@ -40,18 +40,30 @@ fun SmallText(
 }
 
 @Composable
-fun MediumText(text: String, modifier: Modifier = Modifier) {
-    Text(text = text, fontSize = 16.sp, color = MaterialTheme.colors.textColor, modifier = modifier)
+fun MediumText(text: String, modifier: Modifier = Modifier, fontWeight: FontWeight? = null) {
+    Text(
+        text = text,
+        fontSize = 16.sp,
+        color = MaterialTheme.colors.textColor,
+        modifier = modifier,
+        fontWeight = fontWeight
+    )
 }
 
 @Composable
-fun DefaultText(text: String, modifier: Modifier = Modifier, textAlign: TextAlign? = null) {
+fun DefaultText(
+    text: String,
+    modifier: Modifier = Modifier,
+    textAlign: TextAlign? = null,
+    fontWeight: FontWeight? = null
+) {
     Text(
         text = text,
         fontSize = 22.sp,
         color = MaterialTheme.colors.textColor,
         modifier = modifier,
-        textAlign = textAlign
+        textAlign = textAlign,
+        fontWeight = fontWeight
     )
 }
 

@@ -9,6 +9,7 @@
     <string name="match_events">Match events</string>
     <string name="statistics">Statistics</string>
     <string name="standings">Standings</string>
+    <string name="lineups">Lineups</string>
     <string name="rank">Pos</string>
     <string name="team">Teams</string>
     <string name="points">Pts</string>
@@ -37,4 +38,8 @@
     <string name="total_passes">Total passes</string>
     <string name="passes_accurate">Passes accurate</string>
     <string name="passes_percentage">Passes %</string>
+    <string name="coach">Coach</string>
+    <string name="formation">Formation</string>
+    <string name="starting_eleven">Starting XI</string>
+    <string name="substitutes">Substitutes</string>
 </resources>
