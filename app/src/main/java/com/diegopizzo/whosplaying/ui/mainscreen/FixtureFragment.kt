@@ -26,7 +26,10 @@ class FixtureFragment : FragmentViewBinding<FragmentFixtureBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setRecyclerView()
+    }
 
+    override fun onStart() {
+        super.onStart()
         viewModel.viewStates().observe(viewLifecycleOwner, viewStateObserver)
         viewModel.viewEffects().observe(viewLifecycleOwner, viewEffectObserver)
     }
@@ -88,5 +91,12 @@ class FixtureFragment : FragmentViewBinding<FragmentFixtureBinding>() {
     private fun onError() {
         binding.noEventsView.root.visibility = View.VISIBLE
         stopShimmer()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.viewStates().removeObserver(viewStateObserver)
+        viewModel.viewEffects().removeObserver(viewEffectObserver)
+        viewModel.onStopView()
     }
 }

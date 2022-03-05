@@ -89,6 +89,11 @@ internal class MainViewModel(
         viewState =
             viewState.copy(leagueSelected = name, updateFixture = true, fixtures = emptyList())
     }
+
+    fun onStopView() {
+        job?.cancel()
+        viewState = viewState.copy(updateFixture = true)
+    }
 }
 
 internal data class MainViewState(
