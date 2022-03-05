@@ -16,22 +16,20 @@ internal class EventInteractor(
     private val refreshIntervalMs: Long = EVENT_DURATION_MILLIS
 ) : IEventInteractor {
 
-    private suspend fun retrieveEventsData(fixtureId: Long) = coroutineScope {
-        val response = async { cache.getEventByFixtureId(fixtureId) }
-        val statisticsResponse = async { cache.getStatistics(fixtureId) }
-        val lineupsModel = async { cache.getLineups(fixtureId) }
-
-        creator.toEventDataModel(
-            response.await().body(),
-            statisticsResponse.await().body(),
-            lineupsModel.await().body()
-        )
-    }
-
     override fun getEvents(fixtureId: Long): Flow<EventDataModel?> {
         return flow {
             while (true) {
-                emit(retrieveEventsData(fixtureId))
+                val response = cache.getEventByFixtureId(fixtureId)
+                val statisticsResponse = cache.getStatistics(fixtureId)
+                val lineupsModel = cache.getLineups(fixtureId)
+
+                val result = creator.toEventDataModel(
+                    response.body(),
+                    statisticsResponse.body(),
+                    lineupsModel.body()
+                )
+
+                emit(result)
                 delay(refreshIntervalMs)
             }
         }

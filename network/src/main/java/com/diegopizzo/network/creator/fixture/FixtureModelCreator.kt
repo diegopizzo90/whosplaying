@@ -8,7 +8,7 @@ import retrofit2.Response
 class FixtureModelCreator {
 
     fun toFixturesDataModel(fixtureModel: Response<FixtureModel>): List<FixtureDataModel>? {
-        return fixtureModel.body()?.response?.map {
+        return fixtureModel.body()?.response?.sortedBy { it.fixture.date }?.map {
             toFixtureDataModel(it)
         }
     }

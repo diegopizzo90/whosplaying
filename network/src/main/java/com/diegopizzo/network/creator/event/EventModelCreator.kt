@@ -95,7 +95,7 @@ class EventModelCreator {
             homeTeamLineup = LineupsDataModel.TeamLineup(
                 homeTeamModel.team.id,
                 homeTeamModel.team.name,
-                homeTeamModel.coach.name,
+                homeTeamModel.coach.name ?: "",
                 homeTeamModel.formation,
                 startEleven = homeTeamModel.startXI.map {
                     createLineupPlayer(it.player)
@@ -107,7 +107,7 @@ class EventModelCreator {
             awayTeamLineup = LineupsDataModel.TeamLineup(
                 awayTeamModel.team.id,
                 awayTeamModel.team.name,
-                awayTeamModel.coach.name,
+                awayTeamModel.coach.name ?: "",
                 awayTeamModel.formation,
                 startEleven = awayTeamModel.startXI.map {
                     createLineupPlayer(it.player)

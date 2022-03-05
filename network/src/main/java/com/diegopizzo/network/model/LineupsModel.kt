@@ -2,7 +2,7 @@ package com.diegopizzo.network.model
 
 
 data class TeamLineup(val id: Long, val name: String)
-data class CoachLineup(val id: Long, val name: String)
+data class CoachLineup(val id: Long, val name: String?)
 data class PlayerLineup(
     val id: Long,
     val name: String,
