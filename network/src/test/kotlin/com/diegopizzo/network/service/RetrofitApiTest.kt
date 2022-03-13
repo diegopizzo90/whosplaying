@@ -15,8 +15,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.mockito.ArgumentMatchers.anyLong
-import org.mockito.ArgumentMatchers.anyString
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -51,7 +49,7 @@ class RetrofitApiTest {
         server.enqueueResponse("league_success_response.json", 200)
 
         runBlocking {
-            api.getLeagueByCountry(anyString(), anyString())
+            api.getLeagueByCountry("", "")
 
             val request = server.takeRequest()
             assertEquals(request.path?.contains("/leagues"), true)
@@ -63,7 +61,7 @@ class RetrofitApiTest {
         server.enqueueResponse("league_success_response.json", 200)
 
         runBlocking {
-            val actualValue = api.getLeagueByCountry(anyString(), anyString())
+            val actualValue = api.getLeagueByCountry("", "")
             assertEquals(actualValue.body(), leagueSuccessResponse.body())
         }
     }
@@ -73,7 +71,7 @@ class RetrofitApiTest {
         server.enqueue(MockResponse().setResponseCode(500))
 
         runBlocking {
-            val actualValue = api.getLeagueByCountry(anyString(), anyString())
+            val actualValue = api.getLeagueByCountry("", "")
             assertEquals(actualValue.body(), null)
         }
     }
@@ -83,7 +81,7 @@ class RetrofitApiTest {
         server.enqueueResponse("fixtures_success_response.json", 200)
 
         runBlocking {
-            api.getFixturesByLeagueIdAndByDate(anyString(), anyString(), anyString(), anyString())
+            api.getFixturesByLeagueIdAndByDate("", "", "", "")
 
             val request = server.takeRequest()
             assertEquals(request.path?.contains("/fixtures"), true)
@@ -95,12 +93,7 @@ class RetrofitApiTest {
         server.enqueueResponse("fixtures_success_response.json", 200)
 
         runBlocking {
-            val actualValue = api.getFixturesByLeagueIdAndByDate(
-                anyString(),
-                anyString(),
-                anyString(),
-                anyString()
-            )
+            val actualValue = api.getFixturesByLeagueIdAndByDate("", "", "", "")
 
             assertEquals(actualValue.body(), fixtureSuccessResponse.body())
         }
@@ -111,12 +104,7 @@ class RetrofitApiTest {
         server.enqueue(MockResponse().setResponseCode(500))
 
         runBlocking {
-            val actualValue = api.getFixturesByLeagueIdAndByDate(
-                anyString(),
-                anyString(),
-                anyString(),
-                anyString()
-            )
+            val actualValue = api.getFixturesByLeagueIdAndByDate("", "", "", "")
 
             assertEquals(actualValue.body(), null)
         }
@@ -127,7 +115,7 @@ class RetrofitApiTest {
         server.enqueueResponse("event_success_response.json", 200)
 
         runBlocking {
-            val actualValue = api.getEventByFixtureId(anyLong())
+            val actualValue = api.getEventByFixtureId(1L)
 
             assertEquals(actualValue.body(), eventModel)
         }
@@ -138,7 +126,7 @@ class RetrofitApiTest {
         server.enqueueResponse("standings_success_response.json", 200)
 
         runBlocking {
-            val actualValue = api.getStandings(anyString(), anyString())
+            val actualValue = api.getStandings("", "")
 
             assertEquals(actualValue.body(), standings)
         }
@@ -149,7 +137,7 @@ class RetrofitApiTest {
         server.enqueueResponse("statistics_success_response.json", 200)
 
         runBlocking {
-            val actualValue = api.getStatistics(anyLong())
+            val actualValue = api.getStatistics(1L)
 
             assertEquals(actualValue.body(), statistics)
         }
@@ -160,7 +148,7 @@ class RetrofitApiTest {
         server.enqueueResponse("lineup_success_response.json", 200)
 
         runBlocking {
-            val actualValue = api.getLineups(anyLong())
+            val actualValue = api.getLineups(1L)
 
             assertEquals(actualValue.body(), lineupsModel)
         }
