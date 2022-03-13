@@ -10,30 +10,33 @@ import java.text.DecimalFormat
 
 class EventModelCreator {
 
-    fun toEventDataModel(model: EventModel?, statisticsModel: StatisticsModel?, lineupsModel: LineupsModel?): EventDataModel? {
-        if (model == null) return null
-        val response = model.response.first()
-        val fixture = response.fixture
-        val status = fixture.status
-        val homeTeam = response.teams.home
-        val awayTeam = response.teams.away
-        val goals = response.goals
-        val events = response.events
+    fun toEventDataModel(
+        eventModel: EventModel?,
+        statisticsModel: StatisticsModel?,
+        lineupsModel: LineupsModel?
+    ): EventDataModel {
+        val response = eventModel?.response?.first()
+        val fixture = response?.fixture
+        val status = fixture?.status
+        val homeTeam = response?.teams?.home
+        val awayTeam = response?.teams?.away
+        val goals = response?.goals
+        val events = response?.events
 
         return EventDataModel(
-            fixtureId = fixture.id,
-            dateTimeEventUtc = fixture.date,
-            status = StatusValue.getStatusValue(fixture.status.short),
-            elapsed = status.elapsed?.toString(),
-            homeTeamId = homeTeam.id,
-            homeTeam = homeTeam.name,
-            logoHomeTeam = homeTeam.logo,
-            awayTeamId = awayTeam.id,
-            awayTeam = awayTeam.name,
-            logoAwayTeam = awayTeam.logo,
-            scoreHomeTeam = goals.home?.toString() ?: "0",
-            scoreAwayTeam = goals.away?.toString() ?: "0",
-            events = events.map { toSingleEvent(it) },
+            fixtureId = fixture?.id ?: 0L,
+            dateTimeEventUtc = fixture?.date ?: "",
+            status = StatusValue.getStatusValue(fixture?.status?.short),
+            elapsed = status?.elapsed?.toString(),
+            homeTeamId = homeTeam?.id ?: 0L,
+            homeTeam = homeTeam?.name ?: "",
+            logoHomeTeam = homeTeam?.logo ?: "",
+            awayTeamId = awayTeam?.id ?: 0L,
+            awayTeam = awayTeam?.name ?: "",
+            logoAwayTeam = awayTeam?.logo ?: "",
+            scoreHomeTeam = goals?.home?.toString() ?: "0",
+            scoreAwayTeam = goals?.away?.toString() ?: "0",
+            events = events?.map { toSingleEvent(it) } ?: emptyList(),
             statistics = statisticsModel?.let { toEventStatistics(it) } ?: emptyList(),
             lineups = toLineupsDataModel(lineupsModel)
         )

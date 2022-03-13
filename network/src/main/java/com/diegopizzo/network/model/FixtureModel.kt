@@ -41,7 +41,7 @@ enum class StatusValue(val short: String, val long: String) {
     NOT_AVAILABLE("NA", "Not Available");
 
     companion object {
-        fun getStatusValue(stringValue: String): StatusValue {
+        fun getStatusValue(stringValue: String?): StatusValue {
             return values().firstOrNull { it.short == stringValue } ?: NOT_AVAILABLE
         }
     }
