@@ -55,7 +55,9 @@ class EventModelCreator {
 
     private fun toEventStatistics(statisticsModel: StatisticsModel): List<EventStatistics> {
         val response = statisticsModel.response
+        if (response.isEmpty()) return emptyList()
         val teamsId = response.run {
+            ifEmpty { emptyList() }
             Pair(component1().team.id.toLong(), component2().team.id.toLong())
         }
 
