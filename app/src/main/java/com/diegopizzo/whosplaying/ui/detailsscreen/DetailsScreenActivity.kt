@@ -6,16 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.lifecycleScope
 import com.diegopizzo.network.model.EventDataModel
-import com.diegopizzo.whosplaying.R
 import com.diegopizzo.whosplaying.ui.component.attr.WhosPlayingTheme
 import com.diegopizzo.whosplaying.ui.component.common.MyScaffold
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.valentinilk.shimmer.shimmer
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @ExperimentalPagerApi
@@ -27,10 +23,7 @@ class DetailsScreenActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val fixtureId = intent.getLongExtra(FIXTURE_ID_KEY, 0L)
-
-        lifecycleScope.launch {
-            viewModel.getFixtureEventDetails(fixtureId)
-        }
+        viewModel.getFixtureEventDetails(fixtureId)
 
         setContent {
             WhosPlayingTheme {
