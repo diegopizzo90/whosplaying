@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.diegopizzo.network.model.EventDataModel
 import com.diegopizzo.repository.event.IEventRepository
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 internal class DetailsScreenViewModel(private val eventRepository: IEventRepository) : ViewModel() {
@@ -30,7 +30,7 @@ internal class DetailsScreenViewModel(private val eventRepository: IEventReposit
     fun getFixtureEventDetails(id: Long) {
         viewState = viewState.copy(isLoading = true)
         viewModelScope.launch {
-            eventRepository.getEvent(id).collect { fixtureEvent ->
+            eventRepository.getEvent(id).collectLatest { fixtureEvent ->
                 viewState = when {
                     fixtureEvent != null -> {
                         viewState.copy(eventDataModel = fixtureEvent, isLoading = false)
