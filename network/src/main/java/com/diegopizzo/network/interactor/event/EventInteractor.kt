@@ -19,18 +19,26 @@ internal class EventInteractor(
     override fun getEvents(fixtureId: Long): Flow<EventDataModel?> {
         return flow {
             while (true) {
-                val response = cache.getEventByFixtureId(fixtureId)
-                val statisticsResponse = cache.getStatistics(fixtureId)
-                val lineupsModel = cache.getLineups(fixtureId)
+                coroutineScope {
+                    val eventResponse = async { cache.getEventByFixtureId(fixtureId) }
+                    val statisticsResponse = async { cache.getStatistics(fixtureId) }
+                    val lineupsModel = async { cache.getLineups(fixtureId) }
 
-                val result = creator.toEventDataModel(
-                    response.body(),
-                    statisticsResponse.body(),
-                    lineupsModel.body()
-                )
+                    val teams = eventResponse.await().body()?.response?.first()?.teams
+                    val headToHeadModel = if (teams != null) {
+                        val fixtureIds = "${teams.home.id}-${teams.away.id}"
+                        async { cache.getHeadToHead(fixtureIds) }
+                    } else null
 
-                emit(result)
-                delay(refreshIntervalMs)
+                    val result = creator.toEventDataModel(
+                        eventResponse.await().body(),
+                        statisticsResponse.await().body(),
+                        lineupsModel.await().body(),
+                        headToHeadModel?.await()?.body()
+                    )
+                    emit(result)
+                    delay(refreshIntervalMs)
+                }
             }
         }
     }

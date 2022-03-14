@@ -19,7 +19,7 @@ class EventModelCreatorTest {
 
     @Test
     fun toEventDataModel_dataModelCreated_assertEqualsTrue() {
-        val actual = creator.toEventDataModel(model, statisticsModel, lineupsModel)
+        val actual = creator.toEventDataModel(model, statisticsModel, lineupsModel, null)
         assertEquals(dataModel, actual)
     }
 

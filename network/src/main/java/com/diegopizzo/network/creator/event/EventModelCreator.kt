@@ -13,7 +13,8 @@ class EventModelCreator {
     fun toEventDataModel(
         eventModel: EventModel?,
         statisticsModel: StatisticsModel?,
-        lineupsModel: LineupsModel?
+        lineupsModel: LineupsModel?,
+        headToHeadModel: HeadToHeadModel?
     ): EventDataModel {
         val response = eventModel?.response?.first()
         val fixture = response?.fixture
@@ -38,7 +39,8 @@ class EventModelCreator {
             scoreAwayTeam = goals?.away?.toString() ?: "0",
             events = events?.map { toSingleEvent(it) } ?: emptyList(),
             statistics = statisticsModel?.let { toEventStatistics(it) } ?: emptyList(),
-            lineups = toLineupsDataModel(lineupsModel)
+            lineups = toLineupsDataModel(lineupsModel),
+            headToHead = toHeadToHeadDataModel(headToHeadModel, fixture?.id ?: 0L)
         )
     }
 
@@ -88,7 +90,7 @@ class EventModelCreator {
     }
 
     private fun toLineupsDataModel(model: LineupsModel?): LineupsDataModel? {
-        if (model == null) return null
+        if (model == null || model.response.isEmpty()) return null
         val homeTeamModel = model.response.first()
         val awayTeamModel = model.response.component2()
 
@@ -148,6 +150,26 @@ class EventModelCreator {
         return when (format) {
             PERCENT -> "$str%"
             else -> str
+        }
+    }
+
+    private fun toHeadToHeadDataModel(
+        model: HeadToHeadModel?,
+        eventFixtureId: Long
+    ): List<HeadToHeadDataModel> {
+        if (model == null) return emptyList()
+        return model.response.filter { eventFixtureId != it.fixture.id }.map {
+            val home = it.teams.home
+            val away = it.teams.away
+            HeadToHeadDataModel(
+                it.fixture.date,
+                home.name,
+                home.logo,
+                it.goals.home?.toString() ?: "0",
+                away.name,
+                away.logo,
+                it.goals.away?.toString() ?: "0"
+            )
         }
     }
 }

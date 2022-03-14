@@ -2,6 +2,7 @@ package com.diegopizzo.network.cache.event
 
 import com.diegopizzo.network.cache.CacheConstant.EVENT_DURATION_MILLIS
 import com.diegopizzo.network.model.EventModel
+import com.diegopizzo.network.model.HeadToHeadModel
 import com.diegopizzo.network.model.LineupsModel
 import com.diegopizzo.network.model.StatisticsModel
 import com.diegopizzo.network.service.RetrofitApi
@@ -45,6 +46,15 @@ internal class EventInteractorCache(
                     .build()
             ).build()
 
+    @OptIn(FlowPreview::class)
+    private val headToHeadStore: Store<String, Response<HeadToHeadModel>> =
+        StoreBuilder.from(fetcher = Fetcher.of { key: String -> api.getHeadToHead(key) })
+            .cachePolicy(
+                MemoryPolicy.builder<Any, Any>()
+                    .setExpireAfterWrite(Duration.milliseconds(ttlCache))
+                    .build()
+            ).build()
+
     override suspend fun getEventByFixtureId(fixtureId: Long): Response<EventModel> {
         return eventStore.get(fixtureId)
     }
@@ -55,5 +65,9 @@ internal class EventInteractorCache(
 
     override suspend fun getLineups(fixtureId: Long): Response<LineupsModel> {
         return lineupsStore.get(fixtureId)
+    }
+
+    override suspend fun getHeadToHead(fixtureIds: String): Response<HeadToHeadModel> {
+        return headToHeadStore.get(fixtureIds)
     }
 }
