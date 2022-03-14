@@ -23,7 +23,7 @@ class FixtureComponent(context: Context, attributeSet: AttributeSet) :
     fun setFixture(fixture: FixtureDataModel) {
         binding.apply {
             fixture.apply {
-                val timeEvent = Util.convertUtcDateTimeToLocalTime(
+                val timeEvent = Util.convertUtcDateTimeToLocal(
                     dateTimeEventUtc,
                     ZoneId.systemDefault(),
                     TIME_PATTERN

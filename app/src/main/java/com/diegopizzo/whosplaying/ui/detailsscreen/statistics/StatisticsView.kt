@@ -1,7 +1,9 @@
 package com.diegopizzo.whosplaying.ui.detailsscreen.statistics
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.LinearProgressIndicator
@@ -12,22 +14,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.diegopizzo.network.model.EventStatistics
 import com.diegopizzo.network.model.EventStatistics.StatisticsType.*
+import com.diegopizzo.network.model.HeadToHeadDataModel
 import com.diegopizzo.whosplaying.R
-import com.diegopizzo.whosplaying.ui.component.attr.defaultPadding
-import com.diegopizzo.whosplaying.ui.component.attr.row
-import com.diegopizzo.whosplaying.ui.component.attr.smallPadding
-import com.diegopizzo.whosplaying.ui.component.attr.teal700
+import com.diegopizzo.whosplaying.ui.component.attr.*
 import com.diegopizzo.whosplaying.ui.component.common.MediumText
 import com.diegopizzo.whosplaying.ui.component.common.MyDivider
 
 @Composable
-private fun StatisticsItem(
+private fun MatchStatisticsItem(
     modifier: Modifier = Modifier,
     homeValue: String,
     awayValue: String,
@@ -103,6 +104,21 @@ private fun StatisticsItem(
 }
 
 @Composable
+private fun StatisticsTitleItem(title: String) {
+    Column(
+        Modifier
+            .background(blueDark2)
+            .fillMaxWidth()
+    ) {
+        MediumText(
+            title,
+            Modifier.padding(horizontal = smallPadding, vertical = defaultPadding),
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+@Composable
 private fun getStatisticName(type: EventStatistics.StatisticsType): String {
     return when (type) {
         SHOTS_ON_GOAL -> stringResource(R.string.shots_on_goal)
@@ -125,16 +141,37 @@ private fun getStatisticName(type: EventStatistics.StatisticsType): String {
 }
 
 @Composable
-fun StatisticsView(statistics: List<EventStatistics>) {
+fun StatisticsView(statistics: List<EventStatistics>, headToHead: List<HeadToHeadDataModel>) {
     LazyColumn {
+        if (statistics.isNotEmpty()) {
+            item {
+                StatisticsTitleItem(stringResource(R.string.match_statistics))
+            }
+        }
         items(statistics) {
             val statisticName = it.type?.let { name -> getStatisticName(name) } ?: ""
-            StatisticsItem(
+            MatchStatisticsItem(
                 homeValue = it.valueTeamHome,
                 awayValue = it.valueTeamAway,
                 statisticName = statisticName,
                 homeProgressValue = it.percentageValueTeamHome,
                 awayProgressValue = it.percentageValueTeamAway
+            )
+        }
+        if (headToHead.isNotEmpty()) {
+            item {
+                StatisticsTitleItem(stringResource(R.string.head_to_head))
+            }
+        }
+        items(headToHead) {
+            HeadToHeadItem(
+                dateUtc = it.date,
+                nameHomeTeam = it.nameHome,
+                logoHomeTeam = it.logoHome,
+                scoreHomeTeam = it.scoreHomeTeam,
+                nameAwayTeam = it.nameAway,
+                logoAwayTeam = it.logoAway,
+                scoreAwayTeam = it.scoreAwayTeam
             )
         }
     }
@@ -143,7 +180,7 @@ fun StatisticsView(statistics: List<EventStatistics>) {
 @Preview
 @Composable
 fun StatisticsItemPreview() {
-    StatisticsItem(
+    MatchStatisticsItem(
         homeValue = "5",
         awayValue = "8",
         homeProgressValue = .4f,
@@ -173,5 +210,11 @@ fun StatisticsViewPreview() {
         EventStatistics(497, 504, PASSES_ACCURATE, "374", "272", 0.58f, 0.43f),
         EventStatistics(497, 504, PASSES, "76%", "73%", .76f, .73f)
     )
-    StatisticsView(statisticsModel)
+
+    val headToHead = listOf(
+            HeadToHeadDataModel("17/01/2021 12:13", "AC Milan", "", "3", "FC Inter", "", "0"),
+            HeadToHeadDataModel("17/01/2019 14:20", "AC Milan", "", "3", "FC Inter", "", "0"),
+            HeadToHeadDataModel("17/01/2016 14:30", "AC Milan", "", "3", "FC Inter", "", "0")
+        )
+    StatisticsView(statisticsModel, headToHead)
 }

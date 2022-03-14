@@ -42,4 +42,6 @@
     <string name="formation">Formation</string>
     <string name="starting_eleven">Starting XI</string>
     <string name="substitutes">Substitutes</string>
+    <string name="head_to_head">Head to Head</string>
+    <string name="match_statistics">Match statistics</string>
 </resources>

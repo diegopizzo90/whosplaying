@@ -50,7 +50,7 @@ fun ComposeDetailsView(dataModel: EventDataModel) {
                     }
                 }
                 stringResource(R.string.statistics) -> {
-                    StatisticsView(dataModel.statistics)
+                    StatisticsView(dataModel.statistics, dataModel.headToHead)
                 }
                 stringResource(R.string.lineups) -> {
                     dataModel.lineups?.let { lineups -> LineupsView(lineups) }
