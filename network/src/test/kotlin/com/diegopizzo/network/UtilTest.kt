@@ -1,6 +1,7 @@
 package com.diegopizzo.network
 
 import com.diegopizzo.network.CommonConstant.DATE_PATTERN
+import com.diegopizzo.network.CommonConstant.DATE_TIME_PATTERN
 import com.diegopizzo.network.CommonConstant.TIME_PATTERN
 import com.diegopizzo.network.Util.toEndZoneDateTime
 import com.diegopizzo.network.Util.toStartZoneDateTime
@@ -14,8 +15,8 @@ import org.threeten.bp.ZonedDateTime
 class UtilTest {
 
     @Test
-    fun convertUtcDateTimeToLocalTime_dateConverted_assertEqualsTrue() {
-        val date = Util.convertUtcDateTimeToLocalTime(
+    fun convertUtcDateTimeToLocal_TimeConverted_assertEqualsTrue() {
+        val date = Util.convertUtcDateTimeToLocal(
             "2021-10-01T18:45:00+00:00",
             ZoneOffset.UTC,
             TIME_PATTERN
@@ -24,13 +25,23 @@ class UtilTest {
     }
 
     @Test
-    fun convertUtcDateTimeToLocalDate_dateConverted_assertEqualsTrue() {
-        val date = Util.convertUtcDateTimeToLocalDate(
+    fun convertUtcDateTimeToLocal_dateConverted_assertEqualsTrue() {
+        val date = Util.convertUtcDateTimeToLocal(
             "2021-10-01T18:45:00+00:00",
             ZoneOffset.UTC,
             DATE_PATTERN
         )
         assertEquals("Fri, 1 Oct 2021", date)
+    }
+
+    @Test
+    fun convertUtcDateTimeToLocal_dateTimeConverted_assertEqualsTrue() {
+        val date = Util.convertUtcDateTimeToLocal(
+            "2021-10-01T18:45:00+00:00",
+            ZoneOffset.UTC,
+            DATE_TIME_PATTERN
+        )
+        assertEquals("01/10/2021 18:45", date)
     }
 
     @Test
