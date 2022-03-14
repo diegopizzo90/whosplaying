@@ -34,4 +34,10 @@ interface RetrofitApi {
 
     @GET("fixtures/lineups")
     suspend fun getLineups(@Query("fixture") fixtureId: Long): Response<LineupsModel>
+
+    @GET("fixtures/headtohead")
+    suspend fun getHeadToHead(
+        @Query("h2h") fixtureIds: String,
+        @Query("last") maxResults: Int = 8
+    ): Response<HeadToHeadModel>
 }

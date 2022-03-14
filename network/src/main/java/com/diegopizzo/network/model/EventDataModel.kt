@@ -18,7 +18,8 @@ data class EventDataModel(
     val scoreAwayTeam: String = "0",
     val events: List<SingleEvent> = emptyList(),
     val statistics: List<EventStatistics> = emptyList(),
-    val lineups: LineupsDataModel? = null
+    val lineups: LineupsDataModel? = null,
+    val headToHead: List<HeadToHeadDataModel> = emptyList()
 ) {
     companion object {
         private const val NO_TEAM = "No Team"

@@ -154,6 +154,17 @@ class RetrofitApiTest {
         }
     }
 
+    @Test
+    fun getHeadToHead_successResponse_assertEqualsTrue() {
+        server.enqueueResponse("head_to_head_success_response.json", 200)
+
+        runBlocking {
+            val actualValue = api.getHeadToHead("499-495")
+
+            assertEquals(actualValue.body(), headToHeadModel)
+        }
+    }
+
     companion object {
         private val leagueInfo =
             LeagueInfo(140, "La Liga", "https://media.api-sports.io/football/leagues/140.png")
@@ -417,6 +428,27 @@ class RetrofitApiTest {
                     "3-4-2-1",
                     startXI = emptyList(),
                     substitutes = emptyList()
+                )
+            )
+        )
+
+        private val headToHeadModel = HeadToHeadModel(
+            listOf(
+                ResponseHeadToHead(
+                    FixtureH2H(8698, "UTC", "2018-04-29T13:00:00+00:00"),
+                    Teams(
+                        Home(499, "Atalanta", "https://media.api-sports.io/football/teams/499.png"),
+                        Away(495, "Genoa", "https://media.api-sports.io/football/teams/495.png")
+                    ),
+                    Goals(3, 1)
+                ),
+                ResponseHeadToHead(
+                    FixtureH2H(21564, "UTC", "2016-10-30T11:30:00+00:00"),
+                    Teams(
+                        Home(499, "Atalanta", "https://media.api-sports.io/football/teams/499.png"),
+                        Away(495, "Genoa", "https://media.api-sports.io/football/teams/495.png")
+                    ),
+                    Goals(3, 0)
                 )
             )
         )
