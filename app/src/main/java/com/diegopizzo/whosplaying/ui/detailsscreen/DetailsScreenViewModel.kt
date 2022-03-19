@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.diegopizzo.network.model.EventDataModel
 import com.diegopizzo.repository.event.IEventRepository
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 internal class DetailsScreenViewModel(private val eventRepository: IEventRepository) : ViewModel() {
@@ -28,9 +27,12 @@ internal class DetailsScreenViewModel(private val eventRepository: IEventReposit
     }
 
     fun getFixtureEventDetails(id: Long) {
-        viewState = viewState.copy(isLoading = true)
         viewModelScope.launch {
-            eventRepository.getEvent(id).collectLatest { fixtureEvent ->
+            //Show loading just the first time
+            if (viewState.eventDataModel.fixtureId == 0L) {
+                viewState = viewState.copy(isLoading = true)
+            }
+            eventRepository.getEvent(id).collect { fixtureEvent ->
                 viewState = when {
                     fixtureEvent != null -> {
                         viewState.copy(eventDataModel = fixtureEvent, isLoading = false)

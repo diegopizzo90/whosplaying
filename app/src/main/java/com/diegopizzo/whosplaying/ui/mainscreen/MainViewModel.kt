@@ -14,7 +14,6 @@ import com.diegopizzo.whosplaying.ui.component.datepickerslider.createDatePicker
 import com.diegopizzo.whosplaying.ui.component.datepickerslider.indexCurrentDate
 import com.diegopizzo.whosplaying.ui.mainscreen.ViewEffect.*
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 
@@ -50,7 +49,7 @@ internal class MainViewModel(
 
     fun getFixturesByLeagueName(leagueName: LeagueName, localDate: LocalDate? = null) {
         if (localDate == null) return
-        _viewEffects.value = ShowProgressBar
+        if (viewState.fixtures.isEmpty()) _viewEffects.value = ShowProgressBar
 
         job?.cancel() //Cancel previous requests
         job = viewModelScope.launch {

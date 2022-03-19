@@ -48,7 +48,7 @@ class FixtureFragment : FragmentViewBinding<FragmentFixtureBinding>() {
     }
 
     private fun toFixtureDetails(id: Long) {
-        startActivity(Intent(activity, DetailsScreenActivity::class.java).apply {
+        startActivity(Intent(requireActivity(), DetailsScreenActivity::class.java).apply {
             putExtra(FIXTURE_ID_KEY, id)
         })
     }
