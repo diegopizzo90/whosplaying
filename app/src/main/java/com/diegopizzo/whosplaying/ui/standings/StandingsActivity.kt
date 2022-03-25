@@ -20,9 +20,6 @@ class StandingsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        intent.getStringExtra(STANDINGS_LEAGUE_KEY)
-            ?.let { viewModel.getStandings(LeagueName.valueOf(it)) }
-
         setContent {
             val state = viewModel.viewStates().observeAsState()
             WhosPlayingTheme {
@@ -32,6 +29,9 @@ class StandingsActivity : ComponentActivity() {
                 )
             }
         }
+
+        intent.getStringExtra(STANDINGS_LEAGUE_KEY)
+            ?.let { viewModel.getStandings(LeagueName.valueOf(it)) }
     }
 
     @Composable

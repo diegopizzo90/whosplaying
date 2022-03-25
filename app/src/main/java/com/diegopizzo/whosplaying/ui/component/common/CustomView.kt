@@ -1,12 +1,9 @@
 package com.diegopizzo.whosplaying.ui.component.common
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
+import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +15,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.diegopizzo.whosplaying.R
+import com.diegopizzo.whosplaying.ui.component.attr.smallPadding
 import com.diegopizzo.whosplaying.ui.component.attr.teal700
 
 @Composable
@@ -53,8 +51,11 @@ fun LoadingView() {
             modifier = Modifier.align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            MediumText(stringResource(R.string.loading))
-            CircularProgressIndicator(color = Color.White)
+            MediumText(
+                stringResource(R.string.loading),
+                modifier = Modifier.padding(bottom = smallPadding)
+            )
+            LinearProgressIndicator(color = Color.White)
         }
     }
 }
