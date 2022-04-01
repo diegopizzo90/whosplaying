@@ -4,11 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import com.diegopizzo.whosplaying.ui.mainscreen.MainScreenActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SplashScreenActivity : AppCompatActivity() {
+class SplashScreenActivity : ComponentActivity() {
 
     private val viewModel: SplashScreenViewModel by viewModel()
 
@@ -19,5 +20,9 @@ class SplashScreenActivity : AppCompatActivity() {
             startActivity(Intent(this, MainScreenActivity::class.java))
             finish()
         }, 3000)
+
+        setContent {
+            SplashScreenView()
+        }
     }
 }
