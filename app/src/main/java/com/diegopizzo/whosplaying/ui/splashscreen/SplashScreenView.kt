@@ -23,11 +23,11 @@ fun SplashScreenView() {
     // AnimationEffect
     LaunchedEffect(key1 = true) {
         scale.animateTo(
-            targetValue = 0.5f,
+            targetValue = 0.7f,
             animationSpec = tween(
                 durationMillis = 1200,
                 easing = {
-                    OvershootInterpolator(10f).getInterpolation(it)
+                    OvershootInterpolator(7f).getInterpolation(it)
                 })
         )
     }
