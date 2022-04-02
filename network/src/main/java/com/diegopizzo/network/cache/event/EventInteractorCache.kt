@@ -13,7 +13,7 @@ import retrofit2.Response
 import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
-@OptIn(ExperimentalCoroutinesApi::class, ExperimentalTime::class)
+@OptIn(ExperimentalCoroutinesApi::class, ExperimentalTime::class, ExperimentalStoreApi::class)
 internal class EventInteractorCache(
     private val api: RetrofitApi,
     private val ttlCache: Long = EVENT_DURATION_MILLIS
@@ -69,5 +69,12 @@ internal class EventInteractorCache(
 
     override suspend fun getHeadToHead(fixtureIds: String): Response<HeadToHeadModel> {
         return headToHeadStore.get(fixtureIds)
+    }
+
+    override suspend fun clearCache() {
+        eventStore.clearAll()
+        statisticsStore.clearAll()
+        lineupsStore.clearAll()
+        headToHeadStore.clearAll()
     }
 }

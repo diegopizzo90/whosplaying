@@ -40,4 +40,8 @@ internal class EventInteractor(
             }
         }
     }
+
+    override suspend fun clearCache() {
+        cache.clearCache()
+    }
 }

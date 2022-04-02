@@ -10,4 +10,6 @@ interface IFixtureInteractor {
         from: LocalDate,
         to: LocalDate
     ): Flow<List<FixtureDataModel>?>
+
+    suspend fun clearCache()
 }

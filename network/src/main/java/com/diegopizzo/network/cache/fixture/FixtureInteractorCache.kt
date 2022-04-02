@@ -10,7 +10,7 @@ import retrofit2.Response
 import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
-@OptIn(ExperimentalCoroutinesApi::class, ExperimentalTime::class)
+@OptIn(ExperimentalCoroutinesApi::class, ExperimentalTime::class, ExperimentalStoreApi::class)
 internal class FixtureInteractorCache(
     private val api: RetrofitApi,
     private val ttlCache: Long = DEFAULT_DURATION_MILLIS
@@ -39,6 +39,10 @@ internal class FixtureInteractorCache(
         to: String
     ): Response<FixtureModel> {
         return store.get(FixtureParameters(leagueId, season, from, to))
+    }
+
+    override suspend fun clearCache() {
+        store.clearAll()
     }
 
     private data class FixtureParameters(

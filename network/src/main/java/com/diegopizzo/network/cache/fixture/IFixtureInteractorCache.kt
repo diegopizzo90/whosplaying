@@ -11,4 +11,6 @@ interface IFixtureInteractorCache {
         from: String,
         to: String
     ): Response<FixtureModel>
+
+    suspend fun clearCache()
 }

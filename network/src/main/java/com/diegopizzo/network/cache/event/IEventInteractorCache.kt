@@ -11,4 +11,5 @@ interface IEventInteractorCache {
     suspend fun getStatistics(fixtureId: Long): Response<StatisticsModel>
     suspend fun getLineups(fixtureId: Long): Response<LineupsModel>
     suspend fun getHeadToHead(fixtureIds: String): Response<HeadToHeadModel>
+    suspend fun clearCache()
 }

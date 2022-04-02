@@ -14,4 +14,8 @@ class StandingsInteractor(
         val model = cache.getStandings(SEASON, leagueId).body()
         return creator.fromModelToDataModel(model)
     }
+
+    override suspend fun clearCache() {
+        cache.clearCache()
+    }
 }

@@ -9,7 +9,7 @@ import retrofit2.Response
 import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
-@OptIn(ExperimentalCoroutinesApi::class, ExperimentalTime::class)
+@OptIn(ExperimentalCoroutinesApi::class, ExperimentalTime::class, ExperimentalStoreApi::class)
 internal class StandingsInteractorCache(
     private val api: RetrofitApi,
     private val ttlCache: Int = STANDINGS_DURATION_MINUTES
@@ -33,6 +33,10 @@ internal class StandingsInteractorCache(
         leagueId: String
     ): Response<StandingsModel> {
         return store.get(StandingsParameters(season, leagueId))
+    }
+
+    override suspend fun clearCache() {
+        store.clearAll()
     }
 
     private data class StandingsParameters(

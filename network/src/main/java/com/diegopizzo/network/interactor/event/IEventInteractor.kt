@@ -5,4 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface IEventInteractor {
     fun getEvents(fixtureId: Long): Flow<EventDataModel?>
+    suspend fun clearCache()
 }

@@ -38,6 +38,7 @@ internal class FixtureRepository(
                 )
                 val dataModels = creator.toFixtureDataModels(entities)
                 emit(dataModels)
+                interactor.clearCache()
             }
     }
 }

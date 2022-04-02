@@ -35,4 +35,8 @@ internal class FixtureInteractor(
             }
         }
     }
+
+    override suspend fun clearCache() {
+        cache.clearCache()
+    }
 }
