@@ -31,6 +31,7 @@ internal class FixtureRepository(
                 }
             }.flowOn(defaultDispatcher)
             .catch {
+                interactor.clearCache()
                 val entities = fixtureDao.getFixturesByLeagueId(
                     leagueId.toLong(),
                     from.toStartZoneDateTime(),
@@ -38,7 +39,6 @@ internal class FixtureRepository(
                 )
                 val dataModels = creator.toFixtureDataModels(entities)
                 emit(dataModels)
-                interactor.clearCache()
             }
     }
 }
