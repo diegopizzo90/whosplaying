@@ -48,6 +48,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion "1.0.5"
     }
+    namespace 'com.diegopizzo.whosplaying'
 }
 
 dependencies {
