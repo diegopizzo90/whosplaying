@@ -24,10 +24,12 @@ class FixtureCreator {
 
     fun toFixtureEntityArray(
         models: List<FixtureDataModel>,
-        leagueId: String
+        leagueId: List<String>
     ): Array<FixtureEntity> {
-        return models.map {
-            toFixtureEntity(it, leagueId.toLong())
+        return leagueId.flatMap { id ->
+            models.map {
+                toFixtureEntity(it, id.toLong())
+            }
         }.toTypedArray()
     }
 

@@ -1,5 +1,6 @@
 package com.diegopizzo.network.service
 
+import com.diegopizzo.network.interactor.league.LeagueType
 import com.diegopizzo.network.model.*
 import com.diegopizzo.network.model.EventType.*
 import com.diegopizzo.network.model.EventTypeDetail.*
@@ -167,9 +168,15 @@ class RetrofitApiTest {
 
     companion object {
         private val leagueInfo =
-            LeagueInfo(140, "La Liga", "https://media.api-sports.io/football/leagues/140.png")
+            LeagueInfo(
+                140,
+                "La Liga",
+                LeagueType.LEAGUE.type,
+                "https://media.api-sports.io/football/leagues/140.png"
+            )
+        private val countryInfo = CountryInfo(name = "Spain", code = "ES")
         private val leagueSuccessResponse =
-            Response.success(LeagueModel(listOf(LeagueResponse(leagueInfo))))
+            Response.success(LeagueModel(listOf(LeagueResponse(leagueInfo, countryInfo))))
 
         private val fixtures = listOf(
             ResponseFixture(

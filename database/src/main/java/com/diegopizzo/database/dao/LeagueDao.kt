@@ -13,4 +13,7 @@ interface LeagueDao {
 
     @Query("SELECT * FROM league WHERE league.name = :leagueName")
     fun getLeagueByName(leagueName: String): LeagueEntity?
+
+    @Query("SELECT * FROM league WHERE league.countryCode = :countryCode")
+    fun getLeaguesByCountry(countryCode: String): List<LeagueEntity>?
 }

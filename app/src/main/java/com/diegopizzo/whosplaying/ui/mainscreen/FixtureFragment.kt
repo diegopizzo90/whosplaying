@@ -41,7 +41,7 @@ class FixtureFragment : FragmentViewBinding<FragmentFixtureBinding>() {
         viewState.apply {
             if (updateFixture) {
                 dateSelected?.let { date ->
-                    viewModel.getFixturesByLeagueName(leagueSelected, date)
+                    viewModel.getFixturesByLeagueName(leagueCountrySelected, date)
                 }
             }
         }

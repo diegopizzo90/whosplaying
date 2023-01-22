@@ -1,10 +1,11 @@
 package com.diegopizzo.repository.league
 
-import com.diegopizzo.network.interactor.league.ILeagueInteractor
-import com.diegopizzo.network.interactor.league.LeagueName
-import com.diegopizzo.network.model.LeagueInfo
 import com.diegopizzo.database.creator.league.LeagueCreator
 import com.diegopizzo.database.dao.LeagueDao
+import com.diegopizzo.network.interactor.league.CountryCode
+import com.diegopizzo.network.interactor.league.ILeagueInteractor
+import com.diegopizzo.network.interactor.league.LeagueName
+import com.diegopizzo.network.model.LeagueResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
@@ -19,9 +20,10 @@ internal class LeagueRepository(
     override suspend fun downloadLeaguesInfo() {
         withContext(defaultDispatcher) {
             try {
-                leagueList.forEach {
-                    val leagueEntity = leagueDao.getLeagueByName(it.stringName)
-                    if (leagueEntity == null) {
+                val leaguesSize = leagueList.size
+                val leagueEntities = leagueDao.getAll()
+                if (leagueEntities?.size == 0 || leagueEntities?.size != leaguesSize) {
+                    leagueList.forEach {
                         val leagueInfo = interactor.getLeague(it)
                         saveLeague(leagueInfo)
                     }
@@ -32,13 +34,20 @@ internal class LeagueRepository(
         }
     }
 
-    private fun saveLeague(leagueInfo: LeagueInfo?) {
+    private fun saveLeague(leagueInfo: LeagueResponse?) {
         leagueInfo?.let { leagueDao.insertLeagues(creator.toLeagueEntity(it)) }
     }
 
     override suspend fun getLeagueId(leagueName: LeagueName): String? {
         return withContext(defaultDispatcher) {
             leagueDao.getLeagueByName(leagueName.stringName)?.leagueId?.toString()
+        }
+    }
+
+    override suspend fun getLeagueIdsByCountry(countryCode: CountryCode): List<String>? {
+        return withContext(defaultDispatcher) {
+            leagueDao.getLeaguesByCountry(countryCode.code)
+                ?.map { it.leagueId.toString() }
         }
     }
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.diegopizzo.network.interactor.league.CountryCode
 import com.diegopizzo.network.interactor.league.LeagueName
 import com.diegopizzo.network.model.FixtureDataModel
 import com.diegopizzo.repository.fixture.IFixtureRepository
@@ -47,15 +48,15 @@ internal class MainViewModel(
         )
     }
 
-    fun getFixturesByLeagueName(leagueName: LeagueName, localDate: LocalDate? = null) {
+    fun getFixturesByLeagueName(countryCode: CountryCode, localDate: LocalDate? = null) {
         if (localDate == null) return
         if (viewState.fixtures.isEmpty()) _viewEffects.value = ShowProgressBar
 
         job?.cancel() //Cancel previous requests
         job = viewModelScope.launch {
-            val leagueId = leagueRepository.getLeagueId(leagueName)
-            if (leagueId != null) {
-                fixtureRepository.getFixtures(leagueId, localDate, localDate).collect {
+            val leagueIds = leagueRepository.getLeagueIdsByCountry(countryCode)
+            if (leagueIds != null) {
+                fixtureRepository.getFixtures(leagueIds, localDate, localDate).collect {
                     when {
                         it == null || it.isEmpty() -> onError()
                         else -> onSuccess(it)
@@ -84,9 +85,13 @@ internal class MainViewModel(
         )
     }
 
-    fun onMenuNavigationSelected(name: LeagueName) {
+    fun onMenuNavigationSelected(countryCode: CountryCode) {
         viewState =
-            viewState.copy(leagueSelected = name, updateFixture = true, fixtures = emptyList())
+            viewState.copy(
+                leagueCountrySelected = countryCode,
+                updateFixture = true,
+                fixtures = emptyList()
+            )
     }
 
     fun onStopView() {
@@ -97,6 +102,7 @@ internal class MainViewModel(
 
 internal data class MainViewState(
     val fixtures: List<FixtureDataModel> = emptyList(),
+    val leagueCountrySelected: CountryCode = CountryCode.ITALY,
     val leagueSelected: LeagueName = LeagueName.SERIE_A,
     val dateSelected: LocalDate? = null,
     val updateFixture: Boolean = false,

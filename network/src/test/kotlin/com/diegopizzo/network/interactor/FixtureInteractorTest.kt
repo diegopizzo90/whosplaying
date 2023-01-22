@@ -48,7 +48,7 @@ class FixtureInteractorTest {
             ).thenReturn(fixtureSuccessResponse)
 
             val fixtureItem = interactor.getFixturesByLeagueAndDate(
-                "1",
+                listOf("1"),
                 LocalDate.of(2021, 9, 30).minusDays(3),
                 LocalDate.of(2021, 9, 30).plusDays(3)
             ).first()

@@ -12,7 +12,7 @@ class FixtureModelCreatorTest {
 
     @Test
     fun toFixturesDataModel_createDataModel_assertEqualsTrue() {
-        val actual = creator.toFixturesDataModel(Response.success(model))
+        val actual = creator.toFixturesDataModel(listOf(Response.success(model)))
         assertEquals(dataModel, actual)
     }
 

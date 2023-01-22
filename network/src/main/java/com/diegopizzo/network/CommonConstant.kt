@@ -6,7 +6,7 @@ object CommonConstant {
     const val DATE_PATTERN = "EEE, d MMM yyyy"
     const val TIME_PATTERN = "HH:mm"
     const val DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm"
-    private const val END_OF_SEASON = 6
+    private const val END_OF_SEASON = 7
     val SEASON = getSeasonYear()
 
     private fun getSeasonYear(): String {

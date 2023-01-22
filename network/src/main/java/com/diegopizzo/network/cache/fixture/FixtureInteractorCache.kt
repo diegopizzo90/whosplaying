@@ -4,19 +4,16 @@ import com.diegopizzo.network.cache.CacheConstant.DEFAULT_DURATION_MILLIS
 import com.diegopizzo.network.model.FixtureModel
 import com.diegopizzo.network.service.RetrofitApi
 import com.dropbox.android.external.store4.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import retrofit2.Response
 import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
-@OptIn(ExperimentalCoroutinesApi::class, ExperimentalTime::class, ExperimentalStoreApi::class)
+@OptIn(ExperimentalTime::class, ExperimentalStoreApi::class)
 internal class FixtureInteractorCache(
     private val api: RetrofitApi,
     private val ttlCache: Long = DEFAULT_DURATION_MILLIS
 ) : IFixtureInteractorCache {
 
-    @OptIn(FlowPreview::class)
     private val store: Store<FixtureParameters, Response<FixtureModel>> =
         StoreBuilder.from(fetcher = Fetcher.of { key: FixtureParameters ->
             api.getFixturesByLeagueIdAndByDate(

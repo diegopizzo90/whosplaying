@@ -17,18 +17,20 @@ internal class FixtureInteractor(
     private val refreshIntervalMs: Long = DEFAULT_DURATION_MILLIS
 ) : IFixtureInteractor {
     override fun getFixturesByLeagueAndDate(
-        leagueId: String,
+        leagueId: List<String>,
         from: LocalDate,
         to: LocalDate
     ): Flow<List<FixtureDataModel>?> {
         return flow {
             while (true) {
-                val response = cache.getFixturesByLeagueIdAndByDate(
-                    leagueId,
-                    SEASON,
-                    from.format(DateTimeFormatter.ISO_DATE),
-                    to.format(DateTimeFormatter.ISO_DATE)
-                )
+                val response = leagueId.map { id ->
+                    cache.getFixturesByLeagueIdAndByDate(
+                        id,
+                        SEASON,
+                        from.format(DateTimeFormatter.ISO_DATE),
+                        to.format(DateTimeFormatter.ISO_DATE)
+                    )
+                }
                 val fixtures = creator.toFixturesDataModel(response)
                 emit(fixtures)
                 delay(refreshIntervalMs)

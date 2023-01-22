@@ -1,14 +1,20 @@
 package com.diegopizzo.database.creator.league
 
-import com.diegopizzo.network.model.LeagueInfo
 import com.diegopizzo.database.entity.LeagueEntity
+import com.diegopizzo.network.interactor.league.LeagueType
+import com.diegopizzo.network.model.LeagueResponse
 
 class LeagueCreator {
-    fun toLeagueEntity(leagueInfo: LeagueInfo): LeagueEntity {
-        return LeagueEntity(leagueInfo.id.toLong(), leagueInfo.name, leagueInfo.logo)
-    }
-
-    fun toLeagueInfo(leagueEntity: LeagueEntity): LeagueInfo {
-        return LeagueInfo(leagueEntity.leagueId.toInt(), leagueEntity.name, leagueEntity.logo)
+    fun toLeagueEntity(leagueResponse: LeagueResponse): LeagueEntity {
+        val league = leagueResponse.league
+        val country = leagueResponse.country
+        return LeagueEntity(
+            league.id.toLong(),
+            league.name,
+            league.logo,
+            country.name,
+            country.code,
+            LeagueType.fromValue(league.type) ?: LeagueType.LEAGUE
+        )
     }
 }
