@@ -39,7 +39,10 @@ class StandingsActivity : ComponentActivity() {
         if (isLoading) {
             LoadingView()
         } else {
-            MyScaffold(content = { Standings(standings) }, navigationOnClick = { onBackPressed() })
+            MyScaffold(
+                content = { Standings(standings) },
+                navigationOnClick = { onBackPressedDispatcher.onBackPressed() }
+            )
         }
     }
 

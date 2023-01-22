@@ -54,6 +54,6 @@ class DetailsScreenActivity : ComponentActivity() {
     @Preview
     @Composable
     private fun Preview() {
-        AddContentView(dataModel = dataModel, isLoading = false)
+        AddContentView(dataModel = detailsScreenPreviewDataModel, isLoading = false)
     }
 }
