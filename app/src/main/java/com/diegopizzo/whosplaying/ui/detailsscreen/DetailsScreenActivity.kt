@@ -43,7 +43,7 @@ class DetailsScreenActivity : ComponentActivity() {
         } else {
             MyScaffold(
                 content = { ComposeDetailsView(dataModel) },
-                navigationOnClick = { onBackPressed() })
+                navigationOnClick = { onBackPressedDispatcher.onBackPressed() })
         }
     }
 

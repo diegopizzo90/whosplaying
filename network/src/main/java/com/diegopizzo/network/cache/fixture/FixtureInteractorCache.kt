@@ -6,6 +6,7 @@ import com.diegopizzo.network.service.RetrofitApi
 import com.dropbox.android.external.store4.*
 import retrofit2.Response
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class, ExperimentalStoreApi::class)
@@ -24,7 +25,7 @@ internal class FixtureInteractorCache(
             )
         }).cachePolicy(
             MemoryPolicy.builder<Any, Any>()
-                .setExpireAfterWrite(Duration.milliseconds(ttlCache))
+                .setExpireAfterWrite(ttlCache.milliseconds)
                 .build()
         ).build()
 

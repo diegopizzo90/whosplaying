@@ -6,10 +6,10 @@ import com.diegopizzo.network.service.RetrofitApi
 import com.dropbox.android.external.store4.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import retrofit2.Response
-import kotlin.time.Duration
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.ExperimentalTime
 
-@OptIn(ExperimentalCoroutinesApi::class, ExperimentalTime::class, ExperimentalStoreApi::class)
+@OptIn(ExperimentalTime::class, ExperimentalStoreApi::class)
 internal class StandingsInteractorCache(
     private val api: RetrofitApi,
     private val ttlCache: Int = STANDINGS_DURATION_MINUTES
@@ -24,7 +24,7 @@ internal class StandingsInteractorCache(
         }
     ).cachePolicy(
         MemoryPolicy.builder<Any, Any>()
-            .setExpireAfterWrite(Duration.minutes(ttlCache))
+            .setExpireAfterWrite(ttlCache.minutes)
             .build()
     ).build()
 

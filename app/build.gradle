@@ -46,15 +46,15 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion "1.1.1"
+        kotlinCompilerExtensionVersion "1.4.2"
     }
     namespace 'com.diegopizzo.whosplaying'
 }
 
 dependencies {
     implementation "androidx.core:core-ktx:1.9.0"
-    implementation "androidx.appcompat:appcompat:1.6.0"
-    implementation "com.google.android.material:material:1.7.0"
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "com.google.android.material:material:1.8.0"
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
@@ -81,7 +81,7 @@ dependencies {
     // Material Design
     implementation "androidx.compose.material:material:1.3.1"
     //Live data
-    implementation "androidx.compose.runtime:runtime-livedata:1.4.0-alpha04"
+    implementation "androidx.compose.runtime:runtime-livedata:1.4.0-beta01"
     //Constraints Layout
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
     //https://coil-kt.github.io/coil/compose/
