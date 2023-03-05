@@ -24,12 +24,6 @@
         <activity
             android:name=".ui.mainscreen.MainScreenActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".ui.detailsscreen.DetailsScreenActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".ui.standings.StandingsActivity"
-            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

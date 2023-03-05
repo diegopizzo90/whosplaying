@@ -1,15 +1,22 @@
+@file:OptIn(ExperimentalPagerApi::class)
+
 package com.diegopizzo.whosplaying.ui.detailsscreen
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.diegopizzo.network.model.EventDataModel
 import com.diegopizzo.network.model.EventType
 import com.diegopizzo.network.model.EventTypeDetail
 import com.diegopizzo.whosplaying.R
+import com.diegopizzo.whosplaying.ui.component.common.LoadingView
+import com.diegopizzo.whosplaying.ui.component.common.MyScaffold
 import com.diegopizzo.whosplaying.ui.component.viewpager.TabViewPager
 import com.diegopizzo.whosplaying.ui.detailsscreen.event.ComposeEvent
 import com.diegopizzo.whosplaying.ui.detailsscreen.event.ComposeEventScoreBoard
@@ -17,10 +24,35 @@ import com.diegopizzo.whosplaying.ui.detailsscreen.lineups.LineupsView
 import com.diegopizzo.whosplaying.ui.detailsscreen.statistics.StatisticsView
 import com.google.accompanist.pager.ExperimentalPagerApi
 
-@ExperimentalPagerApi
+const val FIXTURE_ID_KEY = "FIXTURE_ID_KEY"
+
 @Composable
-fun ComposeDetailsView(dataModel: EventDataModel) {
-    Column {
+fun FixtureDetailsScreen(
+    modifier: Modifier = Modifier,
+    viewModel: IDetailsScreenViewModel
+) {
+    val viewDataState = viewModel.viewStates().observeAsState().value ?: return
+
+    if (viewDataState.isLoading) {
+        LoadingView()
+    } else {
+        MyScaffold(
+            navigationOnClick = {},
+        ) {
+            FixtureDetailsView(
+                modifier = modifier.padding(it),
+                dataModel = viewDataState.eventDataModel
+            )
+        }
+    }
+}
+
+@Composable
+private fun FixtureDetailsView(
+    modifier: Modifier = Modifier,
+    dataModel: EventDataModel
+) {
+    Column(modifier = modifier) {
         ComposeEventScoreBoard(
             dataModel.logoHomeTeam,
             dataModel.homeTeam,
@@ -89,9 +121,8 @@ private fun isHomeTeamEvent(homeId: Long, eventTeamId: Long): Boolean {
     return homeId == eventTeamId
 }
 
-@ExperimentalPagerApi
 @Preview
 @Composable
-private fun ComposeDetailsView() {
-    ComposeDetailsView(detailsScreenPreviewDataModel)
+private fun FixtureDetailsView() {
+    FixtureDetailsView(dataModel = detailsScreenPreviewDataModel)
 }

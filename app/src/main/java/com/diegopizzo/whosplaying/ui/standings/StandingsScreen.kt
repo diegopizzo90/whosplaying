@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -20,10 +21,67 @@ import com.diegopizzo.whosplaying.ui.component.attr.backgroundColor
 import com.diegopizzo.whosplaying.ui.component.attr.row
 import com.diegopizzo.whosplaying.ui.component.attr.teal700
 import com.diegopizzo.whosplaying.ui.component.attr.tinyPadding
-import com.diegopizzo.whosplaying.ui.component.common.ComposeImage
-import com.diegopizzo.whosplaying.ui.component.common.MyDivider
-import com.diegopizzo.whosplaying.ui.component.common.SmallText
-import com.diegopizzo.whosplaying.ui.component.common.VerticalDivider
+import com.diegopizzo.whosplaying.ui.component.common.*
+
+const val STANDINGS_LEAGUE_KEY = "STANDINGS_LEAGUE_KEY"
+
+@Composable
+fun StandingsScreen(
+    modifier: Modifier = Modifier,
+    viewModel: IStandingsViewModel
+) {
+    val viewDataState = viewModel.viewStates().observeAsState().value ?: return
+
+    if (viewDataState.isLoading) {
+        LoadingView()
+    } else {
+        MyScaffold(
+            modifier = modifier,
+            navigationOnClick = { },
+        ) {
+            StandingsView(
+                modifier = modifier.padding(it),
+                standings = viewDataState.standings,
+            )
+        }
+    }
+
+}
+
+@Composable
+private fun StandingsView(
+    modifier: Modifier = Modifier,
+    standings: List<StandingsDataModel>,
+) {
+    LazyColumn(
+        modifier.then(
+            Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.backgroundColor)
+        )
+    ) {
+        item {
+            Row {
+                Column(Modifier.fillMaxWidth(.5F)) {
+                    StandingsItemRowLeftSide(firstItemModel(), FontWeight.Bold)
+                    repeat(standings.size) {
+                        StandingsItemRowLeftSide(item = standings[it])
+                    }
+                }
+                LazyRow {
+                    item {
+                        Column {
+                            StandingsItemRowRightSide(firstItemModel(), FontWeight.Bold)
+                            repeat(standings.size) {
+                                StandingsItemRowRightSide(item = standings[it])
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 @Composable
 private fun StandingsItemCell(
@@ -257,42 +315,10 @@ private fun firstItemModel() = StandingsDataModel(
     stringResource(R.string.against)
 )
 
-@Composable
-fun Standings(standings: List<StandingsDataModel>, modifier: Modifier = Modifier) {
-    LazyColumn(
-        modifier.then(
-            Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.backgroundColor)
-        )
-    ) {
-        item {
-            Row {
-                Column(Modifier.fillMaxWidth(.5F)) {
-                    StandingsItemRowLeftSide(firstItemModel(), FontWeight.Bold)
-                    repeat(standings.size) {
-                        StandingsItemRowLeftSide(item = standings[it])
-                    }
-                }
-                LazyRow {
-                    item {
-                        Column {
-                            StandingsItemRowRightSide(firstItemModel(), FontWeight.Bold)
-                            repeat(standings.size) {
-                                StandingsItemRowRightSide(item = standings[it])
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
 @Preview
 @Composable
 fun StandingsPreview() {
-    Standings(standingsMock)
+    StandingsView(standings = standingsMock)
 }
 
 val standingsMock = listOf(

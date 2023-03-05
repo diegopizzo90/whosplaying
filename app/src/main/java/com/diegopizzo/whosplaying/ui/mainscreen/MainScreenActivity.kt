@@ -1,41 +1,17 @@
 package com.diegopizzo.whosplaying.ui.mainscreen
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import com.diegopizzo.network.interactor.league.CountryCode
-import com.diegopizzo.whosplaying.R
-import com.diegopizzo.whosplaying.databinding.ActivityMainBinding
-import com.diegopizzo.whosplaying.ui.base.ActivityViewBinding
-import com.diegopizzo.whosplaying.ui.component.attr.WhosPlayingTheme
-import com.diegopizzo.whosplaying.ui.component.datepickerslider.DatePickerSlider
-import com.diegopizzo.whosplaying.ui.standings.StandingsActivity
-import com.diegopizzo.whosplaying.ui.standings.StandingsActivity.Companion.STANDINGS_LEAGUE_KEY
+import androidx.appcompat.app.AppCompatActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainScreenActivity : ActivityViewBinding<ActivityMainBinding>() {
-
-    override val bindingInflater: (LayoutInflater) -> ActivityMainBinding
-        get() = ActivityMainBinding::inflate
+class MainScreenActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
 
-        binding.bottomNavigation.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.serieA -> mainViewModel.onMenuNavigationSelected(CountryCode.ITALY)
-                R.id.premierLeague -> mainViewModel.onMenuNavigationSelected(CountryCode.ENGLAND)
-                R.id.laLiga -> mainViewModel.onMenuNavigationSelected(CountryCode.SPAIN)
-                R.id.bundesliga -> mainViewModel.onMenuNavigationSelected(CountryCode.GERMANY)
-                R.id.ligue1 -> mainViewModel.onMenuNavigationSelected(CountryCode.FRANCE)
-            }
-            true
-        }
-
-        binding.toolbar.apply {
+/*        binding.toolbar.apply {
             inflateMenu(R.menu.toolbar_menu)
             setOnMenuItemClickListener {
                 startActivity(Intent(this@MainScreenActivity, StandingsActivity::class.java).apply {
@@ -43,21 +19,6 @@ class MainScreenActivity : ActivityViewBinding<ActivityMainBinding>() {
                 })
                 true
             }
-        }
-        setDatePickerSlider()
-    }
-
-    private fun setDatePickerSlider() {
-        binding.datePickerSlider.setContent {
-            WhosPlayingTheme {
-                mainViewModel.apply {
-                    DatePickerSlider(
-                        viewState.datePickerSliderModel,
-                        viewState.indexDateSelected,
-                        { onDaySelected(it) }
-                    )
-                }
-            }
-        }
+        }*/
     }
 }

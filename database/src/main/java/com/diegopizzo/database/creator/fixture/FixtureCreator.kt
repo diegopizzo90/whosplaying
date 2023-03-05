@@ -44,7 +44,8 @@ class FixtureCreator {
             entity.logoHomeTeam,
             entity.logoAwayTeam,
             entity.goalHomeTeam,
-            entity.goalAwayTeam
+            entity.goalAwayTeam,
+            false
         )
     }
 

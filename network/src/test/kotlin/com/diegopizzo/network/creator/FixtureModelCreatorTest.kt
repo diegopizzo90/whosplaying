@@ -51,19 +51,20 @@ class FixtureModelCreatorTest {
             FixtureDataModel(
                 1,
                 "2021-10-01T18:45:00+00:00",
-                "1H",
+                "54′",
                 "54",
                 "team5",
                 "team6",
                 "logoTeam5.it",
                 "logoTeam6.it",
                 "1",
-                "1"
+                "1",
+                true
             ),
             FixtureDataModel(
                 1,
                 "2021-10-02T18:45:00+00:00",
-                "NS",
+                "19:45",
                 null,
                 "team3",
                 "team4",
@@ -75,7 +76,7 @@ class FixtureModelCreatorTest {
             FixtureDataModel(
                 1,
                 "2021-10-03T18:45:00+00:00",
-                "NS",
+                "19:45",
                 null,
                 "team1",
                 "team2",

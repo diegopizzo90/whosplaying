@@ -56,7 +56,7 @@ fun ComposeEventScoreBoard(
                 SmallText(awayTeam)
             }
         }
-    }, onClick)
+    }, onClick = onClick)
 }
 
 @Composable

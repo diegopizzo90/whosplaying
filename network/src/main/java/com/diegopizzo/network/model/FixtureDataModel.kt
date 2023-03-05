@@ -10,5 +10,6 @@ data class FixtureDataModel(
     val logoHomeTeam: String,
     val logoAwayTeam: String,
     val goalHomeTeam: String,
-    val goalAwayTeam: String
+    val goalAwayTeam: String,
+    val isFixtureLive: Boolean = false,
 )

@@ -1,7 +1,10 @@
 package com.diegopizzo.whosplaying.ui.component.attr
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.*
+import androidx.compose.material.Colors
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.darkColors
+import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
@@ -11,7 +14,7 @@ private val LightColors = lightColors(
     onPrimary = white,
     secondary = teal200,
     secondaryVariant = teal700,
-    onSecondary = black
+    onSecondary = black,
 )
 private val DarkColors = darkColors(
     primary = blueDark,
@@ -19,7 +22,7 @@ private val DarkColors = darkColors(
     onPrimary = white,
     secondary = teal200,
     secondaryVariant = teal700,
-    onSecondary = black
+    onSecondary = black,
 )
 
 val Colors.card: Color
