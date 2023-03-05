@@ -1,5 +1,6 @@
 package com.diegopizzo.network.service
 
+import com.diegopizzo.network.interactor.league.LeagueType
 import com.diegopizzo.network.model.*
 import com.diegopizzo.network.model.EventType.*
 import com.diegopizzo.network.model.EventTypeDetail.*
@@ -15,8 +16,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.mockito.ArgumentMatchers.anyLong
-import org.mockito.ArgumentMatchers.anyString
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -51,7 +50,7 @@ class RetrofitApiTest {
         server.enqueueResponse("league_success_response.json", 200)
 
         runBlocking {
-            api.getLeagueByCountry(anyString(), anyString())
+            api.getLeagueByCountry("", "")
 
             val request = server.takeRequest()
             assertEquals(request.path?.contains("/leagues"), true)
@@ -63,7 +62,7 @@ class RetrofitApiTest {
         server.enqueueResponse("league_success_response.json", 200)
 
         runBlocking {
-            val actualValue = api.getLeagueByCountry(anyString(), anyString())
+            val actualValue = api.getLeagueByCountry("", "")
             assertEquals(actualValue.body(), leagueSuccessResponse.body())
         }
     }
@@ -73,7 +72,7 @@ class RetrofitApiTest {
         server.enqueue(MockResponse().setResponseCode(500))
 
         runBlocking {
-            val actualValue = api.getLeagueByCountry(anyString(), anyString())
+            val actualValue = api.getLeagueByCountry("", "")
             assertEquals(actualValue.body(), null)
         }
     }
@@ -83,7 +82,7 @@ class RetrofitApiTest {
         server.enqueueResponse("fixtures_success_response.json", 200)
 
         runBlocking {
-            api.getFixturesByLeagueIdAndByDate(anyString(), anyString(), anyString(), anyString())
+            api.getFixturesByLeagueIdAndByDate("", "", "", "")
 
             val request = server.takeRequest()
             assertEquals(request.path?.contains("/fixtures"), true)
@@ -95,12 +94,7 @@ class RetrofitApiTest {
         server.enqueueResponse("fixtures_success_response.json", 200)
 
         runBlocking {
-            val actualValue = api.getFixturesByLeagueIdAndByDate(
-                anyString(),
-                anyString(),
-                anyString(),
-                anyString()
-            )
+            val actualValue = api.getFixturesByLeagueIdAndByDate("", "", "", "")
 
             assertEquals(actualValue.body(), fixtureSuccessResponse.body())
         }
@@ -111,12 +105,7 @@ class RetrofitApiTest {
         server.enqueue(MockResponse().setResponseCode(500))
 
         runBlocking {
-            val actualValue = api.getFixturesByLeagueIdAndByDate(
-                anyString(),
-                anyString(),
-                anyString(),
-                anyString()
-            )
+            val actualValue = api.getFixturesByLeagueIdAndByDate("", "", "", "")
 
             assertEquals(actualValue.body(), null)
         }
@@ -127,7 +116,7 @@ class RetrofitApiTest {
         server.enqueueResponse("event_success_response.json", 200)
 
         runBlocking {
-            val actualValue = api.getEventByFixtureId(anyLong())
+            val actualValue = api.getEventByFixtureId(1L)
 
             assertEquals(actualValue.body(), eventModel)
         }
@@ -138,17 +127,56 @@ class RetrofitApiTest {
         server.enqueueResponse("standings_success_response.json", 200)
 
         runBlocking {
-            val actualValue = api.getStandings(anyString(), anyString())
+            val actualValue = api.getStandings("", "")
 
             assertEquals(actualValue.body(), standings)
         }
     }
 
+    @Test
+    fun getStatistics_successResponse_assertEqualsTrue() {
+        server.enqueueResponse("statistics_success_response.json", 200)
+
+        runBlocking {
+            val actualValue = api.getStatistics(1L)
+
+            assertEquals(actualValue.body(), statistics)
+        }
+    }
+
+    @Test
+    fun getLineups_successResponse_assertEqualsTrue() {
+        server.enqueueResponse("lineup_success_response.json", 200)
+
+        runBlocking {
+            val actualValue = api.getLineups(1L)
+
+            assertEquals(actualValue.body(), lineupsModel)
+        }
+    }
+
+    @Test
+    fun getHeadToHead_successResponse_assertEqualsTrue() {
+        server.enqueueResponse("head_to_head_success_response.json", 200)
+
+        runBlocking {
+            val actualValue = api.getHeadToHead("499-495")
+
+            assertEquals(actualValue.body(), headToHeadModel)
+        }
+    }
+
     companion object {
         private val leagueInfo =
-            LeagueInfo(140, "La Liga", "https://media.api-sports.io/football/leagues/140.png")
+            LeagueInfo(
+                140,
+                "La Liga",
+                LeagueType.LEAGUE.type,
+                "https://media.api-sports.io/football/leagues/140.png"
+            )
+        private val countryInfo = CountryInfo(name = "Spain", code = "ES")
         private val leagueSuccessResponse =
-            Response.success(LeagueModel(listOf(LeagueResponse(leagueInfo))))
+            Response.success(LeagueModel(listOf(LeagueResponse(leagueInfo, countryInfo))))
 
         private val fixtures = listOf(
             ResponseFixture(
@@ -320,6 +348,114 @@ class RetrofitApiTest {
                             )
                         )
                     )
+                )
+            )
+        )
+
+        private val statistics = StatisticsModel(
+            listOf(
+                TeamStatistics(
+                    Team("497", "AS Roma"),
+                    listOf(
+                        Statistics("Shots on Goal", "3"),
+                        Statistics("Shots off Goal", "3"),
+                        Statistics("Total Shots", "7"),
+                        Statistics("Blocked Shots", "1"),
+                        Statistics("Shots insidebox", "5"),
+                        Statistics("Shots outsidebox", "2"),
+                        Statistics("Fouls", "18"),
+                        Statistics("Corner Kicks", "4"),
+                        Statistics("Offsides", "1"),
+                        Statistics("Ball Possession", "58%"),
+                        Statistics("Yellow Cards", "3"),
+                        Statistics("Red Cards", null),
+                        Statistics("Goalkeeper Saves", "1"),
+                        Statistics("Total passes", "495"),
+                        Statistics("Passes accurate", "374"),
+                        Statistics("Passes %", "76%")
+                    )
+                ), TeamStatistics(
+                    Team("504", "Verona"),
+                    listOf(
+                        Statistics("Shots on Goal", "3"),
+                        Statistics("Shots off Goal", null),
+                        Statistics("Total Shots", "5"),
+                        Statistics("Blocked Shots", "2"),
+                        Statistics("Shots insidebox", "3"),
+                        Statistics("Shots outsidebox", "2"),
+                        Statistics("Fouls", "14"),
+                        Statistics("Corner Kicks", "2"),
+                        Statistics("Offsides", "3"),
+                        Statistics("Ball Possession", "42%"),
+                        Statistics("Yellow Cards", "2"),
+                        Statistics("Red Cards", null),
+                        Statistics("Goalkeeper Saves", "1"),
+                        Statistics("Total passes", "375"),
+                        Statistics("Passes accurate", "272"),
+                        Statistics("Passes %", "73%")
+                    )
+                )
+            )
+        )
+
+        private val lineupsModel = LineupsModel(
+            listOf(
+                Lineup(
+                    TeamLineup(497, "AS Roma"),
+                    CoachLineup(2462, "José Mourinho"),
+                    "3-4-1-2",
+                    startXI = listOf(
+                        StartEleven(PlayerLineup(2674, "Rui Patrício", "1", "G", "1:1")),
+                        StartEleven(PlayerLineup(892, "C. Smalling", "6", "D", "2:3")),
+                        StartEleven(PlayerLineup(770, "R. Karsdorp", "2", "D", "2:2")),
+                        StartEleven(PlayerLineup(30924, "M. Kumbulla", "24", "D", "2:1")),
+                        StartEleven(PlayerLineup(51572, "M. Viña", "5", "M", "3:4")),
+                        StartEleven(PlayerLineup(2375, "Sérgio Oliveira", "27", "M", "3:3")),
+                        StartEleven(PlayerLineup(778, "B. Cristante", "4", "M", "3:2")),
+                        StartEleven(PlayerLineup(1456, "A. Maitland-Niles", "15", "M", "3:1")),
+                        StartEleven(PlayerLineup(782, "L. Pellegrini", "7", "F", "4:1")),
+                        StartEleven(PlayerLineup(19194, "T. Abraham", "9", "F", "5:2")),
+                        StartEleven(PlayerLineup(342038, "F. Afena-Gyan", "64", "F", "5:1"))
+                    ),
+                    substitutes = listOf(
+                        Substitutes(PlayerLineup(30409, "J. Veretout", "17", "M", null)),
+                        Substitutes(PlayerLineup(203474, "N. Zalewski", "59", "F", null)),
+                        Substitutes(PlayerLineup(342035, "C. Volpato", "62", "M", null)),
+                        Substitutes(PlayerLineup(286475, "E. Bove", "52", "M", null)),
+                        Substitutes(PlayerLineup(763, "Daniel Fuzato", "87", "G", null)),
+                        Substitutes(PlayerLineup(342653, "F. Missori", "58", "D", null)),
+                        Substitutes(PlayerLineup(342071, "D. Mastrantonio", "67", "G", null)),
+                        Substitutes(PlayerLineup(324, "A. Diawara", "42", "M", null)),
+                        Substitutes(PlayerLineup(343385, "D. Keramitsis", "75", "D", null)),
+                        Substitutes(PlayerLineup(158059, "E. Darboe", "55", "M", null))
+                    )
+                ), Lineup(
+                    TeamLineup(504, "Verona"),
+                    CoachLineup(2432, "I. Tudor"),
+                    "3-4-2-1",
+                    startXI = emptyList(),
+                    substitutes = emptyList()
+                )
+            )
+        )
+
+        private val headToHeadModel = HeadToHeadModel(
+            listOf(
+                ResponseHeadToHead(
+                    FixtureH2H(8698, "UTC", "2018-04-29T13:00:00+00:00"),
+                    Teams(
+                        Home(499, "Atalanta", "https://media.api-sports.io/football/teams/499.png"),
+                        Away(495, "Genoa", "https://media.api-sports.io/football/teams/495.png")
+                    ),
+                    Goals(3, 1)
+                ),
+                ResponseHeadToHead(
+                    FixtureH2H(21564, "UTC", "2016-10-30T11:30:00+00:00"),
+                    Teams(
+                        Home(499, "Atalanta", "https://media.api-sports.io/football/teams/499.png"),
+                        Away(495, "Genoa", "https://media.api-sports.io/football/teams/495.png")
+                    ),
+                    Goals(3, 0)
                 )
             )
         )

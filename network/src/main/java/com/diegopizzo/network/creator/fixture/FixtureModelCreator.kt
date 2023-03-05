@@ -7,10 +7,12 @@ import retrofit2.Response
 
 class FixtureModelCreator {
 
-    fun toFixturesDataModel(fixtureModel: Response<FixtureModel>): List<FixtureDataModel>? {
-        return fixtureModel.body()?.response?.map {
-            toFixtureDataModel(it)
-        }
+    fun toFixturesDataModel(fixtureModel: List<Response<FixtureModel>>): List<FixtureDataModel> {
+        return fixtureModel.flatMap { fixture ->
+            fixture.body()?.response?.sortedBy { it.fixture.date }?.map {
+                toFixtureDataModel(it)
+            } ?: emptyList()
+        }.toList()
     }
 
     private fun toFixtureDataModel(responseFixture: ResponseFixture): FixtureDataModel {

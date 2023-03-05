@@ -3,8 +3,7 @@ package com.diegopizzo.whosplaying.ui.mainscreen
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.navigation.fragment.NavHostFragment
-import com.diegopizzo.network.interactor.league.LeagueName
+import com.diegopizzo.network.interactor.league.CountryCode
 import com.diegopizzo.whosplaying.R
 import com.diegopizzo.whosplaying.databinding.ActivityMainBinding
 import com.diegopizzo.whosplaying.ui.base.ActivityViewBinding
@@ -25,15 +24,13 @@ class MainScreenActivity : ActivityViewBinding<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val navController =
-            (supportFragmentManager.findFragmentById(R.id.fragment_nav_controller) as NavHostFragment).navController
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.serieA -> mainViewModel.onMenuNavigationSelected(LeagueName.SERIE_A)
-                R.id.premierLeague -> mainViewModel.onMenuNavigationSelected(LeagueName.PREMIER_LEAGUE)
-                R.id.laLiga -> mainViewModel.onMenuNavigationSelected(LeagueName.LA_LIGA)
-                R.id.bundesliga -> mainViewModel.onMenuNavigationSelected(LeagueName.BUNDESLIGA)
-                R.id.ligue1 -> mainViewModel.onMenuNavigationSelected(LeagueName.LIGUE_1)
+                R.id.serieA -> mainViewModel.onMenuNavigationSelected(CountryCode.ITALY)
+                R.id.premierLeague -> mainViewModel.onMenuNavigationSelected(CountryCode.ENGLAND)
+                R.id.laLiga -> mainViewModel.onMenuNavigationSelected(CountryCode.SPAIN)
+                R.id.bundesliga -> mainViewModel.onMenuNavigationSelected(CountryCode.GERMANY)
+                R.id.ligue1 -> mainViewModel.onMenuNavigationSelected(CountryCode.FRANCE)
             }
             true
         }

@@ -6,8 +6,10 @@ import org.threeten.bp.LocalDate
 
 interface IFixtureInteractor {
     fun getFixturesByLeagueAndDate(
-        leagueId: String,
+        leagueId: List<String>,
         from: LocalDate,
         to: LocalDate
     ): Flow<List<FixtureDataModel>?>
+
+    suspend fun clearCache()
 }

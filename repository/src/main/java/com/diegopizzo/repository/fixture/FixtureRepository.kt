@@ -20,7 +20,9 @@ internal class FixtureRepository(
 ) : IFixtureRepository {
 
     override fun getFixtures(
-        leagueId: String, from: LocalDate, to: LocalDate
+        leagueId: List<String>,
+        from: LocalDate,
+        to: LocalDate
     ): Flow<List<FixtureDataModel>?> {
         return interactor.getFixturesByLeagueAndDate(leagueId, from, to).cancellable()
             .onEach { dataModelList ->
@@ -31,13 +33,25 @@ internal class FixtureRepository(
                 }
             }.flowOn(defaultDispatcher)
             .catch {
-                val entities = fixtureDao.getFixturesByLeagueId(
-                    leagueId.toLong(),
-                    from.toStartZoneDateTime(),
-                    to.toEndZoneDateTime()
-                )
-                val dataModels = creator.toFixtureDataModels(entities)
-                emit(dataModels)
+                onError(leagueId, from, to)
             }
+    }
+
+    private suspend fun FlowCollector<List<FixtureDataModel>>.onError(
+        leagueId: List<String>,
+        from: LocalDate,
+        to: LocalDate
+    ) {
+        interactor.clearCache()
+        val entities = leagueId.map { id ->
+            fixtureDao.getFixturesByLeagueId(
+                id.toLong(),
+                from.toStartZoneDateTime(),
+                to.toEndZoneDateTime()
+            )
+        }
+
+        val dataModels = creator.toFixtureDataModels(entities.flatMap { it.orEmpty() })
+        emit(dataModels)
     }
 }

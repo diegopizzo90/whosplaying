@@ -5,5 +5,9 @@ import kotlinx.coroutines.flow.Flow
 import org.threeten.bp.LocalDate
 
 interface IFixtureRepository {
-    fun getFixtures(leagueId: String, from: LocalDate, to: LocalDate): Flow<List<FixtureDataModel>?>
+    fun getFixtures(
+        leagueId: List<String>,
+        from: LocalDate,
+        to: LocalDate
+    ): Flow<List<FixtureDataModel>?>
 }

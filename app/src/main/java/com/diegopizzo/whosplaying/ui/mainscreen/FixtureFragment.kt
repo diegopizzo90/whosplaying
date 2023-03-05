@@ -12,8 +12,10 @@ import com.diegopizzo.whosplaying.ui.base.FragmentViewBinding
 import com.diegopizzo.whosplaying.ui.detailsscreen.DetailsScreenActivity
 import com.diegopizzo.whosplaying.ui.detailsscreen.DetailsScreenActivity.Companion.FIXTURE_ID_KEY
 import com.diegopizzo.whosplaying.ui.mainscreen.adapter.FixtureAdapter
+import com.google.accompanist.pager.ExperimentalPagerApi
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
+@ExperimentalPagerApi
 class FixtureFragment : FragmentViewBinding<FragmentFixtureBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentFixtureBinding
@@ -24,7 +26,10 @@ class FixtureFragment : FragmentViewBinding<FragmentFixtureBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setRecyclerView()
+    }
 
+    override fun onStart() {
+        super.onStart()
         viewModel.viewStates().observe(viewLifecycleOwner, viewStateObserver)
         viewModel.viewEffects().observe(viewLifecycleOwner, viewEffectObserver)
     }
@@ -36,14 +41,14 @@ class FixtureFragment : FragmentViewBinding<FragmentFixtureBinding>() {
         viewState.apply {
             if (updateFixture) {
                 dateSelected?.let { date ->
-                    viewModel.getFixturesByLeagueName(leagueSelected, date)
+                    viewModel.getFixturesByLeagueName(leagueCountrySelected, date)
                 }
             }
         }
     }
 
     private fun toFixtureDetails(id: Long) {
-        startActivity(Intent(activity, DetailsScreenActivity::class.java).apply {
+        startActivity(Intent(requireActivity(), DetailsScreenActivity::class.java).apply {
             putExtra(FIXTURE_ID_KEY, id)
         })
     }
@@ -86,5 +91,12 @@ class FixtureFragment : FragmentViewBinding<FragmentFixtureBinding>() {
     private fun onError() {
         binding.noEventsView.root.visibility = View.VISIBLE
         stopShimmer()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.viewStates().removeObserver(viewStateObserver)
+        viewModel.viewEffects().removeObserver(viewEffectObserver)
+        viewModel.onStopView()
     }
 }

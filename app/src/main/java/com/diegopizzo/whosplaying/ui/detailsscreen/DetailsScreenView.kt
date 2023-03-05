@@ -1,25 +1,27 @@
 package com.diegopizzo.whosplaying.ui.detailsscreen
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.diegopizzo.network.model.*
+import com.diegopizzo.network.model.EventDataModel
+import com.diegopizzo.network.model.EventType
+import com.diegopizzo.network.model.EventTypeDetail
 import com.diegopizzo.whosplaying.R
-import com.diegopizzo.whosplaying.ui.component.fixture.ComposeEvent
-import com.diegopizzo.whosplaying.ui.component.fixture.ComposeFixturesDetails
-import com.diegopizzo.whosplaying.ui.component.attr.smallPadding
-import com.diegopizzo.whosplaying.ui.component.common.MediumText
-import com.diegopizzo.whosplaying.ui.component.common.MyCard
+import com.diegopizzo.whosplaying.ui.component.viewpager.TabViewPager
+import com.diegopizzo.whosplaying.ui.detailsscreen.event.ComposeEvent
+import com.diegopizzo.whosplaying.ui.detailsscreen.event.ComposeEventScoreBoard
+import com.diegopizzo.whosplaying.ui.detailsscreen.lineups.LineupsView
+import com.diegopizzo.whosplaying.ui.detailsscreen.statistics.StatisticsView
+import com.google.accompanist.pager.ExperimentalPagerApi
 
+@ExperimentalPagerApi
 @Composable
 fun ComposeDetailsView(dataModel: EventDataModel) {
     Column {
-        ComposeFixturesDetails(
+        ComposeEventScoreBoard(
             dataModel.logoHomeTeam,
             dataModel.homeTeam,
             dataModel.scoreHomeTeam,
@@ -28,30 +30,34 @@ fun ComposeDetailsView(dataModel: EventDataModel) {
             dataModel.scoreAwayTeam,
             dataModel.status.long
         )
-        MyCard(content = {
-            Column {
-                MediumText(
-                    text = stringResource(R.string.match_events),
-                    modifier = Modifier.padding(smallPadding)
-                )
-                LazyColumn {
-                    items(
-                        items = dataModel.events,
-                        itemContent = {
-                            val eventPair = getEventDrawableAndDetail(it.type, it.detail)
+        TabViewPager(
+            tabList = listOf(
+                stringResource(R.string.match_events),
+                stringResource(R.string.statistics),
+                stringResource(R.string.lineups)
+            )
+        ) {
+            when (it) {
+                stringResource(R.string.match_events) -> {
+                    LazyColumn {
+                        items(items = dataModel.events, itemContent = { event ->
+                            val eventPair = getEventDrawableAndDetail(event.type, event.detail)
                             ComposeEvent(
-                                it.elapsedEvent,
-                                eventPair.first,
-                                it.mainPlayer,
-                                it.secondPlayer,
-                                eventPair.second,
-                                isHomeTeamEvent(dataModel.homeTeamId, it.idTeamEvent)
+                                event.elapsedEvent, eventPair.first,
+                                event.mainPlayer, event.secondPlayer, eventPair.second,
+                                isHomeTeamEvent(dataModel.homeTeamId, event.idTeamEvent)
                             )
-                        }
-                    )
+                        })
+                    }
+                }
+                stringResource(R.string.statistics) -> {
+                    StatisticsView(dataModel.statistics, dataModel.headToHead)
+                }
+                stringResource(R.string.lineups) -> {
+                    dataModel.lineups?.let { lineups -> LineupsView(lineups) }
                 }
             }
-        })
+        }
     }
 }
 
@@ -83,105 +89,9 @@ private fun isHomeTeamEvent(homeId: Long, eventTeamId: Long): Boolean {
     return homeId == eventTeamId
 }
 
+@ExperimentalPagerApi
 @Preview
 @Composable
 private fun ComposeDetailsView() {
-    ComposeDetailsView(dataModel)
+    ComposeDetailsView(detailsScreenPreviewDataModel)
 }
-
-val dataModel = EventDataModel(
-    1,
-    "2021-10-02T18:45:00+00:00",
-    StatusValue.MATCH_FINISHED,
-    "90",
-    517,
-    "AC Milan",
-    518,
-    "FC Inter",
-    "",
-    "",
-    "3",
-    "0",
-    listOf(
-        SingleEvent(
-            "26′",
-            517,
-            "R. Leao",
-            "A. Rebic",
-            EventType.SUBSTITUTION,
-            EventTypeDetail.SUBSTITUTION_1
-        ),
-        SingleEvent(
-            "36′",
-            518,
-            "Barella",
-            null,
-            EventType.CARD,
-            EventTypeDetail.YELLOW_CARD
-        ),
-        SingleEvent(
-            "38′",
-            517,
-            "Z. Ibrahimovic",
-            "A. Rebic",
-            EventType.GOAL,
-            EventTypeDetail.NORMAL_GOAL
-        ),
-        SingleEvent(
-            "41′",
-            518,
-            "L. Martinez",
-            null,
-            EventType.GOAL,
-            EventTypeDetail.MISSED_PENALTY
-        ),
-        SingleEvent(
-            "52′",
-            517,
-            "Z. Ibrahimovic",
-            null,
-            EventType.GOAL,
-            EventTypeDetail.NORMAL_GOAL
-        ),
-        SingleEvent(
-            "52′",
-            517,
-            "Krunic",
-            null,
-            EventType.CARD,
-            EventTypeDetail.YELLOW_CARD
-        ),
-        SingleEvent(
-            "63′",
-            518,
-            "Barella",
-            null,
-            EventType.CARD,
-            EventTypeDetail.SECOND_YELLOW_CARD
-        ),
-        SingleEvent(
-            "63′",
-            517,
-            "Z. Ibrahimovic",
-            null,
-            EventType.VAR,
-            EventTypeDetail.PENALTY_CONFIRMED
-        ),
-        SingleEvent(
-            "65′",
-            517,
-            "Z. Ibrahimovic",
-            "Tomori",
-            EventType.GOAL,
-            EventTypeDetail.PENALTY
-        ),
-        SingleEvent(
-            "90′+2′",
-            518,
-            "H. Çalhanoğlu",
-            null,
-            EventType.CARD,
-            EventTypeDetail.RED_CARD
-        )
-    )
-)

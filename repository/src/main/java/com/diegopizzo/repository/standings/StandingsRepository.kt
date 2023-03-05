@@ -27,6 +27,7 @@ internal class StandingsRepository(
                 dao.insertStandings(*creator.fromDataModelListToEntities(standings, leagueId))
                 standings
             } catch (e: Exception) {
+                interactor.clearCache()
                 if (e is LeagueIdNullException) emptyList<StandingsDataModel>()
                 creator.fromEntitiesToDataModelList(dao.getStandingsByLeagueId(leagueId.toLong()))
             }

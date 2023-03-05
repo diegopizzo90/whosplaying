@@ -17,11 +17,31 @@ internal class EventInteractor(
     override fun getEvents(fixtureId: Long): Flow<EventDataModel?> {
         return flow {
             while (true) {
-                val response = cache.getEventByFixtureId(fixtureId)
-                val dataModel = creator.toEventDataModel(response.body())
-                emit(dataModel)
+                val eventResponse = cache.getEventByFixtureId(fixtureId)
+                val statisticsResponse = cache.getStatistics(fixtureId)
+                val lineupsModel = cache.getLineups(fixtureId)
+
+                val teams = eventResponse.body()?.response?.first()?.teams
+
+                val fixtureIds = if (teams != null) {
+                    "${teams.home.id}-${teams.away.id}"
+                } else null
+
+                val headToHeadModel = fixtureIds?.let { cache.getHeadToHead(it) }
+
+                val result = creator.toEventDataModel(
+                    eventResponse.body(),
+                    statisticsResponse.body(),
+                    lineupsModel.body(),
+                    headToHeadModel?.body()
+                )
+                emit(result)
                 delay(refreshIntervalMs)
             }
         }
+    }
+
+    override suspend fun clearCache() {
+        cache.clearCache()
     }
 }

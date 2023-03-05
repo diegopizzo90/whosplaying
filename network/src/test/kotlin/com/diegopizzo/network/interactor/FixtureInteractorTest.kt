@@ -48,7 +48,7 @@ class FixtureInteractorTest {
             ).thenReturn(fixtureSuccessResponse)
 
             val fixtureItem = interactor.getFixturesByLeagueAndDate(
-                "1",
+                listOf("1"),
                 LocalDate.of(2021, 9, 30).minusDays(3),
                 LocalDate.of(2021, 9, 30).plusDays(3)
             ).first()
@@ -96,7 +96,7 @@ class FixtureInteractorTest {
             ),
             FixtureDataModel(
                 1,
-                "2021-10-01T18:45:00+00:00",
+                "2021-10-01T17:45:00+00:00",
                 "NS",
                 null,
                 "Cagliari",
@@ -108,7 +108,7 @@ class FixtureInteractorTest {
             ),
             FixtureDataModel(
                 1,
-                "2021-10-01T17:45:00+00:00",
+                "2021-10-01T18:45:00+00:00",
                 "NS",
                 null,
                 "Cagliari",

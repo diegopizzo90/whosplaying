@@ -56,16 +56,9 @@ fun MyRow(
                 .wrapContentHeight()
                 .background(color = MaterialTheme.colors.row)
                 .clickable { onClick?.invoke() },
-            horizontalArrangement = horizontalArrangement
+            horizontalArrangement = horizontalArrangement,
         )
         MyDivider()
-    }
-}
-
-@Composable
-fun MySurface(content: @Composable () -> Unit) {
-    Surface(color = blueDark2) {
-        content.invoke()
     }
 }
 

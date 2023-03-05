@@ -22,8 +22,8 @@ data class DatePickerSliderModel(
 
 fun createDatePickerSliderModel(): List<DatePickerSliderModel> {
     val now = LocalDate.now(ZoneId.systemDefault())
-    val startDate = now.minusDays(5L)
-    val endDate = now.plusDays(5L)
+    val startDate = now.minusDays(7L)
+    val endDate = now.plusDays(7L)
 
     val list = mutableListOf(startDate)
     var newDate = startDate.plusDays(1)

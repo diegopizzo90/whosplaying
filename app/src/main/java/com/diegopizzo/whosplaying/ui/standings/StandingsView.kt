@@ -23,6 +23,7 @@ import com.diegopizzo.whosplaying.ui.component.attr.tinyPadding
 import com.diegopizzo.whosplaying.ui.component.common.ComposeImage
 import com.diegopizzo.whosplaying.ui.component.common.MyDivider
 import com.diegopizzo.whosplaying.ui.component.common.SmallText
+import com.diegopizzo.whosplaying.ui.component.common.VerticalDivider
 
 @Composable
 private fun StandingsItemCell(
@@ -48,11 +49,6 @@ private fun StandingsItemCell(
             textAlign = TextAlign.Center
         )
     }
-}
-
-@Composable
-private fun VerticalDivider(modifier: Modifier) {
-    MyDivider(modifier = modifier.then(Modifier.width(1.dp)))
 }
 
 @Composable

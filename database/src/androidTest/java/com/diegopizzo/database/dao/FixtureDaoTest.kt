@@ -70,7 +70,7 @@ class FixtureDaoTest {
             FixtureEntity(
                 22,
                 ZonedDateTime.parse(
-                    "2021-10-01T17:45:00+00:00",
+                    "2021-10-01T15:45:00+00:00",
                     DateTimeFormatter.ISO_OFFSET_DATE_TIME
                 ),
                 "NS",
@@ -103,6 +103,22 @@ class FixtureDaoTest {
 
         private val fixturesFromQuery = listOf(
             FixtureEntity(
+                22,
+                ZonedDateTime.parse(
+                    "2021-10-01T15:45:00+00:00",
+                    DateTimeFormatter.ISO_OFFSET_DATE_TIME
+                ),
+                "NS",
+                null,
+                "team3",
+                "team4",
+                "logoTeam3.it",
+                "logoTeam4.it",
+                "",
+                "",
+                1
+            ),
+            FixtureEntity(
                 11,
                 ZonedDateTime.parse(
                     "2021-10-01T17:45:00+00:00",
@@ -116,22 +132,6 @@ class FixtureDaoTest {
                 "logoTeam6.it",
                 "1",
                 "1",
-                1
-            ),
-            FixtureEntity(
-                22,
-                ZonedDateTime.parse(
-                    "2021-10-01T17:45:00+00:00",
-                    DateTimeFormatter.ISO_OFFSET_DATE_TIME
-                ),
-                "NS",
-                null,
-                "team3",
-                "team4",
-                "logoTeam3.it",
-                "logoTeam4.it",
-                "",
-                "",
                 1
             )
         )

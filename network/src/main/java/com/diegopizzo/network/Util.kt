@@ -7,24 +7,14 @@ object Util {
 
     val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
 
-    fun convertUtcDateTimeToLocalDate(
+    fun convertUtcDateTimeToLocal(
         utcDate: String,
         timeZone: ZoneId,
-        datePattern: String
+        pattern: String
     ): String {
         return ZonedDateTime.parse(utcDate, dateTimeFormatter)
             .withZoneSameInstant(timeZone)
-            .format(DateTimeFormatter.ofPattern(datePattern))
-    }
-
-    fun convertUtcDateTimeToLocalTime(
-        utcDate: String,
-        timeZone: ZoneId,
-        timePattern: String
-    ): String {
-        return ZonedDateTime.parse(utcDate, dateTimeFormatter)
-            .withZoneSameInstant(timeZone)
-            .format(DateTimeFormatter.ofPattern(timePattern))
+            .format(DateTimeFormatter.ofPattern(pattern))
     }
 
     fun LocalDate.toStartZoneDateTime(): ZonedDateTime {

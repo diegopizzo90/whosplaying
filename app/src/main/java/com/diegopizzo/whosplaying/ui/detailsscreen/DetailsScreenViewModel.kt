@@ -3,9 +3,10 @@ package com.diegopizzo.whosplaying.ui.detailsscreen
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.diegopizzo.network.model.EventDataModel
 import com.diegopizzo.repository.event.IEventRepository
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 internal class DetailsScreenViewModel(private val eventRepository: IEventRepository) : ViewModel() {
 
@@ -25,14 +26,19 @@ internal class DetailsScreenViewModel(private val eventRepository: IEventReposit
         viewState = FixtureDetailsViewState()
     }
 
-    suspend fun getFixtureEventDetails(id: Long) {
-        viewState = viewState.copy(isLoading = true)
-        eventRepository.getEvent(id).collect { fixtureEvent ->
-            viewState = when {
-                fixtureEvent != null -> {
-                    viewState.copy(eventDataModel = fixtureEvent, isLoading = false)
+    fun getFixtureEventDetails(id: Long) {
+        viewModelScope.launch {
+            //Show loading just the first time
+            if (viewState.eventDataModel.fixtureId == 0L) {
+                viewState = viewState.copy(isLoading = true)
+            }
+            eventRepository.getEvent(id).collect { fixtureEvent ->
+                viewState = when {
+                    fixtureEvent != null -> {
+                        viewState.copy(eventDataModel = fixtureEvent, isLoading = false)
+                    }
+                    else -> viewState.copy(eventDataModel = EventDataModel(), isLoading = false)
                 }
-                else -> viewState.copy(eventDataModel = EventDataModel(), isLoading = false)
             }
         }
     }
