@@ -1,5 +1,7 @@
 package com.diegopizzo.whosplaying.ui.mainscreen
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,24 +17,25 @@ import com.diegopizzo.whosplaying.ui.base.SingleLiveEvent
 import com.diegopizzo.whosplaying.ui.component.datepickerslider.DatePickerSliderModel
 import com.diegopizzo.whosplaying.ui.component.datepickerslider.createDatePickerSliderModel
 import com.diegopizzo.whosplaying.ui.component.datepickerslider.indexCurrentDate
+import com.diegopizzo.whosplaying.ui.mainscreen.BottomNavScreen.*
 import com.diegopizzo.whosplaying.ui.mainscreen.ViewEffect.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 
-internal class MainViewModel(
+class HomeViewModel(
     private val leagueRepository: ILeagueRepository,
     private val fixtureRepository: IFixtureRepository,
-) : ViewModel(), IMainViewModel {
+) : ViewModel(), IHomeViewModel {
 
-    private val _viewStates: MutableLiveData<MainViewState> = MutableLiveData()
-    override fun viewStates(): LiveData<MainViewState> = _viewStates
+    private val _viewStates: MutableLiveData<HomeViewState> = MutableLiveData()
+    override fun viewStates(): LiveData<HomeViewState> = _viewStates
 
     private val _viewEffects: SingleLiveEvent<ViewEffect> = SingleLiveEvent()
     override fun viewEffects(): SingleLiveEvent<ViewEffect> = _viewEffects
 
-    private var _viewState: MainViewState? = null
-    override var viewState: MainViewState
+    private var _viewState: HomeViewState? = null
+    override var viewState: HomeViewState
         get() = _viewState
             ?: throw UninitializedPropertyAccessException("\"viewState\" was queried before being initialized")
         set(value) {
@@ -44,7 +47,7 @@ internal class MainViewModel(
 
     init {
         val datePickerList = createDatePickerSliderModel()
-        viewState = MainViewState(
+        viewState = HomeViewState(
             datePickerSliderModel = datePickerList,
             indexDateSelected = datePickerList.indexCurrentDate(),
             bottomNavItems = getBottomNavigationList()
@@ -102,38 +105,12 @@ internal class MainViewModel(
         viewState = viewState.copy(updateFixture = true)
     }
 
-    private fun getBottomNavigationList(): List<BottomNavItem> {
-        return listOf(
-            BottomNavItem(
-                R.drawable.ic_serie_a,
-                R.string.serie_a,
-                SERIE_A,
-            ),
-            BottomNavItem(
-                R.drawable.ic_premier_league,
-                R.string.premier_league,
-                PREMIER_LEAGUE,
-            ),
-            BottomNavItem(
-                R.drawable.ic_la_liga,
-                R.string.la_liga,
-                LA_LIGA,
-            ),
-            BottomNavItem(
-                R.drawable.ic_bundesliga,
-                R.string.bundesliga,
-                BUNDESLIGA,
-            ),
-            BottomNavItem(
-                R.drawable.ic_ligue_1,
-                R.string.ligue_1,
-                LIGUE_1,
-            ),
-        )
+    private fun getBottomNavigationList(): List<BottomNavScreen> {
+        return listOf(SerieA, PremierLeague, LaLiga, Bundesliga, Ligue1)
     }
 }
 
-data class MainViewState(
+data class HomeViewState(
     val fixtures: List<FixtureDataModel> = emptyList(),
     val leagueCountrySelected: CountryCode = CountryCode.ITALY,
     val leagueSelected: LeagueName = SERIE_A,
@@ -141,14 +118,44 @@ data class MainViewState(
     val updateFixture: Boolean = false,
     val datePickerSliderModel: List<DatePickerSliderModel>,
     val indexDateSelected: Int,
-    val bottomNavItems: List<BottomNavItem>
+    val bottomNavItems: List<BottomNavScreen>
 )
 
-data class BottomNavItem(
-    val itemIcon: Int,
-    val itemName: Int,
+sealed class BottomNavScreen(
+    @StringRes val itemName: Int,
     val id: LeagueName,
-)
+    @DrawableRes val itemIcon: Int
+) {
+    object SerieA : BottomNavScreen(
+        itemName = R.string.serie_a,
+        id = SERIE_A,
+        itemIcon = R.drawable.ic_serie_a,
+    )
+
+    object PremierLeague : BottomNavScreen(
+        itemName = R.string.premier_league,
+        id = PREMIER_LEAGUE,
+        itemIcon = R.drawable.ic_premier_league,
+    )
+
+    object LaLiga : BottomNavScreen(
+        itemName = R.string.la_liga,
+        id = LA_LIGA,
+        itemIcon = R.drawable.ic_la_liga,
+    )
+
+    object Bundesliga : BottomNavScreen(
+        itemName = R.string.bundesliga,
+        id = BUNDESLIGA,
+        itemIcon = R.drawable.ic_bundesliga,
+    )
+
+    object Ligue1 : BottomNavScreen(
+        itemName = R.string.ligue_1,
+        id = LIGUE_1,
+        itemIcon = R.drawable.ic_ligue_1,
+    )
+}
 
 sealed class ViewEffect {
     object ShowSuccessResult : ViewEffect()
@@ -156,10 +163,10 @@ sealed class ViewEffect {
     object ShowProgressBar : ViewEffect()
 }
 
-interface IMainViewModel {
-    fun viewStates(): LiveData<MainViewState>
+interface IHomeViewModel {
+    fun viewStates(): LiveData<HomeViewState>
     fun viewEffects(): SingleLiveEvent<ViewEffect>
-    var viewState: MainViewState
+    var viewState: HomeViewState
     fun getFixturesByLeagueName(countryCode: CountryCode, localDate: LocalDate? = null)
     fun onDaySelected(datePickerModel: DatePickerSliderModel)
     fun onBottomMenuNavigationSelected(countryCode: CountryCode)

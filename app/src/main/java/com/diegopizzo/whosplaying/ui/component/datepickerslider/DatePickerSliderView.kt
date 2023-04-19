@@ -26,7 +26,7 @@ import com.diegopizzo.whosplaying.ui.component.common.DefaultText
 import com.diegopizzo.whosplaying.ui.component.common.MyCard
 import com.diegopizzo.whosplaying.ui.component.common.MyDivider
 import com.diegopizzo.whosplaying.ui.component.common.SmallText
-import com.diegopizzo.whosplaying.ui.component.datepickerslider.DatePickerSliderModel.*
+import com.diegopizzo.whosplaying.ui.component.datepickerslider.DatePickerSliderModel.NumberItemsVisible
 import kotlinx.coroutines.launch
 
 @Composable
@@ -134,18 +134,18 @@ fun DatePickerSlider(
 
 @Preview
 @Composable
-fun DatePickerDayPreview() {
+private fun DatePickerDayPreview() {
     DatePickerDay("WED", "23")
 }
 
 @Preview
 @Composable
-fun DatePickerDayPreview2() {
+private fun DatePickerDayPreview2() {
     DatePickerDay("WED", "23", isSelected = true)
 }
 
 @Preview
 @Composable
-fun DatePickerSliderPreview() {
+private fun DatePickerSliderPreview() {
     DatePickerSlider(createDatePickerSliderModel(), 5, {})
 }

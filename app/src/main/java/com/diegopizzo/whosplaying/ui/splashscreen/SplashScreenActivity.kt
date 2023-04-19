@@ -6,7 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.diegopizzo.whosplaying.ui.mainscreen.MainScreenActivity
+import com.diegopizzo.whosplaying.ui.mainscreen.HomeScreenActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashScreenActivity : ComponentActivity() {
@@ -17,7 +17,7 @@ class SplashScreenActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         viewModel.retrieveLeaguesInfo()
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, MainScreenActivity::class.java))
+            startActivity(Intent(this, HomeScreenActivity::class.java))
             finish()
         }, 3000)
 

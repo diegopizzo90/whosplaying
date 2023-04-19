@@ -8,7 +8,7 @@ import com.diegopizzo.network.model.EventDataModel
 import com.diegopizzo.repository.event.IEventRepository
 import kotlinx.coroutines.launch
 
-internal class DetailsScreenViewModel(
+class DetailsScreenViewModel(
     private val eventRepository: IEventRepository,
 ) : ViewModel(), IDetailsScreenViewModel {
 

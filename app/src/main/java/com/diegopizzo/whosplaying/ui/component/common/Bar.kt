@@ -16,8 +16,8 @@ import com.diegopizzo.whosplaying.ui.component.attr.white
 @Composable
 fun MyAppTopBar(
     title: String,
+    icon: ImageVector,
     navigationOnClick: (() -> Unit)? = null,
-    icon: ImageVector = Icons.Default.ArrowBack,
     actions: @Composable RowScope.() -> Unit = {},
 ) {
     Column {
@@ -39,5 +39,5 @@ fun MyAppTopBar(
 @Preview
 @Composable
 private fun TopBarPreview() {
-    MyAppTopBar(title = "App Name")
+    MyAppTopBar(title = "App Name", icon = Icons.Default.ArrowBack)
 }

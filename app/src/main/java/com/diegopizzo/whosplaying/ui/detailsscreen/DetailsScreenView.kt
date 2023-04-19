@@ -24,12 +24,10 @@ import com.diegopizzo.whosplaying.ui.detailsscreen.lineups.LineupsView
 import com.diegopizzo.whosplaying.ui.detailsscreen.statistics.StatisticsView
 import com.google.accompanist.pager.ExperimentalPagerApi
 
-const val FIXTURE_ID_KEY = "FIXTURE_ID_KEY"
-
 @Composable
-fun FixtureDetailsScreen(
-    modifier: Modifier = Modifier,
-    viewModel: IDetailsScreenViewModel
+fun FixtureDetailsContent(
+    viewModel: IDetailsScreenViewModel,
+    onBackClicked: () -> Unit = {},
 ) {
     val viewDataState = viewModel.viewStates().observeAsState().value ?: return
 
@@ -37,10 +35,12 @@ fun FixtureDetailsScreen(
         LoadingView()
     } else {
         MyScaffold(
-            navigationOnClick = {},
+            navigationOnClick = {
+                onBackClicked()
+            },
         ) {
             FixtureDetailsView(
-                modifier = modifier.padding(it),
+                modifier = Modifier.padding(it),
                 dataModel = viewDataState.eventDataModel
             )
         }

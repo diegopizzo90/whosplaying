@@ -25,7 +25,7 @@ import com.diegopizzo.repository.standings.standingsRepositoryModule
 import com.diegopizzo.whosplaying.BuildConfig
 import com.diegopizzo.whosplaying.database.creator.league.leagueCreatorModule
 import com.diegopizzo.whosplaying.ui.detailsscreen.config.detailsScreenViewModelModule
-import com.diegopizzo.whosplaying.ui.mainscreen.config.mainViewModelModule
+import com.diegopizzo.whosplaying.ui.mainscreen.config.homeViewModelModule
 import com.diegopizzo.whosplaying.ui.splashscreen.config.splashScreenViewModelModule
 import com.diegopizzo.whosplaying.ui.standings.config.standingsViewModelModule
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -63,7 +63,7 @@ class WhosPlayingApplication : Application() {
                 fixtureRepositoryModule,
                 standingsRepositoryModule,
                 splashScreenViewModelModule,
-                mainViewModelModule,
+                homeViewModelModule,
                 detailsScreenViewModelModule,
                 standingsViewModelModule
             )

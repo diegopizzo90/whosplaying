@@ -70,14 +70,19 @@ fun MyRow(
 fun MyScaffold(
     modifier: Modifier = Modifier,
     navigationOnClick: (() -> Unit)? = null,
-    icon: ImageVector = Icons.Default.ArrowBack, title: String = stringResource(R.string.app_name),
+    icon: ImageVector = Icons.Default.ArrowBack,
+    title: String = stringResource(R.string.app_name),
     content: @Composable (paddingValues: PaddingValues) -> Unit,
 ) {
     Scaffold(
         modifier = modifier,
         backgroundColor = blueDark2,
         topBar = {
-            MyAppTopBar(title = title, navigationOnClick, icon)
+            MyAppTopBar(
+                title = title,
+                icon = icon,
+                navigationOnClick = navigationOnClick,
+            )
         }) {
         content.invoke(it)
     }

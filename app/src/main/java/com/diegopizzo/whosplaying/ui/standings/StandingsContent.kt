@@ -23,12 +23,10 @@ import com.diegopizzo.whosplaying.ui.component.attr.teal700
 import com.diegopizzo.whosplaying.ui.component.attr.tinyPadding
 import com.diegopizzo.whosplaying.ui.component.common.*
 
-const val STANDINGS_LEAGUE_KEY = "STANDINGS_LEAGUE_KEY"
-
 @Composable
-fun StandingsScreen(
-    modifier: Modifier = Modifier,
-    viewModel: IStandingsViewModel
+fun StandingsContent(
+    viewModel: IStandingsViewModel,
+    onBackClicked: () -> Unit = {},
 ) {
     val viewDataState = viewModel.viewStates().observeAsState().value ?: return
 
@@ -36,11 +34,12 @@ fun StandingsScreen(
         LoadingView()
     } else {
         MyScaffold(
-            modifier = modifier,
-            navigationOnClick = { },
+            navigationOnClick = {
+                onBackClicked()
+            },
         ) {
             StandingsView(
-                modifier = modifier.padding(it),
+                modifier = Modifier.padding(it),
                 standings = viewDataState.standings,
             )
         }
@@ -317,7 +316,7 @@ private fun firstItemModel() = StandingsDataModel(
 
 @Preview
 @Composable
-fun StandingsPreview() {
+private fun StandingsPreview() {
     StandingsView(standings = standingsMock)
 }
 

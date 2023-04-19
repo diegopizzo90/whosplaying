@@ -9,7 +9,7 @@ import com.diegopizzo.network.model.StandingsDataModel
 import com.diegopizzo.repository.standings.IStandingsRepository
 import kotlinx.coroutines.launch
 
-internal class StandingsViewModel(private val repository: IStandingsRepository) :
+class StandingsViewModel(private val repository: IStandingsRepository) :
     ViewModel(), IStandingsViewModel {
 
     private val _viewStates: MutableLiveData<StandingsViewState> = MutableLiveData()
