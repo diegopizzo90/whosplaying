@@ -20,6 +20,7 @@ import com.diegopizzo.whosplaying.ui.blinkingcircle.BlinkingCircleView
 import com.diegopizzo.whosplaying.ui.component.attr.*
 import com.diegopizzo.whosplaying.ui.component.common.*
 import com.diegopizzo.whosplaying.ui.mainscreen.ViewEffect
+import com.diegopizzo.whosplaying.ui.mainscreen.view.FixtureViewPreviewData.fixtures
 import com.valentinilk.shimmer.shimmer
 
 @Composable

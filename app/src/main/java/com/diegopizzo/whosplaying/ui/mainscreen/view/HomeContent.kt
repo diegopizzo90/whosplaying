@@ -6,6 +6,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -24,6 +25,8 @@ import com.diegopizzo.whosplaying.ui.component.datepickerslider.DatePickerSlider
 import com.diegopizzo.whosplaying.ui.mainscreen.BottomNavScreen.*
 import com.diegopizzo.whosplaying.ui.mainscreen.HomeViewState
 import com.diegopizzo.whosplaying.ui.mainscreen.ViewEffect
+import com.diegopizzo.whosplaying.ui.mainscreen.view.FixtureViewPreviewData.datePickerSliderModel
+import com.diegopizzo.whosplaying.ui.mainscreen.view.FixtureViewPreviewData.fixtures
 
 @Composable
 fun HomeContent(
