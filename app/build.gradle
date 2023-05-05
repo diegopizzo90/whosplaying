@@ -23,6 +23,7 @@ android {
 
         buildConfigField("String", "BASE_URL", '"https://api-football-v1.p.rapidapi.com/v3/"')
         buildConfigField("String", "API_KEY_VALUE", properties["API_KEY_VALUE"])
+        buildConfigField("boolean", "IS_API_MOCK_ENABLED", "false")
     }
 
     buildTypes {
@@ -35,18 +36,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
-    
+
     kotlinOptions {
         jvmTarget = "11"
     }
 
     buildFeatures {
-        viewBinding true
         compose true
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion "1.4.2"
+        kotlinCompilerExtensionVersion "1.4.6"
     }
     namespace 'com.diegopizzo.whosplaying'
 }
@@ -65,27 +65,29 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:4.12.0"
     annotationProcessor "com.github.bumptech.glide:compiler:4.12.0"
     implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-androidx-compose:$koin_androidx_compose"
     implementation project(":repository")
 
-    implementation "androidx.compose.ui:ui:1.4.2"
+    //Compose
+    def composeBom = platform('androidx.compose:compose-bom:2023.04.01')
+    implementation composeBom
+    androidTestImplementation composeBom
+
     // Integration with activities
     implementation "androidx.activity:activity-compose:1.7.1"
     // Compose Material Design
-    implementation "androidx.compose.material:material:1.4.2"
-    // Tooling support (Previews, etc.)
-    implementation "androidx.compose.ui:ui-tooling:1.4.2"
-    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
-    implementation "androidx.compose.foundation:foundation:1.4.2"
-    // Material Design
-    implementation "androidx.compose.material:material:1.4.2"
+    implementation 'androidx.compose.material:material'
+    // Android Studio Preview support
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
     // Compose navigation
     implementation "androidx.navigation:navigation-compose:$nav_version"
     //Live data
-    implementation "androidx.compose.runtime:runtime-livedata:1.5.0-alpha03"
+    implementation 'androidx.compose.runtime:runtime-livedata'
     //Constraints Layout
-    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha09"
     //https://coil-kt.github.io/coil/compose/
-    implementation "io.coil-kt:coil-compose:2.0.0-rc01"
+    implementation "io.coil-kt:coil-compose:2.3.0"
     //Tab viewpager
     implementation "com.google.accompanist:accompanist-pager:0.12.0"
     //https://github.com/valentinilk/compose-shimmer
@@ -99,4 +101,7 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:1.1.5"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
     androidTestImplementation "androidx.room:room-testing:$room_version"
+    // Compse UI Tests
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest'
 }

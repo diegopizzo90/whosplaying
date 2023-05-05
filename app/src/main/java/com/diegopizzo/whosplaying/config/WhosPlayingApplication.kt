@@ -1,6 +1,7 @@
 package com.diegopizzo.whosplaying.config
 
 import android.app.Application
+import android.util.Log
 import com.diegopizzo.database.config.databaseModule
 import com.diegopizzo.database.config.fixtureDaoModule
 import com.diegopizzo.database.config.leagueDaoModule
@@ -26,6 +27,8 @@ import com.diegopizzo.whosplaying.BuildConfig
 import com.diegopizzo.whosplaying.database.creator.league.leagueCreatorModule
 import com.diegopizzo.whosplaying.ui.detailsscreen.config.detailsScreenViewModelModule
 import com.diegopizzo.whosplaying.ui.mainscreen.config.homeViewModelModule
+import com.diegopizzo.whosplaying.ui.mainscreen.config.mainViewModelModule
+import com.diegopizzo.whosplaying.ui.mainscreen.navigation.config.appNavigatorModule
 import com.diegopizzo.whosplaying.ui.splashscreen.config.splashScreenViewModelModule
 import com.diegopizzo.whosplaying.ui.standings.config.standingsViewModelModule
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -40,7 +43,13 @@ class WhosPlayingApplication : Application() {
         startKoin {
             androidContext(this@WhosPlayingApplication)
             modules(
-                retrofitModule(BuildConfig.BASE_URL, BuildConfig.API_KEY_VALUE),
+                retrofitModule(
+                    baseUrl = BuildConfig.BASE_URL,
+                    apiKeyValue = BuildConfig.API_KEY_VALUE,
+                    bodyFactory = { this@WhosPlayingApplication.resources.assets.open(it) },
+                    getLogger = { tag, message -> Log.d(tag, message) },
+                    isMockEnabled = BuildConfig.IS_API_MOCK_ENABLED,
+                ),
                 fixtureInteractorCacheModule,
                 eventInteractorCacheModule,
                 standingsInteractorCacheModule,
@@ -65,7 +74,9 @@ class WhosPlayingApplication : Application() {
                 splashScreenViewModelModule,
                 homeViewModelModule,
                 detailsScreenViewModelModule,
-                standingsViewModelModule
+                standingsViewModelModule,
+                appNavigatorModule,
+                mainViewModelModule,
             )
         }
     }
