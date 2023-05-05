@@ -40,8 +40,12 @@ fun MyDivider(modifier: Modifier = Modifier, color: Color = teal700, thickness: 
 }
 
 @Composable
-fun VerticalDivider(modifier: Modifier) {
-    MyDivider(modifier = modifier.then(Modifier.width(1.dp)))
+fun VerticalDivider(modifier: Modifier, color: Color = teal700, thickness: Dp = 1.dp) {
+    MyDivider(
+        modifier = modifier.width(1.dp),
+        color = color,
+        thickness = thickness,
+    )
 }
 
 @Composable

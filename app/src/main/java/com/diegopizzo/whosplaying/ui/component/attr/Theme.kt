@@ -13,6 +13,7 @@ private val LightColors = lightColors(
     primaryVariant = purple700,
     onPrimary = white,
     secondary = teal200,
+    background = blueDark2,
     secondaryVariant = teal700,
     onSecondary = black,
 )
@@ -21,6 +22,7 @@ private val DarkColors = darkColors(
     primaryVariant = purple700,
     onPrimary = white,
     secondary = teal200,
+    background = blueDark2,
     secondaryVariant = teal700,
     onSecondary = black,
 )
@@ -30,9 +32,6 @@ val Colors.card: Color
 
 val Colors.row: Color
     get() = blueDark3
-
-val Colors.backgroundColor: Color
-    get() = blueDark2
 
 val Colors.textColor: Color
     get() = white

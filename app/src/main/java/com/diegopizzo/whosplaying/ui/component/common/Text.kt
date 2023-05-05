@@ -16,8 +16,20 @@ fun SuperTinyText(text: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun TinyText(text: String) {
-    Text(text = text, fontSize = 12.sp, color = MaterialTheme.colors.textColor)
+fun TinyText(
+    text: String,
+    modifier: Modifier = Modifier,
+    maxLines: Int = Int.MAX_VALUE,
+    minLines: Int = 1
+) {
+    Text(
+        text = text,
+        modifier = modifier,
+        fontSize = 12.sp,
+        color = MaterialTheme.colors.textColor,
+        maxLines = maxLines,
+        minLines = minLines,
+    )
 }
 
 @Composable
