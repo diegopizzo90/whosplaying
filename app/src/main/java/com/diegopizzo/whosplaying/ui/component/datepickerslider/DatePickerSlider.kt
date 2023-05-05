@@ -20,8 +20,8 @@ data class DatePickerSliderModel(
     }
 }
 
-fun createDatePickerSliderModel(): List<DatePickerSliderModel> {
-    val now = LocalDate.now(ZoneId.systemDefault())
+fun createDatePickerSliderModel(zoneId: ZoneId = ZoneId.systemDefault()): List<DatePickerSliderModel> {
+    val now = LocalDate.now(zoneId)
     val startDate = now.minusDays(7L)
     val endDate = now.plusDays(7L)
 
