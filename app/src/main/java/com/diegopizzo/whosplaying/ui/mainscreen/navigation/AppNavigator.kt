@@ -10,8 +10,8 @@ class AppNavigator : IAppNavigator {
         onBufferOverflow = BufferOverflow.DROP_LATEST,
     )
 
-    override fun navigateBack(route: String?, isInclusive: Boolean) {
-        navigationChannel.trySend(
+    override suspend fun navigateBack(route: String?, isInclusive: Boolean) {
+        navigationChannel.send(
             NavigationIntent.NavigateBack(
                 route = route,
                 inclusive = isInclusive
@@ -19,13 +19,13 @@ class AppNavigator : IAppNavigator {
         )
     }
 
-    override fun navigateTo(
+    override suspend fun navigateTo(
         route: String,
         popUpToRoute: String?,
         isInclusive: Boolean,
         isSingleTop: Boolean
     ) {
-        navigationChannel.trySend(
+        navigationChannel.send(
             NavigationIntent.NavigateTo(
                 route = route,
                 popUpToRoute = popUpToRoute,

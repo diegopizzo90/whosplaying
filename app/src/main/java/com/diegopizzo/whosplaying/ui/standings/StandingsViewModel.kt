@@ -42,11 +42,9 @@ class StandingsViewModel(
     }
 
     fun onBackClicked() {
-        appNavigator.navigateBack()
-    }
-
-    override fun onCleared() {
-        super.onCleared()
+        viewModelScope.launch {
+            appNavigator.navigateBack()
+        }
     }
 }
 

@@ -15,8 +15,7 @@ import com.diegopizzo.whosplaying.ui.component.datepickerslider.createDatePicker
 import com.diegopizzo.whosplaying.ui.component.datepickerslider.currentDateItem
 import com.diegopizzo.whosplaying.ui.component.datepickerslider.indexCurrentDate
 import com.diegopizzo.whosplaying.ui.mainscreen.ScreenResult.*
-import com.diegopizzo.whosplaying.ui.mainscreen.navigation.Destination.DetailsScreen
-import com.diegopizzo.whosplaying.ui.mainscreen.navigation.Destination.StandingsScreen
+import com.diegopizzo.whosplaying.ui.mainscreen.navigation.Destination.*
 import com.diegopizzo.whosplaying.ui.mainscreen.navigation.IAppNavigator
 import com.diegopizzo.whosplaying.ui.mainscreen.view.bottomnavigation.BottomNavScreen
 import com.diegopizzo.whosplaying.ui.mainscreen.view.bottomnavigation.BottomNavScreen.*
@@ -116,18 +115,20 @@ class HomeViewModel(
 
     fun onStandingsClicked(leagueSelected: LeagueName) {
         viewModelScope.launch {
-            appNavigator.navigateTo(StandingsScreen(leagueSelected.toString()))
+            appNavigator.navigateTo(
+                route = StandingsScreen(leagueSelected.toString()),
+                popUpToRoute = HomeScreen.route,
+                isInclusive = true
+            )
         }
     }
 
     fun onFixtureClicked(fixtureId: Long) {
         viewModelScope.launch {
-            appNavigator.navigateTo(DetailsScreen(fixtureId.toString()))
+            appNavigator.navigateTo(
+                route = DetailsScreen(fixtureId.toString()),
+            )
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
     }
 }
 

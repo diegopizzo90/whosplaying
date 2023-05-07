@@ -5,12 +5,12 @@ import kotlinx.coroutines.channels.Channel
 interface IAppNavigator {
     val navigationChannel: Channel<NavigationIntent>
 
-    fun navigateBack(
+    suspend fun navigateBack(
         route: String? = null,
         isInclusive: Boolean = false,
     )
 
-    fun navigateTo(
+    suspend fun navigateTo(
         route: String,
         popUpToRoute: String? = null,
         isInclusive: Boolean = false,
