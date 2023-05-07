@@ -3,7 +3,7 @@ package com.diegopizzo.whosplaying.ui.mainscreen
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import com.diegopizzo.network.interactor.league.CountryCode
+import com.diegopizzo.network.interactor.league.LeagueName
 import com.diegopizzo.whosplaying.R
 import com.diegopizzo.whosplaying.databinding.ActivityMainBinding
 import com.diegopizzo.whosplaying.ui.base.ActivityViewBinding
@@ -26,11 +26,11 @@ class MainScreenActivity : ActivityViewBinding<ActivityMainBinding>() {
 
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.serieA -> mainViewModel.onMenuNavigationSelected(CountryCode.ITALY)
-                R.id.premierLeague -> mainViewModel.onMenuNavigationSelected(CountryCode.ENGLAND)
-                R.id.laLiga -> mainViewModel.onMenuNavigationSelected(CountryCode.SPAIN)
-                R.id.bundesliga -> mainViewModel.onMenuNavigationSelected(CountryCode.GERMANY)
-                R.id.ligue1 -> mainViewModel.onMenuNavigationSelected(CountryCode.FRANCE)
+                R.id.serieA -> mainViewModel.onMenuNavigationSelected(LeagueName.SERIE_A)
+                R.id.premierLeague -> mainViewModel.onMenuNavigationSelected(LeagueName.PREMIER_LEAGUE)
+                R.id.laLiga -> mainViewModel.onMenuNavigationSelected(LeagueName.LA_LIGA)
+                R.id.bundesliga -> mainViewModel.onMenuNavigationSelected(LeagueName.BUNDESLIGA)
+                R.id.ligue1 -> mainViewModel.onMenuNavigationSelected(LeagueName.LIGUE_1)
             }
             true
         }
