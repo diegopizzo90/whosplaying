@@ -19,24 +19,31 @@ import com.diegopizzo.whosplaying.R.string
 import com.diegopizzo.whosplaying.ui.blinkingcircle.BlinkingCircleView
 import com.diegopizzo.whosplaying.ui.component.attr.*
 import com.diegopizzo.whosplaying.ui.component.common.*
-import com.diegopizzo.whosplaying.ui.mainscreen.ViewEffect
-import com.diegopizzo.whosplaying.ui.mainscreen.view.FixtureViewPreviewData.fixtures
+import com.diegopizzo.whosplaying.ui.mainscreen.ScreenResult
+import com.google.android.material.color.MaterialColors
 import com.valentinilk.shimmer.shimmer
+
+private val DividerColor = teal700.copy(alpha = MaterialColors.ALPHA_LOW)
 
 @Composable
 fun FixtureView(
     modifier: Modifier = Modifier,
-    state: ViewEffect,
-    viewData: List<FixtureDataModel>
+    state: ScreenResult?,
+    viewData: List<FixtureDataModel>,
+    onFixtureClicked: (id: Long) -> Unit = {}
 ) {
+
     when (state) {
-        ViewEffect.ShowErrorResult -> NoEventsView(modifier)
-        ViewEffect.ShowProgressBar -> LoadingView(modifier)
-        ViewEffect.ShowSuccessResult -> {
+        ScreenResult.ShowErrorResult -> NoEventsView(modifier)
+        ScreenResult.ShowProgressBar -> LoadingView(modifier)
+        ScreenResult.ShowSuccessResult -> {
             FixtureContent(
-                viewData = viewData, modifier = modifier
+                viewData = viewData,
+                modifier = modifier,
+                onClick = onFixtureClicked
             )
         }
+        else -> Unit
     }
 }
 
@@ -44,14 +51,16 @@ fun FixtureView(
 private fun FixtureContent(
     viewData: List<FixtureDataModel>,
     modifier: Modifier = Modifier,
-    onClick: (() -> Unit)? = null
+    onClick: (id: Long) -> Unit = {}
 ) {
-    LazyColumn(modifier = modifier) {
+    LazyColumn(
+        modifier = modifier.background(MaterialTheme.colors.background),
+    ) {
         items(viewData) { fixture ->
             fixture.run {
                 MyCard(
                     modifier = modifier,
-                    onClick = onClick
+                    onClick = { onClick(fixture.fixtureId) }
                 ) {
                     Row(
                         modifier = Modifier
@@ -59,16 +68,19 @@ private fun FixtureContent(
                             .height(IntrinsicSize.Min)
                             .drawBehind {
                                 drawLine(
-                                    color = teal700,
+                                    color = DividerColor,
                                     start = Offset(0f, 0f),
                                     end = Offset(size.width, 0f),
                                     strokeWidth = 2.dp.toPx()
                                 )
                             },
                         verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
                     ) {
                         Column(
-                            modifier = Modifier.padding(smallPadding),
+                            modifier = Modifier
+                                .padding(tinyPadding)
+                                .weight(1f),
                             verticalArrangement = Arrangement.spacedBy(smallPadding),
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
@@ -77,7 +89,9 @@ private fun FixtureContent(
                         }
                         VerticalDivider()
                         Column(
-                            modifier = Modifier.padding(defaultPadding),
+                            modifier = Modifier
+                                .padding(defaultPadding)
+                                .weight(4f),
                             verticalArrangement = Arrangement.spacedBy(smallPadding),
                         ) {
                             TeamContent(logoTeamUrl = logoHomeTeam, nameTeam = homeTeam)
@@ -86,8 +100,11 @@ private fun FixtureContent(
                         Spacer(Modifier.weight(1f))
                         VerticalDivider()
                         Column(
-                            modifier = Modifier.padding(defaultPadding),
+                            modifier = Modifier
+                                .padding(defaultPadding)
+                                .weight(1f),
                             verticalArrangement = Arrangement.spacedBy(smallPadding),
+                            horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
                             DefaultText(text = goalHomeTeam)
                             DefaultText(text = goalAwayTeam)
@@ -106,7 +123,10 @@ private fun TeamContent(logoTeamUrl: String, nameTeam: String, modifier: Modifie
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(defaultPadding)
     ) {
-        ComposeImage(logoUrl = logoTeamUrl)
+        ComposeImage(
+            logoUrl = logoTeamUrl,
+            modifier = Modifier.size(24.dp)
+        )
         DefaultText(text = nameTeam)
     }
 }
@@ -116,7 +136,7 @@ private fun NoEventsView(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.backgroundColor),
+            .background(MaterialTheme.colors.background),
     ) {
         DefaultText(
             text = stringResource(id = string.no_events_available),
@@ -129,7 +149,7 @@ private fun NoEventsView(modifier: Modifier = Modifier) {
 @Composable
 private fun LoadingView(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier,
+        modifier = modifier.background(MaterialTheme.colors.background),
     ) {
         repeat(10) {
             MyCard {
@@ -137,10 +157,9 @@ private fun LoadingView(modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(IntrinsicSize.Min)
-                        .background(blueDark)
                         .drawBehind {
                             drawLine(
-                                color = teal700,
+                                color = DividerColor,
                                 start = Offset(0f, 0f),
                                 end = Offset(size.width, 0f),
                                 strokeWidth = 2.dp.toPx()
@@ -189,7 +208,11 @@ private fun LoadingView(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun LoadingContent(width: Dp = 24.dp, height: Dp = 24.dp, modifier: Modifier = Modifier) {
+private fun LoadingContent(
+    modifier: Modifier = Modifier,
+    width: Dp = 24.dp,
+    height: Dp = 24.dp,
+) {
     Box(
         modifier = modifier
             .shimmer()
@@ -204,7 +227,8 @@ private fun VerticalDivider() {
     MyDivider(
         modifier = Modifier
             .width(1.dp)
-            .fillMaxHeight()
+            .fillMaxHeight(),
+        color = DividerColor
     )
 }
 

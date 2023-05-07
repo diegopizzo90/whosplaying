@@ -36,3 +36,10 @@ fun NavGraphBuilder.composable(
         content = content
     )
 }
+
+interface ScreenNavigator {
+    suspend fun navigateBack(
+        route: String? = null,
+        isInclusive: Boolean = false,
+    )
+}

@@ -1,70 +1,77 @@
 package com.diegopizzo.whosplaying.ui.mainscreen.view
 
+import android.app.Activity
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.diegopizzo.whosplaying.ui.detailsscreen.DetailsScreenViewModel
+import com.diegopizzo.network.interactor.league.LeagueName
 import com.diegopizzo.whosplaying.ui.detailsscreen.FixtureDetailsContent
-import com.diegopizzo.whosplaying.ui.mainscreen.HomeViewModel
-import com.diegopizzo.whosplaying.ui.mainscreen.navigation.Destination
+import com.diegopizzo.whosplaying.ui.mainscreen.MainViewModel
+import com.diegopizzo.whosplaying.ui.mainscreen.navigation.*
 import com.diegopizzo.whosplaying.ui.mainscreen.navigation.Destination.*
-import com.diegopizzo.whosplaying.ui.mainscreen.navigation.NavHost
-import com.diegopizzo.whosplaying.ui.mainscreen.navigation.composable
 import com.diegopizzo.whosplaying.ui.standings.StandingsContent
-import com.diegopizzo.whosplaying.ui.standings.StandingsViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(
-    homeViewModel: HomeViewModel,
-    standingsViewModel: StandingsViewModel,
-    detailsScreenViewModel: DetailsScreenViewModel,
-    modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController(),
-    startDestination: Destination = HomeScreen,
+    mainViewModel: MainViewModel = koinViewModel(),
 ) {
-    val viewEffectState = homeViewModel.viewEffects().observeAsState().value ?: return
-    val viewDataState = homeViewModel.viewStates().observeAsState().value ?: return
+    val navController = rememberNavController()
 
+    NavigationEffects(
+        navigationChannel = mainViewModel.navigationChannel,
+        navHostController = navController,
+    )
     NavHost(
         navController = navController,
-        startDestination = startDestination,
-        modifier = modifier,
+        startDestination = HomeScreen,
     ) {
         composable(destination = HomeScreen) {
-            HomeContent(
-                viewData = viewDataState,
-                viewEffect = viewEffectState,
-                onBottomMenuNavigationSelected = { countryCode ->
-                    homeViewModel.onBottomMenuNavigationSelected(countryCode)
-                },
-                onDaySelected = { dateSelected ->
-                    homeViewModel.onDaySelected(dateSelected)
-                },
-                onStandingsClicked = {
-                    navController.navigate(StandingsScreen.fullRoute)
-                },
-                onBackClicked = {
-                    navController.popBackStack()
-                }
-            )
+            HomeContent()
         }
-        composable(destination = StandingsScreen) {
-            StandingsContent(
-                viewModel = standingsViewModel,
-                onBackClicked = {
-                    navController.popBackStack()
-                }
-            )
+        composable(destination = StandingsScreen) { backStackEntry ->
+            val leagueName = backStackEntry.arguments?.getString(LEAGUE_NAME_KEY)
+            StandingsContent(leagueName?.let { LeagueName.valueOf(it) })
         }
-        composable(destination = DetailsScreen) {
-            FixtureDetailsContent(
-                viewModel = detailsScreenViewModel,
-                onBackClicked = {
-                    navController.popBackStack()
+        composable(destination = DetailsScreen) { backStackEntry ->
+            val fixtureId = backStackEntry.arguments?.getString(FIXTURE_ID_KEY)
+            FixtureDetailsContent(fixtureId)
+        }
+    }
+}
+
+@Composable
+fun NavigationEffects(
+    navigationChannel: Channel<NavigationIntent>,
+    navHostController: NavHostController
+) {
+    val activity = (LocalContext.current as? Activity)
+    LaunchedEffect(activity, navHostController, navigationChannel) {
+        navigationChannel.receiveAsFlow().collect { intent ->
+            if (activity?.isFinishing == true) {
+                return@collect
+            }
+            when (intent) {
+                is NavigationIntent.NavigateBack -> {
+                    if (intent.route != null) {
+                        navHostController.popBackStack(intent.route, intent.inclusive)
+                    } else {
+                        navHostController.popBackStack()
+                    }
                 }
-            )
+                is NavigationIntent.NavigateTo -> {
+                    navHostController.navigate(intent.route) {
+                        launchSingleTop = intent.isSingleTop
+                        intent.popUpToRoute?.let { popUpToRoute ->
+                            popUpTo(popUpToRoute) { inclusive = intent.inclusive }
+                        }
+                    }
+                }
+            }
         }
     }
 }

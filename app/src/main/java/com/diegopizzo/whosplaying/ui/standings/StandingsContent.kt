@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -15,27 +16,32 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.diegopizzo.network.interactor.league.LeagueName
 import com.diegopizzo.network.model.StandingsDataModel
 import com.diegopizzo.whosplaying.R
-import com.diegopizzo.whosplaying.ui.component.attr.backgroundColor
 import com.diegopizzo.whosplaying.ui.component.attr.row
 import com.diegopizzo.whosplaying.ui.component.attr.teal700
 import com.diegopizzo.whosplaying.ui.component.attr.tinyPadding
 import com.diegopizzo.whosplaying.ui.component.common.*
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun StandingsContent(
-    viewModel: IStandingsViewModel,
-    onBackClicked: () -> Unit = {},
+    leagueName: LeagueName?,
+    viewModel: StandingsViewModel = koinViewModel(),
 ) {
     val viewDataState = viewModel.viewStates().observeAsState().value ?: return
+
+    LaunchedEffect(key1 = leagueName) {
+        leagueName?.let { viewModel.getStandings(it) }
+    }
 
     if (viewDataState.isLoading) {
         LoadingView()
     } else {
         MyScaffold(
             navigationOnClick = {
-                onBackClicked()
+                viewModel.onBackClicked()
             },
         ) {
             StandingsView(
@@ -53,26 +59,25 @@ private fun StandingsView(
     standings: List<StandingsDataModel>,
 ) {
     LazyColumn(
-        modifier.then(
-            Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.backgroundColor)
-        )
+        modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.background)
+
     ) {
         item {
             Row {
                 Column(Modifier.fillMaxWidth(.5F)) {
-                    StandingsItemRowLeftSide(firstItemModel(), FontWeight.Bold)
+                    StandingsItemLeftSide(firstItemModel(), FontWeight.Bold)
                     repeat(standings.size) {
-                        StandingsItemRowLeftSide(item = standings[it])
+                        StandingsItemLeftSide(item = standings[it])
                     }
                 }
                 LazyRow {
                     item {
                         Column {
-                            StandingsItemRowRightSide(firstItemModel(), FontWeight.Bold)
+                            StandingsItemRightSide(firstItemModel(), FontWeight.Bold)
                             repeat(standings.size) {
-                                StandingsItemRowRightSide(item = standings[it])
+                                StandingsItemRightSide(item = standings[it])
                             }
                         }
                     }
@@ -94,12 +99,14 @@ private fun StandingsItemCell(
         modifier = modifier.then(Modifier.height(24.dp)),
         horizontalArrangement = horizontalArrangement
     ) {
-        if (logo.isNotEmpty()) ComposeImage(
-            logo,
-            modifier = Modifier
-                .size(24.dp)
-                .padding(end = tinyPadding)
-        )
+        if (logo.isNotEmpty()) {
+            ComposeImage(
+                logo,
+                modifier = Modifier
+                    .size(24.dp)
+                    .padding(end = tinyPadding)
+            )
+        }
         SmallText(
             text = text,
             fontWeight = fontWeight,
@@ -109,7 +116,7 @@ private fun StandingsItemCell(
 }
 
 @Composable
-private fun StandingsItemRowLeftSide(item: StandingsDataModel, fontWeight: FontWeight? = null) {
+private fun StandingsItemLeftSide(item: StandingsDataModel, fontWeight: FontWeight? = null) {
     ConstraintLayout(Modifier.background(MaterialTheme.colors.row)) {
         val (rank, verticalDivider, name, verticalDivider2, horizontalDivider) = createRefs()
         StandingsItemCell(
@@ -163,7 +170,7 @@ private fun StandingsItemRowLeftSide(item: StandingsDataModel, fontWeight: FontW
 }
 
 @Composable
-private fun StandingsItemRowRightSide(item: StandingsDataModel, fontWeight: FontWeight? = null) {
+private fun StandingsItemRightSide(item: StandingsDataModel, fontWeight: FontWeight? = null) {
     ConstraintLayout(
         Modifier
             .background(MaterialTheme.colors.row)

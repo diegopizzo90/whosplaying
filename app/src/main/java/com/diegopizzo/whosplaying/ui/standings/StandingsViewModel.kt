@@ -7,13 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.diegopizzo.network.interactor.league.LeagueName
 import com.diegopizzo.network.model.StandingsDataModel
 import com.diegopizzo.repository.standings.IStandingsRepository
+import com.diegopizzo.whosplaying.ui.mainscreen.navigation.IAppNavigator
 import kotlinx.coroutines.launch
 
-class StandingsViewModel(private val repository: IStandingsRepository) :
-    ViewModel(), IStandingsViewModel {
+class StandingsViewModel(
+    private val repository: IStandingsRepository,
+    private val appNavigator: IAppNavigator
+) : ViewModel() {
 
     private val _viewStates: MutableLiveData<StandingsViewState> = MutableLiveData()
-    override fun viewStates(): LiveData<StandingsViewState> = _viewStates
+    fun viewStates(): LiveData<StandingsViewState> = _viewStates
 
     private var _viewState: StandingsViewState? = null
     private var viewState: StandingsViewState
@@ -29,7 +32,7 @@ class StandingsViewModel(private val repository: IStandingsRepository) :
     }
 
 
-    override fun getStandings(leagueName: LeagueName) {
+    fun getStandings(leagueName: LeagueName) {
         viewState =
             viewState.copy(leagueName = leagueName, standings = emptyList(), isLoading = true)
         viewModelScope.launch {
@@ -37,15 +40,18 @@ class StandingsViewModel(private val repository: IStandingsRepository) :
             viewState = viewState.copy(leagueName = leagueName, standings = list, isLoading = false)
         }
     }
-}
 
-interface IStandingsViewModel {
-    fun getStandings(leagueName: LeagueName)
-    fun viewStates(): LiveData<StandingsViewState>
+    fun onBackClicked() {
+        appNavigator.navigateBack()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+    }
 }
 
 data class StandingsViewState(
     val leagueName: LeagueName = LeagueName.SERIE_A,
     val standings: List<StandingsDataModel> = emptyList(),
-    val isLoading: Boolean = false
+    val isLoading: Boolean = true
 )

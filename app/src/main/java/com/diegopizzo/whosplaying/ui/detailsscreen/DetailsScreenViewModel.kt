@@ -6,14 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.diegopizzo.network.model.EventDataModel
 import com.diegopizzo.repository.event.IEventRepository
+import com.diegopizzo.whosplaying.ui.mainscreen.navigation.IAppNavigator
 import kotlinx.coroutines.launch
 
 class DetailsScreenViewModel(
     private val eventRepository: IEventRepository,
-) : ViewModel(), IDetailsScreenViewModel {
+    private val appNavigator: IAppNavigator
+) : ViewModel() {
 
     private val _viewStates: MutableLiveData<FixtureDetailsViewState> = MutableLiveData()
-    override fun viewStates(): LiveData<FixtureDetailsViewState> = _viewStates
+    fun viewStates(): LiveData<FixtureDetailsViewState> = _viewStates
 
     private var _viewState: FixtureDetailsViewState? = null
     private var viewState: FixtureDetailsViewState
@@ -28,7 +30,7 @@ class DetailsScreenViewModel(
         viewState = FixtureDetailsViewState()
     }
 
-    override fun getFixtureEventDetails(id: Long) {
+    fun getFixtureEventDetails(id: Long) {
         viewModelScope.launch {
             //Show loading just the first time
             if (viewState.eventDataModel.fixtureId == 0L) {
@@ -44,11 +46,14 @@ class DetailsScreenViewModel(
             }
         }
     }
-}
 
-interface IDetailsScreenViewModel {
-    fun viewStates(): LiveData<FixtureDetailsViewState>
-    fun getFixtureEventDetails(id: Long)
+    fun onBackClicked() {
+        appNavigator.navigateBack()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+    }
 }
 
 data class FixtureDetailsViewState(

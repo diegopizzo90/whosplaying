@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -23,20 +24,25 @@ import com.diegopizzo.whosplaying.ui.detailsscreen.event.ComposeEventScoreBoard
 import com.diegopizzo.whosplaying.ui.detailsscreen.lineups.LineupsView
 import com.diegopizzo.whosplaying.ui.detailsscreen.statistics.StatisticsView
 import com.google.accompanist.pager.ExperimentalPagerApi
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun FixtureDetailsContent(
-    viewModel: IDetailsScreenViewModel,
-    onBackClicked: () -> Unit = {},
+    fixtureId: String?,
+    viewModel: DetailsScreenViewModel = koinViewModel(),
 ) {
     val viewDataState = viewModel.viewStates().observeAsState().value ?: return
+
+    LaunchedEffect(key1 = fixtureId) {
+        fixtureId?.toLong()?.let { viewModel.getFixtureEventDetails(it) }
+    }
 
     if (viewDataState.isLoading) {
         LoadingView()
     } else {
         MyScaffold(
             navigationOnClick = {
-                onBackClicked()
+                viewModel.onBackClicked()
             },
         ) {
             FixtureDetailsView(

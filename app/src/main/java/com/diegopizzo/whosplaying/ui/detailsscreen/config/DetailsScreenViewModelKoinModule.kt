@@ -5,5 +5,5 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val detailsScreenViewModelModule = module {
-    viewModel { DetailsScreenViewModel(get()) }
+    viewModel { DetailsScreenViewModel(get(), get()) }
 }
