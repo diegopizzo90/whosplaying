@@ -85,10 +85,11 @@ internal class MainViewModel(
         )
     }
 
-    fun onMenuNavigationSelected(countryCode: CountryCode) {
+    fun onMenuNavigationSelected(leagueName: LeagueName) {
         viewState =
             viewState.copy(
-                leagueCountrySelected = countryCode,
+                leagueCountrySelected = leagueName.alpha2Code,
+                leagueSelected = leagueName,
                 updateFixture = true,
                 fixtures = emptyList()
             )
