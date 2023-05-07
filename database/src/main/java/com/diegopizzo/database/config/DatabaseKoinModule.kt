@@ -27,9 +27,7 @@ val standingDaoModule = module {
 }
 
 private fun provideDatabase(application: Application): AppDatabase {
-    return Room.databaseBuilder(application, AppDatabase::class.java, "whosplaying-db")
-        .allowMainThreadQueries()
-        .build()
+    return Room.databaseBuilder(application, AppDatabase::class.java, "whosplaying-db").build()
 }
 
 private fun provideLeagueDao(database: AppDatabase): LeagueDao {

@@ -37,5 +37,5 @@ enum class LeagueName(val stringName: String, val alpha2Code: CountryCode, val t
     PREMIER_LEAGUE("Premier League", ENGLAND, LEAGUE),
     LIGUE_1("Ligue 1", FRANCE, LEAGUE),
     LA_LIGA("La Liga", SPAIN, LEAGUE),
-    BUNDESLIGA("Bundesliga 1", GERMANY, LEAGUE)
+    BUNDESLIGA("Bundesliga", GERMANY, LEAGUE)
 }

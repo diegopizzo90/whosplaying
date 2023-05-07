@@ -24,4 +24,8 @@ object Util {
     fun LocalDate.toEndZoneDateTime(): ZonedDateTime {
         return this.atStartOfDay(ZoneOffset.UTC).with(LocalTime.MAX)
     }
+
+    fun Boolean?.isTrue() = this == true
+
+    fun Boolean?.isFalse() = this == false
 }
