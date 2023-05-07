@@ -16,8 +16,8 @@ android {
         applicationId "com.diegopizzo.whosplaying"
         minSdk 23
         targetSdk 33
-        versionCode 111
-        versionName "1.2.0"
+        versionCode 121
+        versionName "1.2.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
