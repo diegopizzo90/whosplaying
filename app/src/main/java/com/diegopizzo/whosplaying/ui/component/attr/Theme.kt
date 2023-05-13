@@ -1,12 +1,10 @@
 package com.diegopizzo.whosplaying.ui.component.attr
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 
 private val LightColors = lightColors(
     primary = blueDark,
@@ -14,6 +12,7 @@ private val LightColors = lightColors(
     onPrimary = white,
     secondary = teal200,
     background = blueDark2,
+    surface = blueDark3,
     secondaryVariant = teal700,
     onSecondary = black,
 )
@@ -23,18 +22,10 @@ private val DarkColors = darkColors(
     onPrimary = white,
     secondary = teal200,
     background = blueDark2,
+    surface = blueDark3,
     secondaryVariant = teal700,
     onSecondary = black,
 )
-
-val Colors.card: Color
-    get() = blueDark3
-
-val Colors.row: Color
-    get() = blueDark3
-
-val Colors.textColor: Color
-    get() = white
 
 @Composable
 fun WhosPlayingTheme(

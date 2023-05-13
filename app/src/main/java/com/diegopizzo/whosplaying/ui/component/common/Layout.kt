@@ -19,8 +19,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.diegopizzo.whosplaying.R
 import com.diegopizzo.whosplaying.ui.component.attr.blueDark2
-import com.diegopizzo.whosplaying.ui.component.attr.card
-import com.diegopizzo.whosplaying.ui.component.attr.row
 import com.diegopizzo.whosplaying.ui.component.attr.smallPadding
 
 @Composable
@@ -30,7 +28,7 @@ fun MyCard(
     elevation: Dp = 1.dp,
     shape: Shape = MaterialTheme.shapes.medium,
     padding: Dp = smallPadding,
-    backgroundColor: Color = MaterialTheme.colors.card,
+    backgroundColor: Color = MaterialTheme.colors.surface,
     content: @Composable () -> Unit,
 ) {
     Card(
@@ -58,7 +56,7 @@ fun MyRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .background(color = MaterialTheme.colors.row)
+                .background(color = MaterialTheme.colors.surface)
                 .clickable { onClick?.invoke() },
             horizontalArrangement = horizontalArrangement,
         )
