@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.diegopizzo.network.model.EventDataModel
 import com.diegopizzo.repository.event.IEventRepository
+import com.diegopizzo.whosplaying.ui.detailsscreen.DetailsScreenResult.ShowProgressBar
+import com.diegopizzo.whosplaying.ui.detailsscreen.DetailsScreenResult.ShowSuccessResult
 import com.diegopizzo.whosplaying.ui.mainscreen.navigation.IAppNavigator
 import kotlinx.coroutines.launch
 
@@ -34,14 +36,20 @@ class DetailsScreenViewModel(
         viewModelScope.launch {
             //Show loading just the first time
             if (viewState.eventDataModel.fixtureId == 0L) {
-                viewState = viewState.copy(isLoading = true)
+                viewState = viewState.copy(screenResult = ShowProgressBar)
             }
             eventRepository.getEvent(id).collect { fixtureEvent ->
                 viewState = when {
                     fixtureEvent != null -> {
-                        viewState.copy(eventDataModel = fixtureEvent, isLoading = false)
+                        viewState.copy(
+                            eventDataModel = fixtureEvent,
+                            screenResult = ShowSuccessResult
+                        )
                     }
-                    else -> viewState.copy(eventDataModel = EventDataModel(), isLoading = false)
+                    else -> viewState.copy(
+                        eventDataModel = EventDataModel(),
+                        screenResult = ShowSuccessResult
+                    )
                 }
             }
         }
@@ -56,5 +64,10 @@ class DetailsScreenViewModel(
 
 data class FixtureDetailsViewState(
     val eventDataModel: EventDataModel = EventDataModel(),
-    val isLoading: Boolean = false
+    val screenResult: DetailsScreenResult? = null,
 )
+
+sealed class DetailsScreenResult {
+    object ShowSuccessResult : DetailsScreenResult()
+    object ShowProgressBar : DetailsScreenResult()
+}

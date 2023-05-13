@@ -8,6 +8,8 @@ import com.diegopizzo.network.interactor.league.LeagueName
 import com.diegopizzo.network.model.StandingsDataModel
 import com.diegopizzo.repository.standings.IStandingsRepository
 import com.diegopizzo.whosplaying.ui.mainscreen.navigation.IAppNavigator
+import com.diegopizzo.whosplaying.ui.standings.StandingsScreenResult.ShowProgressBar
+import com.diegopizzo.whosplaying.ui.standings.StandingsScreenResult.ShowSuccessResult
 import kotlinx.coroutines.launch
 
 class StandingsViewModel(
@@ -34,10 +36,18 @@ class StandingsViewModel(
 
     fun getStandings(leagueName: LeagueName) {
         viewState =
-            viewState.copy(leagueName = leagueName, standings = emptyList(), isLoading = true)
+            viewState.copy(
+                leagueName = leagueName,
+                standings = emptyList(),
+                screenResult = ShowProgressBar
+            )
         viewModelScope.launch {
             val list = repository.getStandingsByLeague(leagueName)
-            viewState = viewState.copy(leagueName = leagueName, standings = list, isLoading = false)
+            viewState = viewState.copy(
+                leagueName = leagueName,
+                standings = list,
+                screenResult = ShowSuccessResult
+            )
         }
     }
 
@@ -51,5 +61,10 @@ class StandingsViewModel(
 data class StandingsViewState(
     val leagueName: LeagueName = LeagueName.SERIE_A,
     val standings: List<StandingsDataModel> = emptyList(),
-    val isLoading: Boolean = true
+    val screenResult: StandingsScreenResult? = null
 )
+
+sealed class StandingsScreenResult {
+    object ShowSuccessResult : StandingsScreenResult()
+    object ShowProgressBar : StandingsScreenResult()
+}
