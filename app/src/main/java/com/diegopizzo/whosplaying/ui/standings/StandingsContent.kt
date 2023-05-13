@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,13 +20,14 @@ import androidx.compose.ui.unit.dp
 import com.diegopizzo.network.interactor.league.LeagueName
 import com.diegopizzo.network.model.StandingsDataModel
 import com.diegopizzo.whosplaying.R
-import com.diegopizzo.whosplaying.ui.component.attr.row
+import com.diegopizzo.whosplaying.ui.component.attr.WhosPlayingTheme
 import com.diegopizzo.whosplaying.ui.component.attr.teal700
 import com.diegopizzo.whosplaying.ui.component.attr.tinyPadding
 import com.diegopizzo.whosplaying.ui.component.common.*
+import com.diegopizzo.whosplaying.ui.component.common.PainterViewData.Companion.urlPainter
+import com.diegopizzo.whosplaying.ui.standings.StandingsScreenResult.ShowProgressBar
+import com.diegopizzo.whosplaying.ui.standings.StandingsScreenResult.ShowSuccessResult
 import org.koin.androidx.compose.koinViewModel
-
-private val CellMinSize = 24.dp
 
 @Composable
 fun StandingsContent(
@@ -38,32 +40,34 @@ fun StandingsContent(
         leagueName?.let { viewModel.getStandings(it) }
     }
 
-    if (viewDataState.isLoading) {
-        LoadingView()
-    } else {
-        MyScaffold(
-            navigationOnClick = {
-                viewModel.onBackClicked()
-            },
-        ) {
-            StandingsView(
-                modifier = Modifier.padding(it),
-                standings = viewDataState.standings,
-            )
+    when (viewDataState.screenResult) {
+        ShowProgressBar -> LoadingView()
+        ShowSuccessResult -> {
+            MyScaffold(
+                navigationOnClick = {
+                    viewModel.onBackClicked()
+                },
+            ) {
+                StandingsView(
+                    standings = viewDataState.standings,
+                    modifier = Modifier.padding(it),
+                )
+            }
         }
+        else -> Unit
     }
-
 }
 
 @Composable
 private fun StandingsView(
-    modifier: Modifier = Modifier,
     standings: List<StandingsDataModel>,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colors.background)
+            .verticalScroll(rememberScrollState())
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(.5f)
@@ -110,16 +114,17 @@ private fun StandingsItemCell(
     horizontalArrangement: Arrangement.Horizontal = Arrangement.Center
 ) {
     Row(
-        modifier = modifier.defaultMinSize(minHeight = CellMinSize),
+        modifier = modifier
+            .defaultMinSize(minHeight = 40.dp),
         horizontalArrangement = horizontalArrangement,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         if (logo.isNotEmpty()) {
-            ComposeImage(
-                logo,
+            AppIcon(
+                painter = urlPainter(logo),
                 modifier = Modifier
-                    .size(CellMinSize)
                     .padding(end = tinyPadding)
+                    .size(24.dp)
             )
         }
         SmallText(
@@ -138,7 +143,7 @@ private fun StandingsLeftSide(
     horizontalArrangement: Arrangement.Horizontal = Arrangement.Center,
     horizontalDividerThickness: Dp = 1.dp,
 ) {
-    Column(modifier = modifier.background(MaterialTheme.colors.row)) {
+    Column(modifier = modifier.background(MaterialTheme.colors.surface)) {
         Row(
             modifier = Modifier
                 .height(IntrinsicSize.Min),
@@ -176,7 +181,7 @@ private fun StandingsRightSide(
 ) {
     Column(
         modifier = modifier
-            .background(MaterialTheme.colors.row)
+            .background(MaterialTheme.colors.surface)
     ) {
         Row(
             modifier = Modifier
@@ -264,7 +269,9 @@ private fun firstItemModel() = StandingsDataModel(
 @Preview
 @Composable
 private fun StandingsPreview() {
-    StandingsView(standings = standingsMock)
+    WhosPlayingTheme {
+        StandingsView(standings = standingsMock)
+    }
 }
 
 val standingsMock = listOf(

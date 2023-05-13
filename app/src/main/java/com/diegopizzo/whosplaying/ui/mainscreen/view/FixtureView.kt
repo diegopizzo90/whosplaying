@@ -19,6 +19,7 @@ import com.diegopizzo.whosplaying.R.string
 import com.diegopizzo.whosplaying.ui.blinkingcircle.BlinkingCircleView
 import com.diegopizzo.whosplaying.ui.component.attr.*
 import com.diegopizzo.whosplaying.ui.component.common.*
+import com.diegopizzo.whosplaying.ui.component.common.PainterViewData.Companion.urlPainter
 import com.diegopizzo.whosplaying.ui.mainscreen.ScreenResult
 import com.google.android.material.color.MaterialColors
 import com.valentinilk.shimmer.shimmer
@@ -123,8 +124,8 @@ private fun TeamContent(logoTeamUrl: String, nameTeam: String, modifier: Modifie
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(defaultPadding)
     ) {
-        ComposeImage(
-            logoUrl = logoTeamUrl,
+        AppIcon(
+            painter = urlPainter(logoTeamUrl),
             modifier = Modifier.size(24.dp)
         )
         DefaultText(text = nameTeam)

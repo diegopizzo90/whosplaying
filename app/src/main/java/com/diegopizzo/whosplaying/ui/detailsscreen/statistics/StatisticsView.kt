@@ -42,7 +42,7 @@ private fun MatchStatisticsItem(
         modifier.then(
             Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colors.row)
+                .background(MaterialTheme.colors.surface)
         )
     ) {
         val (homeTxt, progressBarRtl, progressBarLtl, awayTxt, statistic, divider) = createRefs()
@@ -180,13 +180,15 @@ fun StatisticsView(statistics: List<EventStatistics>, headToHead: List<HeadToHea
 @Preview
 @Composable
 fun StatisticsItemPreview() {
-    MatchStatisticsItem(
-        homeValue = "5",
-        awayValue = "8",
-        homeProgressValue = .4f,
-        awayProgressValue = .7f,
-        statisticName = "Corner"
-    )
+    WhosPlayingTheme {
+        MatchStatisticsItem(
+            homeValue = "5",
+            awayValue = "8",
+            homeProgressValue = .4f,
+            awayProgressValue = .7f,
+            statisticName = "Corner"
+        )
+    }
 }
 
 @Preview
@@ -212,9 +214,11 @@ fun StatisticsViewPreview() {
     )
 
     val headToHead = listOf(
-            HeadToHeadDataModel("17/01/2021 12:13", "AC Milan", "", "3", "FC Inter", "", "0"),
-            HeadToHeadDataModel("17/01/2019 14:20", "AC Milan", "", "3", "FC Inter", "", "0"),
-            HeadToHeadDataModel("17/01/2016 14:30", "AC Milan", "", "3", "FC Inter", "", "0")
-        )
-    StatisticsView(statisticsModel, headToHead)
+        HeadToHeadDataModel("17/01/2021 12:13", "AC Milan", "", "3", "FC Inter", "", "0"),
+        HeadToHeadDataModel("17/01/2019 14:20", "AC Milan", "", "3", "FC Inter", "", "0"),
+        HeadToHeadDataModel("17/01/2016 14:30", "AC Milan", "", "3", "FC Inter", "", "0")
+    )
+    WhosPlayingTheme {
+        StatisticsView(statisticsModel, headToHead)
+    }
 }

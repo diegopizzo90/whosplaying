@@ -10,6 +10,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.diegopizzo.whosplaying.ui.component.attr.smallPadding
 import com.diegopizzo.whosplaying.ui.component.attr.tinyPadding
 import com.diegopizzo.whosplaying.ui.component.common.*
+import com.diegopizzo.whosplaying.ui.component.common.PainterViewData.Companion.urlPainter
 
 @Composable
 fun ComposeEventScoreBoard(
@@ -34,7 +35,10 @@ fun ComposeEventScoreBoard(
                     bottom.linkTo(parent.bottom, margin = smallPadding)
                 }) {
 
-                ComposeImage(logoHomeTeam, modifier = Modifier.size(48.dp))
+                AppIcon(
+                    painter = urlPainter(url = logoHomeTeam),
+                    modifier = Modifier.size(48.dp)
+                )
                 SmallText(homeTeam)
             }
 
@@ -52,7 +56,10 @@ fun ComposeEventScoreBoard(
                     top.linkTo(parent.top, margin = smallPadding)
                     bottom.linkTo(parent.bottom, margin = smallPadding)
                 }) {
-                ComposeImage(logoAwayTeam, modifier = Modifier.size(48.dp))
+                AppIcon(
+                    painter = urlPainter(url = logoAwayTeam),
+                    modifier = Modifier.size(48.dp)
+                )
                 SmallText(awayTeam)
             }
         }

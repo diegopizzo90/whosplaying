@@ -16,6 +16,7 @@ import com.diegopizzo.network.model.EventDataModel
 import com.diegopizzo.network.model.EventType
 import com.diegopizzo.network.model.EventTypeDetail
 import com.diegopizzo.whosplaying.R
+import com.diegopizzo.whosplaying.ui.component.attr.WhosPlayingTheme
 import com.diegopizzo.whosplaying.ui.component.common.LoadingView
 import com.diegopizzo.whosplaying.ui.component.common.MyScaffold
 import com.diegopizzo.whosplaying.ui.component.viewpager.TabViewPager
@@ -37,19 +38,21 @@ fun FixtureDetailsContent(
         fixtureId?.toLong()?.let { viewModel.getFixtureEventDetails(it) }
     }
 
-    if (viewDataState.isLoading) {
-        LoadingView()
-    } else {
-        MyScaffold(
-            navigationOnClick = {
-                viewModel.onBackClicked()
-            },
-        ) {
-            FixtureDetailsView(
-                modifier = Modifier.padding(it),
-                dataModel = viewDataState.eventDataModel
-            )
+    when (viewDataState.screenResult) {
+        DetailsScreenResult.ShowProgressBar -> LoadingView()
+        DetailsScreenResult.ShowSuccessResult -> {
+            MyScaffold(
+                navigationOnClick = {
+                    viewModel.onBackClicked()
+                },
+            ) {
+                FixtureDetailsView(
+                    modifier = Modifier.padding(it),
+                    dataModel = viewDataState.eventDataModel
+                )
+            }
         }
+        else -> Unit
     }
 }
 
@@ -130,5 +133,7 @@ private fun isHomeTeamEvent(homeId: Long, eventTeamId: Long): Boolean {
 @Preview
 @Composable
 private fun FixtureDetailsView() {
-    FixtureDetailsView(dataModel = detailsScreenPreviewDataModel)
+    WhosPlayingTheme {
+        FixtureDetailsView(dataModel = detailsScreenPreviewDataModel)
+    }
 }
