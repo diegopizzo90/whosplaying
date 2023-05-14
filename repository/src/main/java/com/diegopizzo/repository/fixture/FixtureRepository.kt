@@ -31,10 +31,11 @@ internal class FixtureRepository(
                     val entities = creator.toFixtureEntityArray(it, leagueId)
                     fixtureDao.insertFixture(*entities)
                 }
-            }.flowOn(defaultDispatcher)
+            }
             .catch {
                 onError(leagueId, from, to)
             }
+            .flowOn(defaultDispatcher)
     }
 
     private suspend fun FlowCollector<List<FixtureDataModel>>.onError(

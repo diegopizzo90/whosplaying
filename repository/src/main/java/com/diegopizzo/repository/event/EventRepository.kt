@@ -13,9 +13,9 @@ internal class EventRepository(
 ) : IEventRepository {
 
     override fun getEvent(fixtureId: Long): Flow<EventDataModel?> {
-        return interactor.getEvents(fixtureId).flowOn(defaultDispatcher).catch {
+        return interactor.getEvents(fixtureId).catch {
             interactor.clearCache()
             emit(null)
-        }
+        }.flowOn(defaultDispatcher)
     }
 }
