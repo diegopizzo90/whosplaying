@@ -1,7 +1,9 @@
 package com.diegopizzo.whosplaying.ui.component.datepickerslider
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -57,6 +59,7 @@ private fun DatePickerDay(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DatePickerSlider(
     dateSliderData: List<DatePickerSliderModel>,
@@ -110,7 +113,10 @@ fun DatePickerSlider(
                     .align(Alignment.CenterEnd)
                     .padding(vertical = tinyPadding, horizontal = smallPadding))
             }
-            LazyRow(state = listState) {
+            LazyRow(
+                state = listState,
+                flingBehavior = rememberSnapFlingBehavior(lazyListState = listState)
+            ) {
                 items(
                     items = dateSliderData,
                     itemContent = {
