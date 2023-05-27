@@ -1,0 +1,86 @@
+{
+  "get": "fixtures",
+  "parameters": {
+    "id": "882117"
+  },
+  "errors": [],
+  "results": 1,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "fixture": {
+        "id": 882117,
+        "referee": null,
+        "timezone": "UTC",
+        "date": "2023-05-06T13:00:00+00:00",
+        "timestamp": 1683378000,
+        "periods": {
+          "first": null,
+          "second": null
+        },
+        "venue": {
+          "id": 907,
+          "name": "Stadio Giuseppe Meazza",
+          "city": "Milano"
+        },
+        "status": {
+          "long": "Not Started",
+          "short": "NS",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 135,
+        "name": "Serie A",
+        "country": "Italy",
+        "logo": "https://media-2.api-sports.io/football/leagues/135.png",
+        "flag": "https://media-3.api-sports.io/flags/it.svg",
+        "season": 2022,
+        "round": "Regular Season - 34"
+      },
+      "teams": {
+        "home": {
+          "id": 489,
+          "name": "AC Milan",
+          "logo": "https://media-2.api-sports.io/football/teams/489.png",
+          "winner": null
+        },
+        "away": {
+          "id": 487,
+          "name": "Lazio",
+          "logo": "https://media-2.api-sports.io/football/teams/487.png",
+          "winner": null
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      },
+      "score": {
+        "halftime": {
+          "home": null,
+          "away": null
+        },
+        "fulltime": {
+          "home": null,
+          "away": null
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      },
+      "events": [],
+      "lineups": [],
+      "statistics": [],
+      "players": []
+    }
+  ]
+}

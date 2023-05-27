@@ -1,15 +1,20 @@
 package com.diegopizzo.whosplaying.ui.detailsscreen.statistics
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -26,6 +31,9 @@ import com.diegopizzo.whosplaying.R
 import com.diegopizzo.whosplaying.ui.component.attr.*
 import com.diegopizzo.whosplaying.ui.component.common.MediumText
 import com.diegopizzo.whosplaying.ui.component.common.MyDivider
+import com.diegopizzo.whosplaying.ui.detailsscreen.statistics.PreviewData.headToHead
+import com.diegopizzo.whosplaying.ui.detailsscreen.statistics.PreviewData.statisticsModel
+import org.threeten.bp.ZoneId
 
 @Composable
 private fun MatchStatisticsItem(
@@ -36,13 +44,14 @@ private fun MatchStatisticsItem(
     awayProgressValue: Float,
     homeColor: Color = Color.White,
     awayColor: Color = teal700,
-    statisticName: String
+    statisticName: String,
+    isTabVisible: Boolean,
 ) {
     ConstraintLayout(
         modifier.then(
             Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colors.row)
+                .background(MaterialTheme.colors.surface)
         )
     ) {
         val (homeTxt, progressBarRtl, progressBarLtl, awayTxt, statistic, divider) = createRefs()
@@ -63,9 +72,8 @@ private fun MatchStatisticsItem(
         })
 
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-            LinearProgressIndicator(
-                progress = homeProgressValue,
-                backgroundColor = Color.Transparent,
+            MyLinearProgressIndicator(
+                indicatorProgress = homeProgressValue,
                 color = homeColor,
                 modifier = Modifier
                     .constrainAs(progressBarRtl) {
@@ -74,12 +82,12 @@ private fun MatchStatisticsItem(
                         bottom.linkTo(parent.bottom)
                         width = Dimension.fillToConstraints
                         centerVerticallyTo(homeTxt)
-                    }
+                    },
+                hasProgressStarted = isTabVisible,
             )
         }
-        LinearProgressIndicator(
-            progress = awayProgressValue,
-            backgroundColor = Color.Transparent,
+        MyLinearProgressIndicator(
+            indicatorProgress = awayProgressValue,
             color = awayColor,
             modifier = Modifier
                 .constrainAs(progressBarLtl) {
@@ -88,7 +96,8 @@ private fun MatchStatisticsItem(
                     bottom.linkTo(parent.bottom)
                     width = Dimension.fillToConstraints
                     centerVerticallyTo(awayTxt)
-                }
+                },
+            hasProgressStarted = isTabVisible,
         )
         MediumText(awayValue, modifier = Modifier.constrainAs(awayTxt) {
             start.linkTo(progressBarLtl.end, defaultPadding)
@@ -101,6 +110,36 @@ private fun MatchStatisticsItem(
             bottom.linkTo(parent.bottom)
         })
     }
+}
+
+@Composable
+private fun MyLinearProgressIndicator(
+    indicatorProgress: Float,
+    color: Color,
+    modifier: Modifier = Modifier,
+    hasProgressStarted: Boolean,
+) {
+    val durationMillis = 2000
+    val progress = remember { Animatable(initialValue = 0f) }
+
+    LaunchedEffect(Unit) {
+        if (hasProgressStarted) {
+            progress.animateTo(
+                targetValue = indicatorProgress,
+                animationSpec = tween(
+                    easing = LinearOutSlowInEasing,
+                    durationMillis = durationMillis,
+                )
+            )
+        }
+    }
+
+    LinearProgressIndicator(
+        modifier = modifier,
+        progress = progress.value,
+        backgroundColor = Color.Transparent,
+        color = color
+    )
 }
 
 @Composable
@@ -137,84 +176,85 @@ private fun getStatisticName(type: EventStatistics.StatisticsType): String {
         TOTAL_PASSES -> stringResource(R.string.total_passes)
         PASSES_ACCURATE -> stringResource(R.string.passes_accurate)
         PASSES -> stringResource(R.string.passes_percentage)
+        EXPECTED_GOALS -> stringResource(R.string.expected_goals)
     }
 }
 
 @Composable
-fun StatisticsView(statistics: List<EventStatistics>, headToHead: List<HeadToHeadDataModel>) {
-    LazyColumn {
-        if (statistics.isNotEmpty()) {
-            item {
-                StatisticsTitleItem(stringResource(R.string.match_statistics))
-            }
-        }
-        items(statistics) {
+fun StatisticsView(
+    statistics: List<EventStatistics>,
+    headToHead: List<HeadToHeadDataModel>,
+    isTabVisible: Boolean,
+    zoneId: ZoneId? = null,
+) {
+    val verticalScrollState = rememberScrollState()
+    Column(
+        modifier = Modifier.verticalScroll(verticalScrollState)
+    ) {
+        statistics.forEach {
             val statisticName = it.type?.let { name -> getStatisticName(name) } ?: ""
             MatchStatisticsItem(
                 homeValue = it.valueTeamHome,
                 awayValue = it.valueTeamAway,
                 statisticName = statisticName,
                 homeProgressValue = it.percentageValueTeamHome,
-                awayProgressValue = it.percentageValueTeamAway
+                awayProgressValue = it.percentageValueTeamAway,
+                isTabVisible = isTabVisible,
             )
         }
-        if (headToHead.isNotEmpty()) {
-            item {
-                StatisticsTitleItem(stringResource(R.string.head_to_head))
-            }
-        }
-        items(headToHead) {
-            HeadToHeadItem(
-                dateUtc = it.date,
-                nameHomeTeam = it.nameHome,
-                logoHomeTeam = it.logoHome,
-                scoreHomeTeam = it.scoreHomeTeam,
-                nameAwayTeam = it.nameAway,
-                logoAwayTeam = it.logoAway,
-                scoreAwayTeam = it.scoreAwayTeam
-            )
-        }
+    }
+    if (headToHead.isNotEmpty()) {
+        StatisticsTitleItem(stringResource(R.string.head_to_head))
+    }
+    headToHead.forEach {
+        HeadToHeadItem(
+            dateUtc = it.date,
+            nameHomeTeam = it.nameHome,
+            logoHomeTeam = it.logoHome,
+            scoreHomeTeam = it.scoreHomeTeam,
+            nameAwayTeam = it.nameAway,
+            logoAwayTeam = it.logoAway,
+            scoreAwayTeam = it.scoreAwayTeam,
+            zoneId = zoneId,
+        )
+    }
+}
+
+@Preview
+@Composable
+fun MyLinearProgressIndicatorPreview() {
+    WhosPlayingTheme {
+        MyLinearProgressIndicator(
+            indicatorProgress = 5f,
+            color = Color.White,
+            hasProgressStarted = true,
+        )
     }
 }
 
 @Preview
 @Composable
 fun StatisticsItemPreview() {
-    MatchStatisticsItem(
-        homeValue = "5",
-        awayValue = "8",
-        homeProgressValue = .4f,
-        awayProgressValue = .7f,
-        statisticName = "Corner"
-    )
+    WhosPlayingTheme {
+        MatchStatisticsItem(
+            homeValue = "5",
+            awayValue = "8",
+            homeProgressValue = .4f,
+            awayProgressValue = .7f,
+            statisticName = "Corner",
+            isTabVisible = true,
+        )
+    }
 }
 
 @Preview
 @Composable
 fun StatisticsViewPreview() {
-    val statisticsModel = listOf(
-        EventStatistics(497, 504, SHOTS_ON_GOAL, "3", "3", 0.5f, 0.5f),
-        EventStatistics(497, 504, SHOTS_OFF_GOAL, "3", "0", 1.0f, 0.0f),
-        EventStatistics(497, 504, TOTAL_SHOTS, "7", "5", 0.59f, 0.42f),
-        EventStatistics(497, 504, BLOCKED_SHOTS, "1", "2", 0.34f, 0.67f),
-        EventStatistics(497, 504, SHOTS_INSIDE_BOX, "5", "3", 0.63f, 0.38f),
-        EventStatistics(497, 504, SHOTS_OUTSIDE_BOX, "2", "2", .5f, .5f),
-        EventStatistics(497, 504, FOULS, "18", "14", 0.57f, 0.44f),
-        EventStatistics(497, 504, CORNER_KICKS, "4", "2", 0.67f, 0.34f),
-        EventStatistics(497, 504, OFFSIDES, "1", "3", 0.25f, 0.75f),
-        EventStatistics(497, 504, BALL_POSSESSION, "58%", "42%", 0.58f, 0.42f),
-        EventStatistics(497, 504, YELLOW_CARDS, "3", "2", 0.61f, 0.41f),
-        EventStatistics(497, 504, RED_CARDS, "0", "0", 0.0f, 0.0f),
-        EventStatistics(497, 504, GOALKEEPER_SAVES, "1", "1", .5f, .5f),
-        EventStatistics(497, 504, TOTAL_PASSES, "495", "375", 0.57f, 0.44f),
-        EventStatistics(497, 504, PASSES_ACCURATE, "374", "272", 0.58f, 0.43f),
-        EventStatistics(497, 504, PASSES, "76%", "73%", .76f, .73f)
-    )
-
-    val headToHead = listOf(
-            HeadToHeadDataModel("17/01/2021 12:13", "AC Milan", "", "3", "FC Inter", "", "0"),
-            HeadToHeadDataModel("17/01/2019 14:20", "AC Milan", "", "3", "FC Inter", "", "0"),
-            HeadToHeadDataModel("17/01/2016 14:30", "AC Milan", "", "3", "FC Inter", "", "0")
+    WhosPlayingTheme {
+        StatisticsView(
+            statistics = statisticsModel,
+            headToHead = headToHead,
+            isTabVisible = true,
         )
-    StatisticsView(statisticsModel, headToHead)
+    }
 }

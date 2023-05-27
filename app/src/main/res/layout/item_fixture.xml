@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.diegopizzo.whosplaying.ui.mainscreen.view.FixtureComponent xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item_fixture_id"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    android:foreground="?android:attr/selectableItemBackground" />

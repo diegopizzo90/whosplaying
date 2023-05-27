@@ -8,7 +8,7 @@ interface LeagueDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertLeagues(vararg league: LeagueEntity)
 
-    @Query("SELECT * FROM league")
+    @Query("SELECT * FROM league ORDER BY lastUpdate")
     fun getAll(): List<LeagueEntity>?
 
     @Query("SELECT * FROM league WHERE league.name = :leagueName")

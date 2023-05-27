@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Who\'s playing</string>
     <string name="serie_a">SerieA</string>
-    <string name="premier_league">PremierLeague</string>
+    <string name="premier_league">Premier</string>
     <string name="la_liga">LaLiga</string>
     <string name="bundesliga">Bundesliga</string>
     <string name="ligue_1" tools:ignore="Typos">Ligue1</string>
@@ -38,6 +38,7 @@
     <string name="total_passes">Total passes</string>
     <string name="passes_accurate">Passes accurate</string>
     <string name="passes_percentage">Passes %</string>
+    <string name="expected_goals">Expected Goals</string>
     <string name="coach">Coach</string>
     <string name="formation">Formation</string>
     <string name="starting_eleven">Starting XI</string>

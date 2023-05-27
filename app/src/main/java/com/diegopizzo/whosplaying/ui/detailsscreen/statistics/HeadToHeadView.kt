@@ -38,7 +38,8 @@ fun HeadToHeadItem(
     scoreHomeTeam: String,
     nameAwayTeam: String,
     logoAwayTeam: String,
-    scoreAwayTeam: String
+    scoreAwayTeam: String,
+    zoneId: ZoneId? = null
 ) {
     Column(
         Modifier
@@ -46,12 +47,14 @@ fun HeadToHeadItem(
             .padding(top = tinyPadding),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val dateLocal = Util.convertUtcDateTimeToLocal(
-            dateUtc,
-            ZoneId.systemDefault(),
-            DATE_TIME_PATTERN
-        )
-        TinyText(dateLocal)
+        val dateLocal = zoneId?.let {
+            Util.convertUtcDateTimeToLocal(
+                dateUtc,
+                it,
+                DATE_TIME_PATTERN
+            )
+        }
+        dateLocal?.let { TinyText(it) }
         Row(
             Modifier
                 .height(IntrinsicSize.Min)

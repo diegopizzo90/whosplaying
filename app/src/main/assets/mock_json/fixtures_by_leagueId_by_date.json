@@ -1,0 +1,221 @@
+{
+  "get": "fixtures",
+  "parameters": {
+    "league": "135",
+    "from": "2023-05-06",
+    "to": "2023-05-06",
+    "season": "2022"
+  },
+  "errors": [],
+  "results": 3,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "fixture": {
+        "id": 882117,
+        "referee": null,
+        "timezone": "UTC",
+        "date": "2023-05-06T13:00:00+00:00",
+        "timestamp": 1683378000,
+        "periods": {
+          "first": null,
+          "second": null
+        },
+        "venue": {
+          "id": 907,
+          "name": "Stadio Giuseppe Meazza",
+          "city": "Milano"
+        },
+        "status": {
+          "long": "Not Started",
+          "short": "NS",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 135,
+        "name": "Serie A",
+        "country": "Italy",
+        "logo": "https://media-2.api-sports.io/football/leagues/135.png",
+        "flag": "https://media-3.api-sports.io/flags/it.svg",
+        "season": 2022,
+        "round": "Regular Season - 34"
+      },
+      "teams": {
+        "home": {
+          "id": 489,
+          "name": "AC Milan",
+          "logo": "https://media-1.api-sports.io/football/teams/489.png",
+          "winner": null
+        },
+        "away": {
+          "id": 487,
+          "name": "Lazio",
+          "logo": "https://media-1.api-sports.io/football/teams/487.png",
+          "winner": null
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      },
+      "score": {
+        "halftime": {
+          "home": null,
+          "away": null
+        },
+        "fulltime": {
+          "home": null,
+          "away": null
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixture": {
+        "id": 882116,
+        "referee": null,
+        "timezone": "UTC",
+        "date": "2023-05-06T16:00:00+00:00",
+        "timestamp": 1683388800,
+        "periods": {
+          "first": null,
+          "second": null
+        },
+        "venue": {
+          "id": 910,
+          "name": "Stadio Olimpico",
+          "city": "Roma"
+        },
+        "status": {
+          "long": "Not Started",
+          "short": "NS",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 135,
+        "name": "Serie A",
+        "country": "Italy",
+        "logo": "https://media-2.api-sports.io/football/leagues/135.png",
+        "flag": "https://media-3.api-sports.io/flags/it.svg",
+        "season": 2022,
+        "round": "Regular Season - 34"
+      },
+      "teams": {
+        "home": {
+          "id": 497,
+          "name": "AS Roma",
+          "logo": "https://media-1.api-sports.io/football/teams/497.png",
+          "winner": null
+        },
+        "away": {
+          "id": 505,
+          "name": "Inter",
+          "logo": "https://media-2.api-sports.io/football/teams/505.png",
+          "winner": null
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      },
+      "score": {
+        "halftime": {
+          "home": null,
+          "away": null
+        },
+        "fulltime": {
+          "home": null,
+          "away": null
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixture": {
+        "id": 882111,
+        "referee": null,
+        "timezone": "UTC",
+        "date": "2023-05-06T18:45:00+00:00",
+        "timestamp": 1683398700,
+        "periods": {
+          "first": null,
+          "second": null
+        },
+        "venue": {
+          "id": 894,
+          "name": "Stadio Giovanni Zini",
+          "city": "Cremona"
+        },
+        "status": {
+          "long": "Not Started",
+          "short": "NS",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 135,
+        "name": "Serie A",
+        "country": "Italy",
+        "logo": "https://media-2.api-sports.io/football/leagues/135.png",
+        "flag": "https://media-3.api-sports.io/flags/it.svg",
+        "season": 2022,
+        "round": "Regular Season - 34"
+      },
+      "teams": {
+        "home": {
+          "id": 520,
+          "name": "Cremonese",
+          "logo": "https://media-1.api-sports.io/football/teams/520.png",
+          "winner": null
+        },
+        "away": {
+          "id": 515,
+          "name": "Spezia",
+          "logo": "https://media-2.api-sports.io/football/teams/515.png",
+          "winner": null
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      },
+      "score": {
+        "halftime": {
+          "home": null,
+          "away": null
+        },
+        "fulltime": {
+          "home": null,
+          "away": null
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    }
+  ]
+}
