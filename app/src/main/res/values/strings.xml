@@ -38,6 +38,7 @@
     <string name="total_passes">Total passes</string>
     <string name="passes_accurate">Passes accurate</string>
     <string name="passes_percentage">Passes %</string>
+    <string name="expected_goals">Expected Goals</string>
     <string name="coach">Coach</string>
     <string name="formation">Formation</string>
     <string name="starting_eleven">Starting XI</string>

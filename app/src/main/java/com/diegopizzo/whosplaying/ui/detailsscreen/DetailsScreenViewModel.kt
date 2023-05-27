@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.diegopizzo.network.model.EventDataModel
 import com.diegopizzo.repository.event.IEventRepository
+import com.diegopizzo.whosplaying.R
 import com.diegopizzo.whosplaying.ui.detailsscreen.DetailsScreenResult.ShowProgressBar
 import com.diegopizzo.whosplaying.ui.detailsscreen.DetailsScreenResult.ShowSuccessResult
 import com.diegopizzo.whosplaying.ui.mainscreen.navigation.IAppNavigator
@@ -64,8 +65,19 @@ class DetailsScreenViewModel(
 
 data class FixtureDetailsViewState(
     val eventDataModel: EventDataModel = EventDataModel(),
+    val tabViewDataList: List<TabPager> = listOf(
+        TabPager.MatchEvents,
+        TabPager.Statistics,
+        TabPager.Lineup
+    ),
     val screenResult: DetailsScreenResult? = null,
 )
+
+sealed class TabPager(val id: Int, val tabNameRes: Int) {
+    object MatchEvents : TabPager(0, R.string.match_events)
+    object Statistics : TabPager(1, R.string.statistics)
+    object Lineup : TabPager(2, R.string.lineups)
+}
 
 sealed class DetailsScreenResult {
     object ShowSuccessResult : DetailsScreenResult()

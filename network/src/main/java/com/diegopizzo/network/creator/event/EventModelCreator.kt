@@ -2,6 +2,7 @@ package com.diegopizzo.network.creator.event
 
 import com.diegopizzo.network.model.*
 import com.diegopizzo.network.model.EventStatistics.StatisticsFormat
+import com.diegopizzo.network.model.EventStatistics.StatisticsFormat.DECIMAL
 import com.diegopizzo.network.model.EventStatistics.StatisticsFormat.PERCENT
 import com.diegopizzo.network.model.EventStatistics.StatisticsType
 import com.diegopizzo.network.model.LineupsDataModel.PlayerDataModel
@@ -68,12 +69,12 @@ class EventModelCreator {
 
         return homeTeamStatistics.zip(awayTeamStatistics) { home, away ->
             val statisticsType = StatisticsType.getByValue(home.type)
-            val valueTeamHome = home.value?.filter { it.isDigit() } ?: "0"
-            val valueTeamAway = away.value?.filter { it.isDigit() } ?: "0"
+            val valueTeamHome = home.value?.filter { it.isDigit() || it.isDot() } ?: "0"
+            val valueTeamAway = away.value?.filter { it.isDigit() || it.isDot() } ?: "0"
             val percentage =
                 calculatePercentageStatisticsValues(
-                    valueTeamHome.toInt(),
-                    valueTeamAway.toInt(),
+                    valueTeamHome,
+                    valueTeamAway,
                     statisticsType?.format
                 )
 
@@ -88,6 +89,8 @@ class EventModelCreator {
             )
         }
     }
+
+    private fun Char.isDot() = this == '.'
 
     private fun toLineupsDataModel(model: LineupsModel?): LineupsDataModel? {
         if (model == null || model.response.isEmpty()) return null
@@ -127,16 +130,18 @@ class EventModelCreator {
     }
 
     private fun calculatePercentageStatisticsValues(
-        homeValue: Int,
-        awayValue: Int,
+        homeValue: String,
+        awayValue: String,
         format: StatisticsFormat?
     ): Pair<Float, Float> {
-        val totalCount = homeValue + awayValue
-        val homeValueF =
-            if (format == PERCENT) homeValue.toFloat() / 100 else roundOffDecimal(homeValue.toFloat() / totalCount)
-        val awayValueF =
-            if (format == PERCENT) awayValue.toFloat() / 100 else roundOffDecimal(awayValue.toFloat() / totalCount)
-        return Pair(homeValueF, awayValueF)
+        val home = homeValue.toFloat()
+        val away = awayValue.toFloat()
+        val totalCount = home + away
+        return when (format) {
+            PERCENT -> Pair(home / 100, away / 100)
+            DECIMAL -> Pair(home, away)
+            else -> Pair(roundOffDecimal(home / totalCount), roundOffDecimal(away / totalCount))
+        }
     }
 
     private fun roundOffDecimal(number: Float): Float {

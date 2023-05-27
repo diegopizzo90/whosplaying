@@ -1,7 +1,6 @@
 package com.diegopizzo.network.model
 
-import com.diegopizzo.network.model.EventStatistics.StatisticsFormat.INT
-import com.diegopizzo.network.model.EventStatistics.StatisticsFormat.PERCENT
+import com.diegopizzo.network.model.EventStatistics.StatisticsFormat.*
 
 data class EventDataModel(
     val fixtureId: Long = 0L,
@@ -53,7 +52,7 @@ data class EventStatistics(
         BALL_POSSESSION("Ball Possession", PERCENT), YELLOW_CARDS("Yellow Cards"),
         RED_CARDS("Red Cards"), GOALKEEPER_SAVES("Goalkeeper Saves"),
         TOTAL_PASSES("Total passes"), PASSES_ACCURATE("Passes accurate"),
-        PASSES("Passes %", PERCENT);
+        PASSES("Passes %", PERCENT), EXPECTED_GOALS("expected_goals", DECIMAL);
 
         companion object {
             fun getByValue(value: String) = values().firstOrNull { it.value == value }
@@ -61,7 +60,7 @@ data class EventStatistics(
     }
 
     enum class StatisticsFormat {
-        INT, PERCENT
+        INT, PERCENT, DECIMAL
     }
 }
 
