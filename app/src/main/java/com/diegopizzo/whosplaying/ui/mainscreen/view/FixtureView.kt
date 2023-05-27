@@ -128,7 +128,7 @@ private fun TeamContent(logoTeamUrl: String, nameTeam: String, modifier: Modifie
             painter = urlPainter(logoTeamUrl),
             modifier = Modifier.size(24.dp)
         )
-        DefaultText(text = nameTeam)
+        BodyText(text = nameTeam)
     }
 }
 

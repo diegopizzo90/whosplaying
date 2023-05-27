@@ -36,7 +36,8 @@ fun SmallText(
     text: String,
     modifier: Modifier = Modifier,
     fontWeight: FontWeight? = null,
-    textAlign: TextAlign? = null
+    textAlign: TextAlign? = null,
+    maxLines: Int = 1,
 ) {
     Text(
         text = text,
@@ -45,7 +46,7 @@ fun SmallText(
         fontWeight = fontWeight,
         modifier = modifier,
         textAlign = textAlign,
-        maxLines = 1,
+        maxLines = maxLines,
         overflow = TextOverflow.Ellipsis
     )
 }
@@ -57,6 +58,23 @@ fun MediumText(text: String, modifier: Modifier = Modifier, fontWeight: FontWeig
         fontSize = 16.sp,
         color = MaterialTheme.colors.onPrimary,
         modifier = modifier,
+        fontWeight = fontWeight
+    )
+}
+
+@Composable
+fun BodyText(
+    text: String,
+    modifier: Modifier = Modifier,
+    textAlign: TextAlign? = null,
+    fontWeight: FontWeight? = null
+) {
+    Text(
+        text = text,
+        fontSize = 20.sp,
+        color = MaterialTheme.colors.onPrimary,
+        modifier = modifier,
+        textAlign = textAlign,
         fontWeight = fontWeight
     )
 }
