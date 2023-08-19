@@ -12,7 +12,7 @@ object CommonConstant {
     private fun getSeasonYear(): String {
         val actualDate = LocalDate.now()
         val actualMonth = actualDate.monthValue
-        return if (actualMonth == END_OF_SEASON) {
+        return if (actualMonth > END_OF_SEASON) {
             actualDate.year
         } else {
             actualDate.year - 1
