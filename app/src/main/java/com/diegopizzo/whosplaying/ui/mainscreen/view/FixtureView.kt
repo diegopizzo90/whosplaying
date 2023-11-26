@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -21,10 +22,9 @@ import com.diegopizzo.whosplaying.ui.component.attr.*
 import com.diegopizzo.whosplaying.ui.component.common.*
 import com.diegopizzo.whosplaying.ui.component.common.PainterViewData.Companion.urlPainter
 import com.diegopizzo.whosplaying.ui.mainscreen.ScreenResult
-import com.google.android.material.color.MaterialColors
 import com.valentinilk.shimmer.shimmer
 
-private val DividerColor = teal700.copy(alpha = MaterialColors.ALPHA_LOW)
+private val DividerColor = teal700.copy(alpha = DefaultAlpha)
 
 @Composable
 fun FixtureView(
